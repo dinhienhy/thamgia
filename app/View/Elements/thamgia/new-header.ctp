@@ -332,14 +332,14 @@
                 $("#click-city").fancybox({modal:true}).trigger('click');    
             <?php }?>
             
-            $('.password').live('focus', function(){
+            $('.password').on('focus', function(){
                 if($(this).val()=='Password'){                    
                     var id = $(this).attr('id');
                     $(this).replaceWith('<input id="'+ id +'"  class="input-text required-entry validate-email password" type="password"  name="data[User][password]" value="" />');
                     $('#' + id).focus();
                 }
             }); 
-            $('.password').live('blur', function(){
+            $('.password').on('blur', function(){
                 if($(this).val()=='') {
                     var id = $(this).attr('id');
                     $(this).replaceWith('<input id="'+ id +'" class="input-text required-entry validate-email password"  type="text" name="data[User][password]" value="Password" /> ');

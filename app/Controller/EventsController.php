@@ -1029,7 +1029,7 @@
             else
                 $options['order'] = array('PinsUser.id' => 'desc' ,'Event.start' => 'asc');
 
-            $options['fields'] = array('User.fullname', 'Event.title', 'Event.views'
+            $options['fields'] = array('User.fullname', 'User.created', 'User.avatar_url', 'Event.title', 'Event.views'
                                         ,'Event.address', 'Event.image_url', 'Event.image_list_url' 
                                         ,'Event.start', 'Event.title', 'Event.id', 'Event.user_id'
                                         ,'PinsUser.id', 'PinsUser.event_id', 'Event.thanks', 'ThanksEvent.id');

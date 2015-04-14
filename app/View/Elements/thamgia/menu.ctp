@@ -3,7 +3,7 @@
 		<div class="pt-section bg1">
 			<div class="pt-menu-content">
 				<ul class="pt-list-menu-content">
-					<li class="icon-index active">
+					<li class="icon-index" id="home">
 						<a href="#" ><i class="fa fa-home"></i></a>
 					</li>
 					<li>
@@ -55,7 +55,7 @@
                                         'city_id' => $city_id,
                                         'slug_type' => Link::seoTitle('Khai Trương'),
                                         'type_id' => TYPE_INAUGURATED )); ?>" class="text-link">Khai trương 
-                            <span>09</span>
+                            <?php if ($total_inaugurated > 0){ ?> <span><?php echo $total_inaugurated; ?></span> <?php } ?>
                         </a>
 					</li>
 					<li>
@@ -65,7 +65,7 @@
                                                                     'city_id' => $city_id,
                                                                     'slug_type' => Link::seoTitle('Xã hội'),
                                                                     'type_id' => TYPE_SOCIAL )); ?>" class="text-link">Xã hội 
-                            <span>09</span>
+                            <?php if ($total_social > 0){ ?> <span><?php echo $total_social; ?></span> <?php } ?>
                         </a>
 					</li>
 					<li class="list-sup-menu">
@@ -120,7 +120,7 @@
                                                 'city_id' => $city_id,
                                                 'slug_type' => Link::seoTitle('Khai Trương'),
                                                 'type_id' => TYPE_INAUGURATED )); ?>" class="text-link">Khai trương 
-                                    <span>09</span>
+                                    <?php if ($total_inaugurated > 0){ ?> <span><?php echo $total_inaugurated; ?></span> <?php } ?>
                                 </a>
         					</li>
         					<li class="list-pc">
@@ -130,7 +130,7 @@
                                                                             'city_id' => $city_id,
                                                                             'slug_type' => Link::seoTitle('Xã hội'),
                                                                             'type_id' => TYPE_SOCIAL )); ?>" class="text-link">Xã hội 
-                                    <span>09</span>
+                                    <?php if ($total_social > 0){ ?> <span><?php echo $total_social; ?></span> <?php } ?>
                                 </a>
         					</li>
                             <!--Display normal and mobile-->
@@ -141,7 +141,7 @@
                                                                     'city_id' => $city_id,
                                                                     'slug_type' => Link::seoTitle('Du lịch'),
                                                                     'type_id' => TYPE_TOURISM )); ?>" class="text-link">Du lịch 
-                                    <span>9</span>
+                                    <?php if ($total_tourism > 0){ ?> <span><?php echo $total_tourism; ?></span> <?php } ?>
                                 </a>
 							</li>
 							<li>
@@ -151,7 +151,7 @@
                                                                     'city_id' => $city_id,
                                                                     'slug_type' => Link::seoTitle('Triển lãm'),
                                                                     'type_id' => TYPE_EXHIBITION )); ?>" class="text-link">Triển lãm 
-                                    <span>09</span>
+                                    <?php if ($total_exhibition > 0){ ?> <span><?php echo $total_exhibition; ?></span> <?php } ?>
                                 </a>
 							</li>
 							<li>
@@ -161,7 +161,7 @@
                                                                     'city_id' => $city_id,
                                                                     'slug_type' => Link::seoTitle('Văn hóa'),
                                                                     'type_id' => TYPE_CULTURE )); ?>" class="text-link">Văn hóa 
-                                    <span>09</span>
+                                    <?php if ($total_culture > 0){ ?> <span><?php echo $total_culture; ?></span> <?php } ?>
                                 </a>
 							</li>
 						</ul>

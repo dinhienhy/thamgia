@@ -40,6 +40,10 @@
         <div id="pt-content-container">
 			<div class="container-fluid">
                 <?php echo $this->element('thamgia/menu'); ?>
+                <?php echo $this->element('thamgia/new-navigation'); ?>
+                <?php echo $this->element('thamgia/new-new_member'); ?>
+                <?php echo $this->Session->flash(); ?>
+                <?php echo $this->fetch('content'); ?>
             </div>
         </div>
         <?php echo $this->element('thamgia/new-footer'); ?>

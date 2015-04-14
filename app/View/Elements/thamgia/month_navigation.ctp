@@ -12,32 +12,29 @@
 
     $countMonth = 1;
 ?>
-<div  id="month-navigation">
-    <div class="pt-how-jcarouselLite">
-        <div class="wd-jcarouselLite" >
-            <a href="#" class="prev">  </a>
-            <div class="wd-jcarouselLite-content" >
-                <ul id="month-content">
-                    <?php while($startMonth <= $endMonth){
-                        // set class for li
-                        $liClass = '';
-                        if ($countMonth % $minScrollMonth == 0)
-                            $liClass .= ' pt-bd-none';
-                    ?>
-                        <li value="<?php echo $startMonth->getTimestamp(); ?>" class="<?php echo $liClass;?>">
-                            <a href="javascript:" onclick="selectMonth(<?php echo $startMonth->getTimestamp(); ?>)" ><?php echo 'Tháng ' . $startMonth->format('m/Y'); ?> </a>
-                        </li>
-                    <?php
-                        $startMonth->modify('+1 month');
-                        $countMonth++;
-                    }?>
-                </ul>
-            </div>
-            <a href="#" class="next">  </a>
+<div class="custom-container">
+    <a href="#" class="prev"><i class="fa fa-caret-left"></i></a>
+    <div class="block-carousel">
+        <div class="carousel">
+            <ul id="month-content">
+                <?php while($startMonth <= $endMonth){
+                    // set class for li
+                    $liClass = '';
+                    if ($countMonth % $minScrollMonth == 0)
+                        $liClass .= ' pt-bd-none';
+                ?>
+                    <li value="<?php echo $startMonth->getTimestamp(); ?>" class="<?php echo $liClass;?>">
+                        <a href="javascript:" onclick="selectMonth(<?php echo $startMonth->getTimestamp(); ?>)" ><?php echo $startMonth->format('m/Y'); ?> </a>
+                    </li>
+                <?php
+                    $startMonth->modify('+1 month');
+                    $countMonth++;
+                }?>
+            </ul>
         </div>
     </div>
+    <a href="#" class="next"><i class="fa fa-caret-right"></i></a>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function() {
         $('#center').append($('#month-navigation').html());

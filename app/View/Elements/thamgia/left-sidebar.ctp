@@ -1,6 +1,6 @@
 <div id="pt-left-thamgia">
 	<a href="#" class="icon-menu-link"><i class="fa fa-bars"></i></a>
-	<h1 id="pt-logo"><a href="#">Tham Gia</a></h1>
+	<h1 id="pt-logo"><a href="<?php echo $this->Html->url('/'); ?>">Tham Gia</a></h1>
 	<ul class="pt-menu-left">
 		<li>
 			<a href="#"><i class="fa icon-flag"></i>Sự kiện</a>
