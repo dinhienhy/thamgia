@@ -127,6 +127,26 @@ class AppController extends Controller {
         // Type entertainment
         $options['conditions']['Event.type_id'] = TYPE_ENTERTAINMENT;
         $this->set('total_entertainment', $this->Event->find('count', $options));
+        
+        // Type inaugurated
+        $options['conditions']['Event.type_id'] = TYPE_INAUGURATED;
+        $this->set('total_inaugurated', $this->Event->find('count', $options));
+        
+        // Type social
+        $options['conditions']['Event.type_id'] = TYPE_SOCIAL;
+        $this->set('total_social', $this->Event->find('count', $options));
+        
+        // Type tourism
+        $options['conditions']['Event.type_id'] = TYPE_TOURISM;
+        $this->set('total_tourism', $this->Event->find('count', $options));
+        
+        // Type exhibition
+        $options['conditions']['Event.type_id'] = TYPE_EXHIBITION;
+        $this->set('total_exhibition', $this->Event->find('count', $options));
+        
+        // Type culture
+        $options['conditions']['Event.type_id'] = TYPE_CULTURE;
+        $this->set('total_culture', $this->Event->find('count', $options));
     }
     
     
