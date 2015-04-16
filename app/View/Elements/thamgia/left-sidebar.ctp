@@ -26,6 +26,6 @@
 	</ul>
 	<div class="pt-add-event">
 		<h3>Bạn cần quảng bá sự kiện</h3>
-		<button type="button" class="btn btn-lg"><i class="fa fa-plus-circle"></i></span> Đăng sự kiện mới</button>
+		<a <?php  echo $logged_in ? 'onclick="addEvent()"  href="#"' : ' href="#login"' ?> type="button" class="btn btn-lg <?php  echo $logged_in ? '' : 'link-login' ?>"><i class="fa fa-plus-circle"></i></span> Đăng sự kiện mới</a>
 	</div>
 </div>

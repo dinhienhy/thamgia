@@ -10,7 +10,7 @@
     $startDate =  new DateTime($event['Event']['start']);
     $image_url = $event['Event']['image_list_url'] != null ? $event['Event']['image_list_url'] : $event['Event']['image_url'];
 ?>
-    <div class="item">
+    <div class="item" for="<?php echo $index++; ?>">
 		<div class="content-block">
 			<div class="block-user">
 				<img src="<?php echo $event['User']['avatar_url'] != '' ? General::getUrlImage($event['User']['avatar_url']) : $this->Html->url('/') .  NO_IMG_URL; ?>" alt=""/>

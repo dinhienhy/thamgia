@@ -2,7 +2,7 @@
 class HighlightsController extends AppController{
     function getHighlights(){
         $this->autoRender = false;
-        $numberHigliht = 5;
+        $numberHigliht = 4;
         $current = new DateTime();
 
         $city_id = DEFAULT_CITY_ID;
