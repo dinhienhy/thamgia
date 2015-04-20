@@ -748,14 +748,14 @@ fieldset div.wd-submit input:hover {background-color:#0093D1;color:#FFF;}
 #loantin .footer fieldset div.wd-submit input.wd-reset:hover {background-position: -609px -1328px}
 
 /*----- Trang-Event -----*/
-.content-event {overflow:hidden;}
+/*.content-event {overflow:hidden;}
 
 .subscription {overflow:hidden; margin-top:10px;}
-.login-subscription ul li { margin:7px 0; width:100%; overflow:hidden; float:left}
-.login-subscription ul li label { float:left; width:100px; font-size:14px; color:#000000; font-weight:bold; display:block; padding-top:0px; margin-right:12px; text-align:right}
+.login-subscription ul li { width:100%; overflow:hidden; float:left}
+.login-subscription ul li label { float:left; width:100px; font-size:14px; color:#000000; font-weight:bold; display:block; padding-top:0px;}
 .login-subscription ul li input { width:441px; height:27px; padding:4px 8px; border-radius: 0px; background-color:#fff;border: 1px solid #dfdfdf; float:left; margin-right:5px; color: #7F7F7F;font-size: 14px;}
 .login-subscription ul li input:focus { }
-.login-subscription ul li span { float:left; font-size:14px; /*margin: 17px 0 0 10px;*/ color:#4c4c4c}
+.login-subscription ul li span { float:left; font-size:14px; color:#4c4c4c}
 .login-subscription ul li span.tooltip { margin: 17px 0 0 10px;}
 .login-subscription ul li .select-1 { border-radius: 0px; background-color:#fff;border: 1px solid #dfdfdf; width:167px; height:35px;background: url(../img/ico.png) no-repeat 139px -2807px #fff; float:left; position:relative; }
 .login-subscription ul li .select-1 select { width:167px; height:35px;}
@@ -781,7 +781,7 @@ fieldset div.wd-submit input:hover {background-color:#0093D1;color:#FFF;}
 .login-subscription ul li.button button { display:block; float:left; border:none;background:url(../img/bg-shared.png) no-repeat -726px -1225px;width:127px; height:37px; margin-right:9px; cursor: pointer;}
 .login-subscription ul li.button button:hover { background-position: -589px -1225px}
 .login-subscription ul li.button button span { display:none}
-.login-subscription ul li.button button.button-2 {background-position: -518px -1442px;}
+.login-subscription ul li.button button.button-2 {background-position: -518px -1442px;}*/
 .login-subscription ul li.button button.button-2:hover {background-position:  -232px -1442px;}
 .login-successful .login-subscription ul li label {width: 138px;}
 .login-successful .login-subscription ul li.general input {color: #7F7F7F;font-size: 14px;width: 260px;}

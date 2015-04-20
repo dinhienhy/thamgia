@@ -15,7 +15,7 @@
 	<ul class="pt-list-info-thamgia">
 		<li>
 			<h3><i class="fa icon-square"></i> Thamgia.net là gì ?</h3>
-			<p>Là cộng đòng năng động chia sẻ thông tin sự kiện, hội thảo, khuyến mãi, khóa hóc,... Nơi kết nối và tạo cơ hội kinh doanh. <a href="#">Xem tiếp <i class="fa fa-angle-double-right"></i></a></p>
+			<p>Là cộng đồng năng động chia sẻ thông tin sự kiện, hội thảo, khuyến mãi, khóa học,... Nơi kết nối và tạo cơ hội kinh doanh. <a href="#">Xem tiếp <i class="fa fa-angle-double-right"></i></a></p>
 		</li>
 		<li>
 			<h3><i class="fa icon-credit-card"></i> 1600 Card Visit đã tạo</h3>

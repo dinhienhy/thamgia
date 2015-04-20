@@ -141,18 +141,152 @@
      
      
 </script>
+<div class="pt-block-left-event">
+	<div class="custom-container">
+        <a href="#" class="prev"><i class="fa fa-chevron-left"></i></a>
+        <div class="block-carousel">
+	        <div class="carousel">
+	            <ul>
+	            	<li class="active"><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
+	            </ul>
+	        </div>
+        </div>
+        <a href="#" class="next"><i class="fa fa-chevron-right"></i></i></a>
+    </div>
+	<div class="pt-block-content-event">
+		<h2 class="title"><?php echo isset($data['title']) ? $data['title'] : '';?></h2>
+		<div class="pt-block-info-user-event">
+			<div class="block-user">
+				<img src="<?php echo General::getUrlImage($data['avatar_url'] ); ?>" alt="">
+				<h3 class="title">
+                    <a href="#"><?php echo isset($data['user_name']) ? $data['user_name'] : '';  ?></a>
+                    <span>đã đăng <?php echo isset($data['created']) ? $data['created'] : '';  ?></span>
+                </h3>
+			</div>
+			<ul class="pt-list-reviews">
+				<li><strong>123</strong><span>Chia sẻ</span></li>
+				<li><strong>123</strong><span>Nhận xét</span></li>
+			</ul>
+			<ul class="pt-list-socially">
+				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h1.jpg" alt=""></a></li>
+				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h2.jpg" alt=""></a></li>
+				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h3.jpg" alt=""></a></li>
+				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h4.jpg" alt=""></a></li>
+			</ul>
+		</div>
+		<div class="pt-block-content-event-text">
+			<div class="pt-block-content-event-title">
+				<img src="<?php echo $this->Html->url('/') . (isset($data['image']) ? $data['image'] : NO_IMG_URL);  ?>" alt="">
+                <?php if($data['is_daily_coupon'] && $logged_in && $participated) echo $this->element('thamgia/voucher',array('event_id' => $data['id'])); ?>
+				<div class="pt-block-content-event-left">
+					<ul>
+						<li><strong>Thể loại</strong>
+                            <span>
+                                <a href="<?php echo $this->Html->url(array('controller' => 'Events', 
+                                                                    'action' => 'getByType', 
+                                                                    'slug_city' => Link::seoTitle($data['city_name']), 
+                                                                    'city_id' => $data['city_id'],
+                                                                    'slug_type' => Link::seoTitle($data['type_name']),
+                                                                    'type_id' => $data['type_id'])); ?>">
+                                    <?php echo isset($data['type'])? $data['type'] : '' ?>
+                                </a>
+                            </span>
+                        </li>
+						<li><strong>Thời gian</strong><span><?php echo isset($data['start']) ? $data['start'] : '';?>   <br />   <?php echo isset($data['end']) ? $data['end'] : '';?></span></li>
+						<li><strong>Hotline</strong><span><?php echo isset($data['hotline']) ? $data['hotline'] : '';?></span></li>
+						<li><strong><?php echo $data['is_daily_coupon'] ? 'Chiết khấu' : 'Phí tham gia' ?></strong><span><?php echo isset($data['fee'])? $data['fee'] : ''; ?></span></li>
+						<li><strong>Địa điểm</strong><div class="pt-how"><span><?php echo isset($data['address']) ? $data['address'] : ''; ?></span><a href="#"><i class="fa fa-map-marker"></i> XEM BẢN ĐỒ</a></div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="pt-block-content-event-content">
+				<?php 
+                    $description = isset($data['description']) ? $data['description'] : '';
+                    $summary = General::getSummary($description);
+                    if ($summary != ''){
+                ?>
+                <div id="summary" style="display:block;">
+                    <?php 
+                        /*preg_match('/^([^.!?\s]*[\.!?\s]+){0,30}/', strip_tags($description), $abstract);
+                        echo $abstract[0];*/
+                        echo $summary;
+                    ?>
+                </div>
+                <div id="full" style="display: none;">
+                    <?php echo $description; ?>
+                </div>
+                <div class="view-more">
+                    <span></span><a id="link" onclick="return show_hide()" href="#" class="open">Xem thêm</a>
+                </div>       
+                <?php } else { ?>
+                <div id="full" style="display: block;">
+                    <?php echo $description; ?>
+                </div>
+                <?php } ?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="pt-block-stt pt-list-comment-detail">
+	<h4 class="title">Bình luận (3)</h4>
+	<ul class="pt-list-comment">
+		<li class="comment">
+            <?php if ($logged_in){ ?>
+			<div class="block-user">
+				<img src="<?php echo General::getUrlImage($users_avatar); ?>" alt="">
+				<div class="block-content-text">
+					<textarea id="message" name="message" cols="50" rows="10" class="validate[required]"  placeholder="Type comment"></textarea>
+				</div>
+			</div>
+            <?php } else { ?>
+                <p><span>Bạn vui lòng <a class="message" href="#" onclick="login(); return false;" >đăng nhập</a> trước để có thể tham gia bình luận</span></p>
+            <?php } ?>
+			
+		</li>
+		<li>
+			<div class="block-user">
+				<img src="<?php echo $this->Html->url('/'); ?>img/images/sk2.jpg" alt="">
+				<div class="block-content-text">
+					<h3 class="title"><a href="#">Hồng Nhung</a></h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</p>
+					<div class="pt-how">
+						<span>12:00 20-11-2105</span><a href="#"><i class="fa fa-heart"></i>Cảm ơn</a>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="block-user">
+				<img src="<?php echo $this->Html->url('/'); ?>img/images/sk2.jpg" alt="">
+				<div class="block-content-text">
+					<h3 class="title"><a href="#">Hồng Nhung</a></h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</p>
+					<div class="pt-how">
+						<span>12:00 20-11-2105</span><a href="#"><i class="fa fa-heart"></i>Cảm ơn</a>
+					</div>
+				</div>
+			</div>
+		</li>
 
+	</ul>
+</div>
 <div class="events-content">
     <h2 class="titel">GIỚI THIỆU SỰ KIỆN</h2>
     <a href="javascript: window.history.back();" class="prev">Quay lại</a>
-    <h3 class="titel-event"><?php echo isset($data['title']) ? $data['title'] : '';?></h3>
     <ul class="communication-user">
-        <li>
-            <p><span>Đăng ngày: </span><?php echo isset($data['created']) ? $data['created'] : '';  ?></p>
-        </li>
-        <li class="last">
-            <p><span>Người đăng: </span><a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'profile', $data['owner_id'])); ?>"><?php echo isset($data['user_name']) ? $data['user_name'] : '';  ?></a></p>
-        </li>
         <li>
             <iframe frameborder="0" width="120" height="30" style="margin-top: -10px;" scrolling="no" src="<?php echo $this->Html->url(array(
                                             "controller"=>"Events", 
@@ -166,76 +300,9 @@
             <!-- / Facebook Share Button -->   
         </li>
     </ul>
-    <p class="img-events">
-        <img src="<?php echo $this->Html->url('/') . (isset($data['image']) ? $data['image'] : NO_IMG_URL);  ?>" alt="Image"  />
-    </p>
     <?php if($data['is_daily_coupon'] && $logged_in && $participated) echo $this->element('thamgia/voucher',array('event_id' => $data['id'])); ?>
-    
-    <table class="wd-style">
-        <tr class="wd-tr-01">
-            <td class="wd-td-01">Thể loại</td>
-            <td class="wd-td-02"><a href="<?php echo $this->Html->url(array('controller' => 'Events', 
-                                                                    'action' => 'getByType', 
-                                                                    'slug_city' => Link::seoTitle($data['city_name']), 
-                                                                    'city_id' => $data['city_id'],
-                                                                    'slug_type' => Link::seoTitle($data['type_name']),
-                                                                    'type_id' => $data['type_id'])); ?>" > <?php echo isset($data['type'])? $data['type'] : '' ?></a></td>
-        </tr>
-        <tr>
-            <td class="wd-td-01">Địa điểm</td>
-            <td class="wd-td-02"><?php echo isset($data['address']) ? $data['address'] : ''; ?></td>
-        </tr>
-        <tr class="wd-tr-01">
-            <td class="wd-td-01">Thời gian</td>
-            <td class="wd-td-02"><?php echo isset($data['start']) ? $data['start'] : '';?>   -   <?php echo isset($data['end']) ? $data['end'] : '';?></td>
-        </tr>
-        <tr>
-            <td class="wd-td-01">Hotline</td>
-            <td class="wd-td-02"><?php echo isset($data['hotline']) ? $data['hotline'] : '';?></td>
-        </tr>
-        <tr class="wd-tr-01">
-            <td class="wd-td-01"><?php echo $data['is_daily_coupon'] ? 'Chiết khấu' : 'Phí tham dự' ?></td>
-            <td class="wd-td-02"><?php echo isset($data['fee'])? $data['fee'] : ''; ?></td>
-        </tr>
-    </table>
-    <div class="participation">
-        <?php if (!$participated && (($eventStatus == STATUS_UP_COMING) || ($eventStatus == STATUS_ON_GOING))){ ?>  
-            <?php if ($data['is_daily_coupon']){ ?>
-                    <a class="button-voucher" <?php   echo $logged_in ? 'onclick="participate()"' : 'onclick="login()"' ?> href="#"><span>submit</span></a>
-                <?php }else{ ?>
-                    <a class="participation-link"  href="javascript:<?php echo $logged_in ? "participate()" : 'login()';  ?>"  <?php   echo $logged_in ? 'onclick="participate()"' : 'onclick="login()"' ?> title="" type="submit">
-                    <span>submit</span></a>
-                <?php } ?>
-        <?php } ?> 
-    </div>
-    
-</div>
 
-<div class="events-content events-content-01">
-    <h2 class="titel">NỘI DUNG SỰ KIỆN </h2>
-    <?php 
-            $description = isset($data['description']) ? $data['description'] : '';
-            $summary = General::getSummary($description);
-            if ($summary != ''){
-        ?>
-        <div id="summary" style="display:block;">
-            <?php 
-                /*preg_match('/^([^.!?\s]*[\.!?\s]+){0,30}/', strip_tags($description), $abstract);
-                echo $abstract[0];*/
-                echo $summary;
-            ?>
-        </div>
-        <div id="full" style="display: none;">
-            <?php echo $description; ?>
-        </div>
-        <div class="view-more">
-            <span></span><a id="link" onclick="return show_hide()" href="#" class="open">Xem thêm</a>
-        </div>       
-        <?php } else { ?>
-        <div id="full" style="display: block;">
-            <?php echo $description; ?>
-        </div>
-        <?php } ?>
+    
 </div>
 
 <div class="block-events-comment">
@@ -281,7 +348,7 @@
                                                             'type_name' => $data['type_name'],
                                                             'event_id'=> $data['id']
                                                             )); ?>
-</div>
+
 
 
           

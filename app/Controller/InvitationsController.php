@@ -7,7 +7,7 @@
         
         function getMaxUsers(){
             $this->autoRender = false;
-            $maxUser = 4;
+            $maxUser = 5;
             return  $this->User->GetRandomUsers($maxUser);
         }
         

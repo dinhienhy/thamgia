@@ -1648,7 +1648,7 @@ img[alt],
   color: #fff;
 }
 .pt-menu-content .pt-list-menu-content li.icon-index {
-  padding: 13px 15px 13px;
+  padding: 13px 15px 12px;
 }
 .pt-menu-content .pt-list-menu-content li.icon-index .fa {
   font-size: 23px;

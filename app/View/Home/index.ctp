@@ -6,7 +6,7 @@
 <meta name="description" content="thamgia.net - Mạng chia sẻ sự kiện, hội thảo, khóa đào tạo, triển lãm, khai trương và sự kiện cộng đồng khác diễn ra tại các thành phố lớn. Hòa mạng tham gia, mở ra cơ hội." />
 <meta name="keywords" content="sự kiện, hội thảo, triển lãm, khai trương, khánh thành, sự kiện Đà Nẵng, su kien Da nang, hội thảo Đà Nẵng, hoi thao Da nang, su kien Ha noi, sự kiện Hà nội, hội thảo Hà nội, hội thảo tp HCM, chia se su kien, dien gia, diễn giả, nguoi khong lo, người khổng lồ, hội thảo du học, hoi thao du học, tham gia" />
 <?php 
-    echo $this->Html->css('common'); 
+    echo $this->Html->css('common-old'); 
     echo $this->Html->script('jquery-1.7.1.min');
     
 ?>

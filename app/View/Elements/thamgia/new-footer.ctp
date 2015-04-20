@@ -23,7 +23,7 @@
 					<a class="download" href="https://play.google.com/store/apps/details?id=com.vnosc.android.thamgia"><i class="fa fa-android"></i> Download for Android </a>
 				</div>
 			</div>
-			<img class="phone-img" src="img/images/phone.png" alt="">
+			<img class="phone-img" src="<?php echo $this->Html->url('/'); ?>img/images/phone.png" alt="">
 		</div>
 	</div>
 	<div class="coppyright">

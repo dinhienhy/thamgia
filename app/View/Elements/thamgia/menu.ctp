@@ -4,9 +4,9 @@
 			<div class="pt-menu-content">
 				<ul class="pt-list-menu-content">
 					<li class="icon-index" id="home">
-						<a href="#" ><i class="fa fa-home"></i></a>
+						<a href="<?php echo $this->Html->url('/'); ?>" ><i class="fa fa-home"></i></a>
 					</li>
-					<li>
+					<li id="type_<?php echo TYPE_WORKSHOP; ?>">
 						<a href="<?php echo $this->Html->url(array('controller' => 'Events', 
                                         'action' => 'getByType', 
                                         'slug_city' => Link::seoTitle($city_name), 
@@ -17,7 +17,7 @@
                         </a>
 					</li>
                     
-					<li>
+					<li id="type_<?php echo TYPE_PROMOTION; ?>">
 						<a href="<?php echo $this->Html->url(array('controller' => 'Events', 
                                         'action' => 'getByType', 
                                         'slug_city' => Link::seoTitle($city_name), 
@@ -27,7 +27,7 @@
                                         <?php if ($total_promotion > 0){ ?> <span class="color1"><?php echo $total_promotion; ?></span> <?php } ?> 
                         </a>
 					</li>
-					<li>
+					<li id="type_<?php echo TYPE_TRAINING; ?>">
 						<a href="<?php echo $this->Html->url(array('controller' => 'Events', 
                                         'action' => 'getByType', 
                                         'slug_city' => Link::seoTitle($city_name), 
@@ -38,7 +38,7 @@
                         </a>
                                         
 					</li>
-					<li>
+					<li id="type_<?php echo TYPE_ENTERTAINMENT; ?>">
 						<a href="<?php echo $this->Html->url(array('controller' => 'Events', 
                                         'action' => 'getByType', 
                                         'slug_city' => Link::seoTitle($city_name), 

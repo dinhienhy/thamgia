@@ -18,8 +18,8 @@
     <?php
         echo $this->Html->meta('icon');
    
-        /*echo $this->Html->css('common-old');
-        
+        //echo $this->Html->css('common-old');
+        /*
         echo $this->Html->css('validationEngine.jquery');
         echo $this->Html->css('validationEngine-day');
         echo $this->Html->css('jquery-fancybox');
@@ -32,6 +32,7 @@
         echo $this->Html->css('font-awesome.min');
         echo $this->Html->css('colorbox');
         echo $this->Html->css('datepicker');
+        //echo $this->Html->css('bootstrap-datetimepicker');
         echo $this->Html->css('common');
         //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-1.11.0.min');
@@ -64,6 +65,7 @@
         
         echo $this->Html->script('bootstrap.min');
         echo $this->Html->script('bootstrap-datepicker');
+        //echo $this->Html->script('bootstrap-datetimepicker');
         echo $this->Html->script('masonry.pkgd.min');
         echo $this->Html->script('jquery.jcarousellite.min');
         echo $this->Html->script('jquery.colorbox-min');
