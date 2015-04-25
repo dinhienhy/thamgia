@@ -9,7 +9,7 @@
         function inbox(){
             $this->isAuthenticated();
             
-            $this->layout = 'no_column';
+            $this->layout = 'no_daily_coupon';
             
             $this->paginate = array(
                 'Message' => array(
@@ -43,6 +43,17 @@
             }
             $this->set('data', $data); 
         }
+        
+        function allMessage(){
+            $this->isAuthenticated();
+            
+            $this->layout = 'no_daily_coupon';
+            
+            $data = $this->Message->findBySenderOrReceiver($this->_usersUserID(),$this->_usersUserID());
+            
+            $this->set('data', $data); 
+        }
+        
         
         function sendItems(){
             $this->isAuthenticated();

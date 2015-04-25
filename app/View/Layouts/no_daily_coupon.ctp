@@ -5,7 +5,7 @@
         <?php echo $this->element('thamgia/new-header'); ?>
         <div id="pt-content-container">
 			<div class="container-fluid">
-                <div class="pt-block-business-card">
+                <div class="pt-block-business-card pt-block-messages">
                     <?php echo $this->Session->flash(); ?>
                     <?php echo $this->fetch('content'); ?>
                 </div>

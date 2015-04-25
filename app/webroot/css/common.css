@@ -1648,7 +1648,7 @@ img[alt],
   color: #fff;
 }
 .pt-menu-content .pt-list-menu-content li.icon-index {
-  padding: 13px 15px 12px;
+  padding: 13px 15px 13px;
 }
 .pt-menu-content .pt-list-menu-content li.icon-index .fa {
   font-size: 23px;
@@ -3914,4 +3914,227 @@ h2.title {
   margin: 5px 0px;
   float: right;
   margin-right: 11px;
+}
+.pt-block-messages .pt-content-messages {
+  width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid #d8d8d8;
+  overflow: hidden;
+}
+.pt-block-messages .pt-list-user-ms {
+  overflow: hidden;
+  width: 240px;
+  float: left;
+}
+.pt-block-messages .pt-list-user-ms li {
+  border-bottom: 1px solid #d8d8d8;
+}
+.pt-block-messages .pt-list-user-ms li .block-user {
+  overflow: hidden;
+  display: block;
+  padding: 10px;
+}
+.pt-block-messages .pt-list-user-ms li .block-user .block-how {
+  overflow: hidden;
+}
+.pt-block-messages .pt-list-user-ms li .block-user img {
+  width: 57px;
+  height: 57px;
+  float: left;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 4px solid #fff;
+}
+.pt-block-messages .pt-list-user-ms li .block-user h3.title {
+  margin-bottom: 5px;
+  color: #3b5998;
+  font-size: 13px;
+}
+.pt-block-messages .pt-list-user-ms li .block-user p {
+  font-size: 13px;
+  color: #626262;
+}
+.pt-block-messages .pt-list-user-ms li.active .block-user,
+.pt-block-messages .pt-list-user-ms li:hover .block-user {
+  background-color: #f7f9f8;
+}
+.pt-block-messages .pt-list-user-ms-content {
+  overflow: hidden;
+  padding: 10px;
+  border-left: 1px solid #d8d8d8;
+  min-height: 400px;
+  position: relative;
+  padding-bottom: 100px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .avatar {
+  display: block;
+  width: 57px;
+  height: 57px;
+  float: left;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .avatar img {
+  width: 57px;
+  height: 57px;
+  border-radius: 50%;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 h3.title {
+  margin-bottom: 5px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 h3.title a {
+  color: #3b5998;
+  font-size: 13px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .pt-block-chat-content-01 {
+  padding: 10px;
+  background-color: #f3f4f6;
+  border-radius: 3px;
+  position: relative;
+  margin-top: 14px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .pt-block-chat-content-01:after {
+  content: '';
+  display: inline-block;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 9px solid #f3f4f6;
+  position: absolute;
+  top: -9px;
+  left: 10px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .pt-block-chat-content-01 p {
+  color: #000;
+  font-size: 13px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-01 .times {
+  display: block;
+  font-size: 13px;
+  color: #c2c2c2;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .avatar {
+  display: block;
+  width: 57px;
+  height: 57px;
+  float: right;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .avatar img {
+  width: 57px;
+  height: 57px;
+  border-radius: 50%;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 h3.title {
+  margin-bottom: 5px;
+  text-align: right;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 h3.title a {
+  color: #3b5998;
+  font-size: 13px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .pt-block-chat-content-02 {
+  padding: 10px;
+  background-color: #f3f4f6;
+  border-radius: 3px;
+  position: relative;
+  margin-top: 14px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .pt-block-chat-content-02:after {
+  content: '';
+  display: inline-block;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 9px solid #f3f4f6;
+  position: absolute;
+  top: -9px;
+  right: 10px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .pt-block-chat-content-02 p {
+  color: #000;
+  font-size: 13px;
+  text-align: right;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-block-chat-02 .times {
+  display: block;
+  font-size: 13px;
+  color: #c2c2c2;
+  text-align: right;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-comment-chat {
+  background-color: #f3f7fa;
+  padding: 10px;
+  bolder: 1px solid #edf1f4;
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-comment-chat textarea {
+  border: none;
+  background: none transparent;
+  width: 100%;
+  height: 50px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-comment-chat .send {
+  width: auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background: none #3396d1;
+  margin: 5px 0px;
+  float: right;
+  margin-right: 11px;
+}
+.pt-block-messages .pt-list-user-ms-content .pt-comment-chat .send:hover {
+  background: none #0C6BA3;
+}
+
+/*Lanh*/
+.pt-notification .pt-notification-user .pt-edit-profile{
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  display: block;
+  background-color: #77c04b;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  line-height: 40px;
+}
+.pt-notification .pt-notification-user .pt-change-password{
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  display: block;
+  background-color: #77c04b;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  line-height: 40px;
+}
+.pt-notification .pt-notification-user .pt-edit-profile .fa,
+.pt-notification .pt-notification-user .pt-change-password .fa{
+  color: #fff;
+  font-size: 18px;
+}
+.tab-content .tab{
+  display: none;
+}
+.tab-content .tab.active{
+  display: block;
 }

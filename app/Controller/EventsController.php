@@ -151,6 +151,51 @@
             else
                 $this->set('owner', false);
         }
+
+        function getAddedEvents($user_id){
+            $this->autoRender = false;
+            $this->paginate = array(
+                'Event' => array(
+                    'limit' => DEFAULT_SIZE,
+                    'order' => array('Event.created' => 'desc'),
+                    'conditions' => array(
+                                    'Event.user_id =' => $user_id)
+                )
+            );
+            
+            $dataPaginate = $this->paginate('Event');
+            $data = array();
+            $index = 0;
+
+            foreach($dataPaginate as $event){
+                $data[$index] = array();
+                
+                $data[$index]['title'] = $event['Event']['title'];
+                $data[$index]['id'] = $event['Event']['id'];
+                $data[$index]['image_list_url'] = $event['Event']['image_list_url'];
+
+                $createdDateObj = new DateTime($event['Event']['created']);
+                if ($event['Event']['updated'] != null){
+                    $updatedDateObj = new DateTime($event['Event']['updated'] );    
+                    $data[$index]['updated'] = $updatedDateObj->format(TIME_FORMAT_CLIENT);
+                }else
+                    $data[$index]['updated'] = '';
+                
+                
+                $data[$index]['created'] = $createdDateObj->format(TIME_FORMAT_CLIENT);
+                $data[$index]['approved'] = $event['Event']['approved'] ? 'approved' : 'pending';
+                $data[$index]['code'] = $event['Event']['code'];
+                $options['conditions'] = array(
+                    'Participation.event_id' => $event['Event']['id']
+                );
+                $this->loadModel('Participation');
+                $data[$index]['members'] = $this->Participation->find('count', $options);
+                $index++;
+            }
+            
+            return $data;
+        }
+
         
         function detail($slug, $id = null){
             $this->isAuthEventDetail($id);

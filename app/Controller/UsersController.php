@@ -58,7 +58,7 @@ class UsersController extends AppController{
     }
     
     function editProfile(){
-        $this->layout = "no_column";
+        $this->layout = "no_daily_coupon";
         $this->isAuthenticated();
         $options['conditions'] = array(
             'User.id' => $this->_usersUserID()
