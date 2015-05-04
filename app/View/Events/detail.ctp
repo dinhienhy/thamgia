@@ -168,9 +168,11 @@
 			<div class="block-user">
 				<img src="<?php echo General::getUrlImage($data['avatar_url'] ); ?>" alt="">
 				<h3 class="title">
-                    <a href="#"><?php echo isset($data['user_name']) ? $data['user_name'] : '';  ?></a>
-                    <span>đã đăng <?php echo isset($data['created']) ? $data['created'] : '';  ?></span>
-                </h3>
+            <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'profile', $data['owner_id'])); ?>">
+                <?php echo isset($data['user_name']) ? $data['user_name'] : '';  ?>
+            </a>
+            <span>đã đăng <?php echo isset($data['created']) ? $data['created'] : '';  ?></span>
+        </h3>
 			</div>
 			<ul class="pt-list-reviews">
 				<li><strong>123</strong><span>Chia sẻ</span></li>
@@ -189,18 +191,19 @@
                 <?php if($data['is_daily_coupon'] && $logged_in && $participated) echo $this->element('thamgia/voucher',array('event_id' => $data['id'])); ?>
 				<div class="pt-block-content-event-left">
 					<ul>
-						<li><strong>Thể loại</strong>
-                            <span>
-                                <a href="<?php echo $this->Html->url(array('controller' => 'Events', 
-                                                                    'action' => 'getByType', 
-                                                                    'slug_city' => Link::seoTitle($data['city_name']), 
-                                                                    'city_id' => $data['city_id'],
-                                                                    'slug_type' => Link::seoTitle($data['type_name']),
-                                                                    'type_id' => $data['type_id'])); ?>">
-                                    <?php echo isset($data['type'])? $data['type'] : '' ?>
-                                </a>
-                            </span>
-                        </li>
+						<li>
+              <strong>Thể loại</strong>
+              <span>
+                  <a href="<?php echo $this->Html->url(array('controller' => 'Events', 
+                                                      'action' => 'getByType', 
+                                                      'slug_city' => Link::seoTitle($data['city_name']), 
+                                                      'city_id' => $data['city_id'],
+                                                      'slug_type' => Link::seoTitle($data['type_name']),
+                                                      'type_id' => $data['type_id'])); ?>">
+                      <?php echo isset($data['type'])? $data['type'] : '' ?>
+                  </a>
+              </span>
+            </li>
 						<li><strong>Thời gian</strong><span><?php echo isset($data['start']) ? $data['start'] : '';?>   <br />   <?php echo isset($data['end']) ? $data['end'] : '';?></span></li>
 						<li><strong>Hotline</strong><span><?php echo isset($data['hotline']) ? $data['hotline'] : '';?></span></li>
 						<li><strong><?php echo $data['is_daily_coupon'] ? 'Chiết khấu' : 'Phí tham gia' ?></strong><span><?php echo isset($data['fee'])? $data['fee'] : ''; ?></span></li>
@@ -237,51 +240,39 @@
 	</div>
 </div>
 <div class="pt-block-stt pt-list-comment-detail">
-	<h4 class="title">Bình luận (3)</h4>
+	<h4 class="title" id="sumary-comments">Bình luận (3)</h4>
 	<ul class="pt-list-comment">
 		<li class="comment">
             <?php if ($logged_in){ ?>
 			<div class="block-user">
 				<img src="<?php echo General::getUrlImage($users_avatar); ?>" alt="">
 				<div class="block-content-text">
-					<textarea id="message" name="message" cols="50" rows="10" class="validate[required]"  placeholder="Type comment"></textarea>
+					<textarea id="comment-content" name="message" cols="50" rows="10" class="validate[required]"  placeholder="Type comment"></textarea>
 				</div>
+                <input onclick="sendComment(<?php echo $data['id'] ?>)" type="button" class="send" value="Gửi bình luận" />
 			</div>
             <?php } else { ?>
                 <p><span>Bạn vui lòng <a class="message" href="#" onclick="login(); return false;" >đăng nhập</a> trước để có thể tham gia bình luận</span></p>
             <?php } ?>
 			
 		</li>
-		<li>
-			<div class="block-user">
-				<img src="<?php echo $this->Html->url('/'); ?>img/images/sk2.jpg" alt="">
-				<div class="block-content-text">
-					<h3 class="title"><a href="#">Hồng Nhung</a></h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</p>
-					<div class="pt-how">
-						<span>12:00 20-11-2105</span><a href="#"><i class="fa fa-heart"></i>Cảm ơn</a>
-					</div>
-				</div>
-			</div>
-		</li>
-		<li>
-			<div class="block-user">
-				<img src="<?php echo $this->Html->url('/'); ?>img/images/sk2.jpg" alt="">
-				<div class="block-content-text">
-					<h3 class="title"><a href="#">Hồng Nhung</a></h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</p>
-					<div class="pt-how">
-						<span>12:00 20-11-2105</span><a href="#"><i class="fa fa-heart"></i>Cảm ơn</a>
-					</div>
-				</div>
-			</div>
-		</li>
-
 	</ul>
+    <ul class="pt-list-comment" id="list-comments">
+        <li>
+			<div class="block-user">
+				<img src="<?php echo $this->Html->url('/'); ?>img/images/sk2.jpg" alt="">
+				<div class="block-content-text">
+					<h3 class="title"><a href="#">Hồng Nhung</a></h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</p>
+					<div class="pt-how">
+						<span>12:00 20-11-2105</span><a href="#"><i class="fa fa-heart"></i>Cảm ơn</a>
+					</div>
+				</div>
+			</div>
+		</li>
+    </ul>
 </div>
 
 

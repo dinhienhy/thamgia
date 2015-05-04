@@ -4074,7 +4074,7 @@ h2.title {
 .pt-block-messages .pt-list-user-ms-content .pt-comment-chat {
   background-color: #f3f7fa;
   padding: 10px;
-  bolder: 1px solid #edf1f4;
+  border: 1px solid #edf1f4;
   overflow: hidden;
   position: absolute;
   left: 0px;
@@ -4103,6 +4103,7 @@ h2.title {
 .pt-block-messages .pt-list-user-ms-content .pt-comment-chat .send:hover {
   background: none #0C6BA3;
 }
+
 
 /*Lanh*/
 .pt-notification .pt-notification-user .pt-edit-profile{
@@ -4138,3 +4139,23 @@ h2.title {
 .tab-content .tab.active{
   display: block;
 }
+.block-general .like span.nopadding,
+.block-general .tack span.nopadding{
+  padding: 0;
+  border: none;
+  display: inline-block;
+  float: none;
+}
+.pt-list-comment-detail .send{
+      width: auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 7px 20px;
+  border-radius: 4px;
+  border: none;
+  background: none #3396d1;
+  margin: 5px 0px;
+  float: right;
+}
+

@@ -199,7 +199,7 @@
         
         function detail($slug, $id = null){
             $this->isAuthEventDetail($id);
-            
+            $user_id = $this->_usersUserID();
             $this->layout = "event_detail";
             if ($id){
                 $options['joins'] = array(
@@ -226,6 +226,15 @@
                                 'conditions' => array(
                                 'Type.id = Event.type_id',
                                 )
+                        ),
+                        array(
+                            'table' => 'thanks_events',
+                            'alias' => 'ThanksEvent',
+                            'type' => 'LEFT',
+                            'conditions' => array(
+                                'ThanksEvent.event_id = Event.id',
+                                'ThanksEvent.user_id' => $user_id
+                            )
                         )
                 );
                 $options['conditions'] = array(
@@ -253,7 +262,8 @@
                     'Event.is_daily_coupon',
                     'Type.name',
                     'City.name',
-                    'Event.thanks'
+                    'Event.thanks',
+                    'ThanksEvent.id'
                 );
                 
                 $event = $this->Event->find('first', $options); 
@@ -324,7 +334,8 @@
                     $data['city_name'] = $event['City']['name'];
                     $data['is_daily_coupon'] = $event['Event']['is_daily_coupon'];
                     $data['avatar_url'] = $event['User']['avatar_url'];
-                    $data['thanks'] = $event['Event']['thanks'];  
+                    $data['thanks'] = $event['Event']['thanks'];
+                    $data['had_thanks'] = $event['ThanksEvent']['id'];    
                     
                     // get summary iformation for event
                     $options = array();
@@ -1027,7 +1038,9 @@
             }
             
             if ($from != 0){
-                $options['limit'] = $from . ',' . $limit;
+                //$options['limit'] = $from . ',' . $limit;
+                $options['limit'] = $limit;
+                $options['offset'] = $from;
             }
             
             $options['conditions'] = $conditions;
@@ -1079,6 +1092,8 @@
                                         ,'Event.start', 'Event.title', 'Event.id', 'Event.user_id'
                                         ,'PinsUser.id', 'PinsUser.event_id', 'Event.thanks', 'ThanksEvent.id');
             $data = $this->Event->find('all', $options);
+            //debug($options);
+            //debug($data);
             return $data;
         }
         

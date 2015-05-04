@@ -31,16 +31,48 @@
 			<h3 class="title"><a href="<?php echo $url_detail; ?>"><?php echo $event['Event']['title']; ?></a></h3>
 			<p><?php echo $event['Event']['address']; ?></p>
 			<div class="block-general">
-				<div class="like">
-					<a href="#"><i class="fa fa-heart"></i>  Cảm ơn</a>
-					<span><?php echo $event['Event']['thanks']; ?></span>
-				</div>
-				<div class="tack">
-					<a href="#"><i class="fa fa-thumb-tack"></i>  Đánh dấu</a>
-				</div>
-				<div class="share">
-					<a href="#"><i class="fa fa-share"></i></a>
-				</div>
+				<?php if (!$logged_in){ ?>
+                    <div class="like">
+                        <a href="#login" class="link-login"><i class="fa fa-heart"></i>  Cảm ơn</a>
+    					<span><?php echo $event['Event']['thanks']; ?></span>
+    				</div>
+    				<div class="tack">
+    					<a href="#login" class="link-login"><i class="fa fa-thumb-tack"></i>  Đánh dấu</a>
+    				</div>
+    				<div class="share">
+    					<a href="#login" class="link-login"><i class="fa fa-share"></i></a>
+    				</div>
+                <?php } else { ?>
+                    <?php if ($event['ThanksEvent']['id'] == null){ ?>
+                        <div class="like">
+        					<a id="thanks-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php   echo 'thanksEvent('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-heart"></i>  <span class="nopadding">Cảm ơn</span>
+                            </a>
+                            <span id="thanks_<?php echo $event['Event']['id']; ?>"><?php echo $event['Event']['thanks']; ?></span>
+                        </div>
+                        <?php } else { ?>
+                        <div class="like active">
+                            <a href="javascript:void(0)"><i class="fa fa-heart"></i>  Đã cảm ơn</a>
+                            <span><?php echo $event['Event']['thanks']; ?></span>
+                        </div>
+                    <?php } ?>
+    				<?php if ($event['PinsUser']['id'] == null){ ?>
+        				<div class="tack">
+        					<a id="dotting-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php echo 'pinsUser('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-thumb-tack"></i>  <span class="nopadding">Đánh dấu</span>
+                            </a>
+        				</div>
+                    <?php } else { ?>
+                        <div class="tack active">
+        					<a id="dotting-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php   echo 'removePinsUser('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-thumb-tack"></i> <span class="nopadding">Bỏ đánh dấu</span>
+                            </a>
+        				</div>
+                    <?php } ?>
+    				<div class="share">
+    					<a href="#"><i class="fa fa-share"></i></a>
+    				</div>
+                <?php } ?>
 			</div>
 		</div>
 	</div>

@@ -1,3 +1,27 @@
+<script type="text/javascript">
+	function thanksEvent(eventId, userId){
+        $.ajax({
+           type:"GET",
+           async:true,
+           url:'<?php echo $this->Html->url(array("controller" => "thanksEvents", "action" => "thanksEvent"))?>' + '/' + eventId  + '/' + userId,
+           dataType: "json",
+           success : function(data) {
+                if (data.Success){
+                    $('#thanks_' + eventId).text(data.Thanks);
+                    $('#thanks-link-' + eventId).attr('href','javascript:void(0)');
+                    $('#thanks-link-' + eventId).parent('.like').toggleClass('active');
+                    $('#thanks-link-' + eventId).find('span.nopadding').text('Đã cảm ơn');
+                    
+                    $('#thanks_event').append('<?php echo $users_name; ?>' + '<br />');
+                }     
+           },
+           error : function() {
+               alert('Lỗi cám ơn sự kiện!');
+           },
+       });
+    }
+</script>
+
 <div class="pt-notification pt-right-user-detail">
 	<div class="pt-notification-user">
 		<a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'profile', $owner_id)) ?>"><img src="<?php echo General::getUrlImage($avatar_url); ?>" alt=""></a>
@@ -8,10 +32,21 @@
 			<a href="#send-messages" class="pt-message cboxElement pt-info-circle"><i class="fa fa-info-circle"></i></a>
 		</div>
 		<div class="block-general">
+            <?php if($had_thanks == null){ ?>
 			<div class="like">
-				<a href="#"><i class="fa fa-heart"></i>  Cảm ơn</a>
+				<a id="thanks-link-<?php echo $event_id; ?>" class="<?php echo $logged_in ? '' : 'link-login'; ?>" href="<?php echo $logged_in ? 'javascript:thanksEvent('. $event_id . ',' . $users_userid . ')' : '#login'; ?>">
+					<i class="fa fa-heart"></i>  <span class="nopadding">Cảm ơn</span>
+				</a>
+				<span id="thanks_<?php echo $event_id; ?>"><?php echo $thanks; ?></span>
+			</div>
+            <?php } else { ?>
+            <div class="like active">
+				<a href="javascript:void(0)">
+					<i class="fa fa-heart"></i>  Đã cảm ơn
+				</a>
 				<span><?php echo $thanks; ?></span>
 			</div>
+            <?php } ?>
 		</div>
 	</div>
 </div>

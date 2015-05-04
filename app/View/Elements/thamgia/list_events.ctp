@@ -44,16 +44,48 @@
 			<h3 class="title"><a href="<?php echo $url_detail; ?>"><?php echo $event['Event']['title']; ?></a></h3>
 			<p><?php echo $event['Event']['address']; ?></p>
 			<div class="block-general">
-				<div class="like">
-					<a href="#"><i class="fa fa-heart"></i>  Cảm ơn</a>
-					<span><?php echo $event['Event']['thanks']; ?></span>
-				</div>
-				<div class="tack">
-					<a href="#"><i class="fa fa-thumb-tack"></i>  Đánh dấu</a>
-				</div>
-				<div class="share">
-					<a href="#"><i class="fa fa-share"></i></a>
-				</div>
+                <?php if (!$logged_in){ ?>
+                    <div class="like">
+                        <a href="#login" class="link-login"><i class="fa fa-heart"></i>  Cảm ơn</a>
+    					<span><?php echo $event['Event']['thanks']; ?></span>
+    				</div>
+    				<div class="tack">
+    					<a href="#login" class="link-login"><i class="fa fa-thumb-tack"></i>  Đánh dấu</a>
+    				</div>
+    				<div class="share">
+    					<a href="#login" class="link-login"><i class="fa fa-share"></i></a>
+    				</div>
+                <?php } else { ?>
+                    <?php if ($event['ThanksEvent']['id'] == null){ ?>
+                        <div class="like">
+        					<a id="thanks-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php echo 'thanksEvent('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-heart"></i>  <span class="nopadding">Cảm ơn</span>
+                            </a>
+                            <span id="thanks_<?php echo $event['Event']['id']; ?>"><?php echo $event['Event']['thanks']; ?></span>
+                        </div>
+                        <?php } else { ?>
+                        <div class="like active">
+                            <a href="javascript:void(0)"><i class="fa fa-heart"></i>  Đã cảm ơn</a>
+                            <span><?php echo $event['Event']['thanks']; ?></span>
+                        </div>
+                    <?php } ?>
+                    <?php if ($event['PinsUser']['id'] == null){ ?>
+        				<div class="tack">
+        					<a id="dotting-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php echo 'pinsUser('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-thumb-tack"></i>  <span class="nopadding">Đánh dấu</span>
+                            </a>
+        				</div>
+                    <?php } else { ?>
+                        <div class="tack active">
+        					<a id="dotting-link-<?php echo $event['Event']['id']; ?>" href="javascript:<?php   echo 'removePinsUser('. $event['Event']['id'] . ',' . $users_userid . ')'; ?>">
+                                <i class="fa fa-thumb-tack"></i> <span class="nopadding">Bỏ đánh dấu</span>
+                            </a>
+        				</div>
+                    <?php } ?>
+    				<div class="share">
+    					<a href="#"><i class="fa fa-share"></i></a>
+    				</div>
+                <?php } ?>
 			</div>
 		</div>
 	</div>
@@ -123,10 +155,10 @@
            dataType: "json",
            success : function(data) {
                 if (data.Success){
-                    $('#thanks_' + eventId).text('Cảm ơn: ' + data.Thanks);
-                    $('#thanks-link-' + eventId).removeAttr('href');
-                    $('#thanks-link-' + eventId).toggleClass('thanks-disable');
-                    $('#thanks-link-' + eventId).find('span').text('Đã Cảm Ơn');
+                    $('#thanks_' + eventId).text(data.Thanks);
+                    $('#thanks-link-' + eventId).attr('href','javascript:void(0)');
+                    $('#thanks-link-' + eventId).parent('.like').toggleClass('active');
+                    $('#thanks-link-' + eventId).find('span.nopadding').text('Đã cảm ơn');
                 }     
            },
            error : function() {
@@ -144,9 +176,8 @@
            success : function(data) {
                 if (data.Success){
                     $('#dotting-link-' + eventId).attr('href', 'javascript:removePinsUser(' + eventId + ',' + userId + ')' );
-                    $('#dotting-link-' + eventId).toggleClass('dotting-disable');
-                    $('#dotting-link-' + eventId).find('span').text('Gỡ Đánh Dấu');
-                    $('#dotting-link-' + eventId).parent().parent().parent().append('<span class="free"> </span>');
+                    $('#dotting-link-' + eventId).parent('.tack').toggleClass('active');
+                    $('#dotting-link-' + eventId).find('span.nopadding').text('Bỏ đánh dấu');
                 }      
            },
            error : function() {
@@ -164,9 +195,8 @@
            success : function(data) {
                 if (data.Success){
                     $('#dotting-link-' + eventId).attr('href', 'javascript:pinsUser(' + eventId + ',' + userId + ')' );
-                    $('#dotting-link-' + eventId).toggleClass('dotting-disable', false);
-                    $('#dotting-link-' + eventId).find('span').text('Đánh Dấu');
-                    $('#dotting-link-' + eventId).parent().parent().parent().find("span[class='free']").remove();
+                    $('#dotting-link-' + eventId).parent('.tack').toggleClass('active', false);
+                    $('#dotting-link-' + eventId).find('span.nopadding').text('Đánh dấu');
                 }      
            },
            error : function() {
@@ -184,10 +214,10 @@
         var data = new Array();
         var url = '';
         // get current month
-        var currentMonth = $('#month-content li[class="active"]').first().attr('value');
+        var currentMonth = $('#month-content li.active').first().attr('value');
         if (!currentMonth)
             currentMonth = 0;
-
+ 
         <?php if ($is_search){ ?>
             data = {city_id: '<?php echo $city_id; ?>' , limit: 6, type_id: '<?php echo $type_id ?>',  from_date: '<?php echo $search['from_date'] ?>',
                     to_date: '<?php echo $search['to_date']; ?>', title: '<?php echo $search['title']?>', user_id: '<?php echo $user_id; ?>', from: from};
@@ -196,7 +226,6 @@
             data = {city_id: '<?php echo $city_id; ?>' , limit: 6, type_id: '<?php echo $type_id ?>', user_id: '<?php echo $user_id; ?>', from: from, month: currentMonth};
             url = '<?php echo $this->Html->url(array("controller" => "events", "action" => "moreEvents"))?>';
         <?php } ?>
-        
         $.ajax({
            type:"GET",
            async:false,

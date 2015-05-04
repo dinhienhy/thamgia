@@ -58,9 +58,9 @@
     function selectMonth(month){
         $("#month-content li").removeClass('active');
         $("#month-content li").filter(function() {
-            return $(this).attr("value") ===  month ;
+            return $(this).attr("value") ==  month ;
         }).toggleClass('active');
         loadEventOfMonth(month);
-        $("html, body").animate({ scrollTop: 135 }, "slow");
+        $("html, body").animate({ scrollTop: 615 }, "slow");
     }
 </script>

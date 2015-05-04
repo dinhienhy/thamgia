@@ -30,18 +30,29 @@
     foreach($data as $item){
 ?>
     <li>
-        <img src="<?php echo General::getUrlImage($item['User']['avatar_url']);?>" alt="Image"  />
-        <div class="how">
-            <h4><a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' =>'profile', $item['User']['id'])); ?>"><?php echo $item['User']['fullname']; ?></a><span><?php echo date(TIME_FORMAT_CLIENT, strtotime($item['Comment']['created']));?></span></h4>
-            <p><?php echo $item['Comment']['comment'];?> </p>
-            <span class="thank"><strong onmouseover="bubbleUsersThanks(this)"><?php echo $item['Comment']['thanks']; ?> người </strong>đã cảm ơn điều này
-                <a href="#" <?php   echo $logged_in ? 'onclick="thanked(this,'.$item['Comment']['id'].');return false;"' : 'onclick="login(); return false;"' ?> >cảm ơn</a>
-                <div class="users-thanks" style="display: none;">
-                    <?php echo $item['Comment']['usersThanks'];?>  
-                </div>
-            </span>
-        </div>
-    </li>
+		<div class="block-user">
+			<img src="<?php echo General::getUrlImage($item['User']['avatar_url']);?>" alt="">
+			<div class="block-content-text">
+				<h3 class="title">
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' =>'profile', $item['User']['id'])); ?>">
+                        <?php echo $item['User']['fullname']; ?>
+                    </a>
+                </h3>
+				<p><?php echo $item['Comment']['comment'];?></p>
+				<div class="pt-how">
+					<span><?php echo date(TIME_FORMAT_CLIENT, strtotime($item['Comment']['created']));?></span>
+                    <a href="#" <?php   echo $logged_in ? 'onclick="thanked(this,'.$item['Comment']['id'].');return false;"' : 'onclick="login(); return false;"' ?>>
+                        <i class="fa fa-heart"></i>
+                        Cảm ơn
+                    </a>
+                    <span class="thank"><strong onmouseover="bubbleUsersThanks(this)"><?php echo $item['Comment']['thanks']; ?> người </strong>đã cảm ơn điều này</span>
+                    <div class="users-thanks" style="display: none;">
+                        <?php echo $item['Comment']['usersThanks'];?>  
+                    </div>
+				</div>
+			</div>
+		</div>
+	</li>
 <?php        
 } 
 ?>

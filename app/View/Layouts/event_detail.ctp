@@ -29,7 +29,8 @@
                                             'is_daily_coupon' => $data['is_daily_coupon'],
                                             'avatar_url' => $data['avatar_url'],
                                             'created' => $data['created'],
-                                            'thanks' => $data['thanks']
+                                            'thanks' => $data['thanks'],
+                                            'had_thanks' => $data['had_thanks'],
                                         )
                                     );
                                 }
