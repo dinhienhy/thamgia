@@ -83,7 +83,7 @@
         				</div>
                     <?php } ?>
     				<div class="share">
-    					<a href="#"><i class="fa fa-share"></i></a>
+    					<a href="<?php echo $url_detail; ?>"><i class="fa fa-share"></i></a>
     				</div>
                 <?php } ?>
 			</div>

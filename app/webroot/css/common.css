@@ -3287,6 +3287,7 @@ h2.title {
 .pt-notification .pt-notification-user .pt-message .fa {
   color: #fff;
   font-size: 18px;
+  line-height: 40px;
 }
 .pt-notification .pt-notification-user .pt-message:hover {
   background-color: #47911A;
@@ -4132,6 +4133,7 @@ h2.title {
 .pt-notification .pt-notification-user .pt-change-password .fa{
   color: #fff;
   font-size: 18px;
+  line-height: 40px;
 }
 .tab-content .tab{
   display: none;

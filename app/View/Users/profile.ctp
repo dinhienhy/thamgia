@@ -16,7 +16,7 @@
         <div class="pt-notification-right ">
 			<div class="pt-exchange">
 				<div class="pt-exchange-menu">
-					<ul class="tab-links">
+					<ul class="tab-links profile-tab">
 						<li>
 							<a href="#added_event" class="active">
 								<span>Sự kiện đã đăng</span>
@@ -89,8 +89,11 @@
         // Show/Hide Tabs
         $('.tab-content ' + currentAttrValue).show().siblings().hide();
  
+        $('.profile-tab li').removeClass('active');
+        $('.profile-tab li a').removeClass('active');
         // Change/remove current tab to active
         $(this).parent('li').addClass('active').siblings().removeClass('active');
+        $(this).addClass('active').siblings().removeClass('active');
  
         e.preventDefault();
     });

@@ -143,24 +143,11 @@
 </script>
 <div class="pt-block-left-event">
 	<div class="custom-container">
-        <a href="#" class="prev"><i class="fa fa-chevron-left"></i></a>
-        <div class="block-carousel">
-	        <div class="carousel">
-	            <ul>
-	            	<li class="active"><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	                <li><a href="#"><h3 class="title">Khai giản lớp vỗ cô truềng</h3><span>12-04-2105</span></a></li>
-	            </ul>
-	        </div>
-        </div>
-        <a href="#" class="next"><i class="fa fa-chevron-right"></i></i></a>
+        <?php  echo $this->element('thamgia/events_other', array(
+                                                'type_id'=> $data['type_id'],
+                                                'type_name' => $data['type_name'],
+                                                'event_id'=> $data['id']
+                                            )); ?>
     </div>
 	<div class="pt-block-content-event">
 		<h2 class="title"><?php echo isset($data['title']) ? $data['title'] : '';?></h2>
@@ -174,15 +161,35 @@
             <span>đã đăng <?php echo isset($data['created']) ? $data['created'] : '';  ?></span>
         </h3>
 			</div>
+            <?php
+            $number_review = $this->requestAction(array('controller' => 'comments', 'action' => 'getNumberReview', $data['id']));
+            ?>
 			<ul class="pt-list-reviews">
 				<li><strong>123</strong><span>Chia sẻ</span></li>
-				<li><strong>123</strong><span>Nhận xét</span></li>
+				<li><strong><?php echo $number_review; ?></strong><span>Nhận xét</span></li>
 			</ul>
+            <?php $url = $this->Html->url(null, true); ?>
 			<ul class="pt-list-socially">
-				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h1.jpg" alt=""></a></li>
-				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h2.jpg" alt=""></a></li>
-				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h3.jpg" alt=""></a></li>
-				<li><a href="#"><img src="<?php echo $this->Html->url('/'); ?>img/images/h4.jpg" alt=""></a></li>
+				<li>
+                    <a onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $url; ?>">
+                        <img src="<?php echo $this->Html->url('/'); ?>img/images/h1.jpg" alt="">
+                    </a>
+                </li>
+				<li>
+                    <a onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>">
+                        <img src="<?php echo $this->Html->url('/'); ?>img/images/h2.jpg" alt="">
+                    </a>
+                </li>
+				<li>
+                    <a onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" href="https://plus.google.com/share?url=<?php echo $url; ?>">
+                        <img src="<?php echo $this->Html->url('/'); ?>img/images/h3.jpg" alt="">
+                    </a>
+                </li>
+				<li>
+                    <a onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" href="https://www.linkedin.com/cws/share?url=<?php echo $url; ?>">
+                        <img src="<?php echo $this->Html->url('/'); ?>img/images/h4.jpg" alt="">
+                    </a>
+                </li>
 			</ul>
 		</div>
 		<div class="pt-block-content-event-text">

@@ -48,7 +48,7 @@
         echo $this->Html->script('jquery.fancybox-1.3.4.pack');
         echo $this->Html->script('stickyscroll');
         echo $this->Html->script('jquery.tinyscrollbar.min');
-        echo $this->Html->script('jquery.jcountdown1.3');
+        //echo $this->Html->script('jquery.jcountdown1.3');
         echo $this->Html->script('tipped');
         echo $this->Html->script('category.cycle');
         echo $this->Html->script('jquery-bubble-popup-v3.min');
@@ -70,6 +70,8 @@
         echo $this->Html->script('jquery.jcarousellite.min');
         echo $this->Html->script('jquery.colorbox-min');
         echo $this->Html->script('jquery.nicescroll.min');
+        echo $this->Html->script('jquery.blockUI');
+        echo $this->Html->script('jquery.countdown.min');
         echo $this->Html->script('common');
 
         echo $this->fetch('meta');

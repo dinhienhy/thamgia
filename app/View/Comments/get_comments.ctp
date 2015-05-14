@@ -45,7 +45,7 @@
                         <i class="fa fa-heart"></i>
                         Cảm ơn
                     </a>
-                    <span class="thank"><strong onmouseover="bubbleUsersThanks(this)"><?php echo $item['Comment']['thanks']; ?> người </strong>đã cảm ơn điều này</span>
+                    <span class="thank">| <strong onmouseover="bubbleUsersThanks(this)"><?php echo $item['Comment']['thanks']; ?> người </strong>đã cảm ơn điều này</span>
                     <div class="users-thanks" style="display: none;">
                         <?php echo $item['Comment']['usersThanks'];?>  
                     </div>

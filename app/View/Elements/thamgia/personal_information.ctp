@@ -15,7 +15,6 @@
 	<span><?php echo $data['City']['name']; ?></span>
 	<strong>Nghành nghề:</strong>
 	<span><?php echo $data['Career']['name']; ?></span>
-	<p>A 22 year ols Vietnam. I specialize in digital baranding, web-design and user interface design.</p>
 </div>
 <div class="popup-exchange">
     <div class="pt-send-messages" id="send-messages">

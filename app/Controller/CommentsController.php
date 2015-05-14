@@ -52,7 +52,7 @@
                 'Comment.id'
             );
             $options['order'] = array(
-                'Comment.created ASC'
+                'Comment.created DESC'
             );
             $data = $this->Comment->find('all', $options);
             
@@ -155,6 +155,18 @@
             );
             $total = $this->Comment->find('count', $options);
             $this->set('total', $total);
+        }
+        
+        function getNumberReview($event_id){
+            $this->autoRender = false;
+            
+            $isDailyCoupon = isset($_GET['is_daily_coupon']) ? $_GET['is_daily_coupon'] : false;
+            $options['conditions'] = array(
+                'Comment.event_id' => $event_id,
+                'Comment.is_daily_coupon' => $isDailyCoupon
+            );
+            $total = $this->Comment->find('count', $options);
+            return $total;
         }
         
         function thanksComment($comment_id){

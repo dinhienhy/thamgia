@@ -1,4 +1,13 @@
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#clock').countdown('<?php echo $timeCountDown; ?>', function(event) {
+           var $this = $(this).html(event.strftime('<ul>'
+             + '<li><span>%D</span>Ngày</li>'
+             + '<li><span>%H</span>Giờ</li>'
+             + '<li><span>%M</span>Phút</li>'
+             + '<li><span>%S</span>Giây</li></ul>'));
+         });
+    });
 	function thanksEvent(eventId, userId){
         $.ajax({
            type:"GET",
@@ -21,15 +30,14 @@
        });
     }
 </script>
-
 <div class="pt-notification pt-right-user-detail">
 	<div class="pt-notification-user">
 		<a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'profile', $owner_id)) ?>"><img src="<?php echo General::getUrlImage($avatar_url); ?>" alt=""></a>
 		<a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'profile', $owner_id)) ?>"><h3><?php echo $user_name; ?></h3></a>
 		<span class="style">Đã đăng <?php echo $created; ?></span>
 		<div class="pt-how">
-			<a href="#send-messages" class="pt-message cboxElement"><i class="fa fa-envelope-o"></i></a>
-			<a href="#send-messages" class="pt-message cboxElement pt-info-circle"><i class="fa fa-info-circle"></i></a>
+			<a href="#<?php echo $logged_in ? "send-messages" : "login"; ?>" class="pt-message cboxElement"><i class="fa fa-envelope-o"></i></a>
+			<a href="#<?php echo $logged_in ? "send-messages" : "login"; ?>" class="pt-message cboxElement pt-info-circle"><i class="fa fa-info-circle"></i></a>
 		</div>
 		<div class="block-general">
             <?php if($had_thanks == null){ ?>
@@ -52,23 +60,19 @@
 </div>
 <div class="pt-times-detail">
 	<h3 class="title">Thời gian tham gia</h3>
-	<ul>
-		<li><span>10</span>Ngày</li>
-		<li><span>58</span>Giờ</li>
-		<li><span>10</span>Phút</li>
-		<li><span>10</span>Ngây</li>
-	</ul>
+    <div id="clock">
+    </div>
 	<p><span><?php echo $totalParticipation; ?> người</span> đã tham gia</p>
 	<div class="pt-how">
-		<a href="#send-adherence" class="send">Tham gia ngay</a>
+		<a href="<?php echo $logged_in ? '#send-adherence' : '#login'; ?>" class="send">Tham gia ngay</a>
 	</div>
 </div>
-
 <div class="popup-exchange">
 	<div class="pt-send-messages" id="send-messages">
 		<h3 class="title"><i class="fa fa-paper-plane"></i> Gửi tin nhắn đến <?php echo $user_name; ?></h3>
-        <form method="post" action="">
-        	<textarea placeholder="Bạn điền nội dung tại đây ..." id="message" name="message" cols="50" rows="10" class="validate[required]"></textarea>
+        <form method="post" action="<?php echo $this->Html->url(array('controller'=>'Messages', 'action' => 'sendMessage')) ?>" method="post">
+            <input id="receiver" name="data[Message][receiver]" type="hidden" value="<?php echo $owner_id; ?>" />
+        	<textarea placeholder="Bạn điền nội dung tại đây ..." id="message" name="data[Message][content]" cols="50" rows="10" class="validate[required]"></textarea>
         	<input type="submit" class="send" value="Lưu ghi chú">
         </form>
 	</div>

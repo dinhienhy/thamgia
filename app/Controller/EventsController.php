@@ -357,7 +357,8 @@
                     }
                     
                     // get string time for time count down
-                    $timeCounDown = $startTimesObj->format('F') . ' ' . $startTimesObj->format('d') . ' ' . $startTimesObj->format('Y') . ' '. $startTimesObj->format('H'). ':'. $startTimesObj->format('i') . ':' . $startTimesObj->format('s');
+                    //$timeCounDown = $startTimesObj->format('F') . ' ' . $startTimesObj->format('d') . ' ' . $startTimesObj->format('Y') . ' '. $startTimesObj->format('H'). ':'. $startTimesObj->format('i') . ':' . $startTimesObj->format('s');
+                    $timeCounDown = $startTimesObj->format('Y') . '/' . $startTimesObj->format('m') . '/' . $startTimesObj->format('d') . ' '. $startTimesObj->format('H'). ':'. $startTimesObj->format('i') . ':' . $startTimesObj->format('s');
                     
                     $this->set('data', $data);    
                     $this->set('hasEvent', true);

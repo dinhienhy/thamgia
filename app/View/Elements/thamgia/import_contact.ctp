@@ -15,7 +15,7 @@
             <p>Lưu sự kiện vào điện thoại của bạn:</p>
             <a href="http://vi.wikipedia.org/wiki/M%C3%A3_QR" class="qr-code">QR code là gì ?</a>
             <a href=""><img src="<?php echo $this->Html->url('/'); ?>img/phone.png" alt="Image" title=""  /></a>
-            <?php echo $this->QrCode->text($event_address . '-' . $event_title); ?>
+            <?php echo $this->QrCode->text($event_address . '-' . $event_title,100); ?>
         </li>
     </ul>
 </div>

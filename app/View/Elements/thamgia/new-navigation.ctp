@@ -19,7 +19,7 @@
                     <?php } ?>
 				</div>
 				<h3 class="title"><a href="<?php echo $highlight['Highlight']['event_url']?>"><?php echo $highlight['Highlight']['title']; ?></a></h3>
-				<p>Xem chương trình tài trợ Xem chương trình tài trợ</p>
+				<p><?php echo $highlight['Highlight']['title']; ?></p>
 			</div>
 		</div>
         <?php } ?>
