@@ -3,7 +3,7 @@
 ?>
 <?php $userInformation = $this->requestAction(array('controller' => 'Users', 'action' => 'getUserInformation', $user_id)); ?>
 <div class="pt-notification-user">
-	<a href="#send-messages" class="pt-message"><i class="fa fa-envelope-o"></i></a>
+	<a href="<?php echo $logged_in ? '#send-messages' : '#login' ?>" class="pt-message"><i class="fa fa-envelope-o"></i></a>
     <?php if ($owner){ ?>
         <a title="Chỉnh sửa thông tin" href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'editProfile')); ?>" class="pt-edit-profile"><i class="fa fa-pencil-square"></i></i></a>
         <a title="Thay đổi mật khẩu" href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'changePassword')); ?>" class="pt-change-password"><i class="fa fa-pencil-square-o"></i></i></a>

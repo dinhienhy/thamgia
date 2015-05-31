@@ -1,6 +1,6 @@
 <?php
     class MessagesController extends AppController{
-        var $Helpers = array('Javascript', 'Ajax', 'Html');
+        var $Helpers = array('Javascript', 'Ajax', 'Html','Time');
         
         function beforeFilter(){
             parent::beforeFilter();
@@ -10,37 +10,29 @@
             $this->isAuthenticated();
             
             $this->layout = 'no_daily_coupon';
-            
-            $this->paginate = array(
-                'Message' => array(
-                    'limit' => DEFAULT_SIZE,
-                    'order' => array('Message.created' => 'desc'),
-                    'conditions' => array(
-                                    'Message.receiver =' => $this->_usersUserID(),
-                                    'Message.receiver_deleted' => false)
-                )                                           
-            );
-            
-            $dataPaginate = $this->paginate('Message');
-            $data = array();
-            $index = 0;
-            
-            foreach($dataPaginate as $message){
-                $data[$index] = array();
-                
-                $options['conditions'] = array(
-                    'User.id' => $message['Message']['sender']
-                );
-                $this->loadModel('User');
-                $user = $this->User->find('first', $options);
-                $data[$index]['id'] = $message['Message']['id'];
-                $data[$index]['sender'] = $user['User']['fullname'];
-                $data[$index]['viewed'] = $message['Message']['viewed'] ? 'viewed' : '';
-                $data[$index]['content'] = substr($message['Message']['content'], 0, LIMIT_MESSEAGE_CONTENT_SIZE);
-                $data[$index]['content'] .= strlen($message['Message']['content']) > LIMIT_MESSEAGE_CONTENT_SIZE ? '...' : '';
-                $data[$index]['time_elapse'] = $this->timeToString(time()-strtotime($message['Message']['created'])).' ago';
-                $index++;
+            $senders = $this->Message->find('all', array(
+               'fields' => 'DISTINCT Message.receiver',
+               'conditions' => array('Message.sender' => $this->_usersUserID())
+            ));
+            $sender_receiver = array();
+            if(is_array($senders)){
+                foreach($senders as $sender){
+                    array_push($sender_receiver, $sender['Message']['receiver']);
+                }
             }
+            $receivers = $this->Message->find('all', array(
+               'fields' => 'DISTINCT Message.sender',
+               'conditions' => array('Message.receiver' => $this->_usersUserID())
+            ));
+            if(is_array($receivers)){
+                foreach($receivers as $receiver){
+                    array_push($sender_receiver, $receiver['Message']['sender']);
+                }
+            }
+            $total_user = array_unique($sender_receiver);
+            
+            $data = $this->Message->findAllBySenderOrReceiver($this->_usersUserID(),$this->_usersUserID());
+            $this->set('all_user', $total_user);
             $this->set('data', $data); 
         }
         
@@ -48,10 +40,62 @@
             $this->isAuthenticated();
             
             $this->layout = 'no_daily_coupon';
+            $senders = $this->Message->find('all', array(
+               'fields' => 'DISTINCT Message.receiver',
+               'conditions' => array('Message.sender' => $this->_usersUserID())
+            ));
+            $sender_receiver = array();
+            if(is_array($senders)){
+                foreach($senders as $sender){
+                    array_push($sender_receiver, $sender['Message']['receiver']);
+                }
+            }
+            $receivers = $this->Message->find('all', array(
+               'fields' => 'DISTINCT Message.sender',
+               'conditions' => array('Message.receiver' => $this->_usersUserID())
+            ));
+            if(is_array($receivers)){
+                foreach($receivers as $receiver){
+                    array_push($sender_receiver, $receiver['Message']['sender']);
+                }
+            }
+            $total_user = array_unique($sender_receiver);
             
-            $data = $this->Message->findBySenderOrReceiver($this->_usersUserID(),$this->_usersUserID());
-            
+            $data = $this->Message->findAllBySenderOrReceiver($this->_usersUserID(),$this->_usersUserID());
+            $this->set('all_user', $total_user);
             $this->set('data', $data); 
+        }
+        
+        
+        function getMessageOfUser($user_id){
+            $this->autoRender = false;
+            $this->isAuthenticated();
+            $data = $this->Message->find('all', array(
+                'conditions' => array(
+                    'OR' => array(
+                        array(
+                            'AND' => array(
+                                array('sender' => $this->_usersUserID()),
+                                array('receiver' => $user_id)
+                            )
+                        ),
+                        array(
+                            'AND' => array(
+                                array('sender' => $user_id),
+                                array('receiver' => $this->_usersUserID())
+                            )
+                        )
+                    )
+                )
+            ));
+            if(is_array($data)){
+                $index = 0;
+                foreach($data as $mdata){
+                    $data[$index]['Message']['created'] = $this->timeToString(time()-strtotime($data[$index]['Message']['created'])).' trước';
+                    $index++;
+                }
+            }
+            return $data;
         }
         
         
@@ -357,6 +401,22 @@
                 else echo json_encode(0);                                                 
             }
             
+        }
+        
+        
+        function updateViewed($id_message){
+            $this->autoRender = false;
+            $data = array();
+            $message = $this->Message->findById($id_message);
+            if($message){
+                $message['Message']['viewed'] = true;
+                $this->Message->save($message);
+                $data['Success'] = true;
+            }else{
+                $data['Success'] = false;
+            }
+            $this->RequestHandler->respondAs('json');
+            echo json_encode($data);
         }
     }
     

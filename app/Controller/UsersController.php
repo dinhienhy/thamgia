@@ -105,6 +105,12 @@ class UsersController extends AppController{
                 $this->set('data', $user);
             }else{
                 $this->User->save($user);
+                //Change Password
+                if($data['current_password'] != "" && $data['password'] != "" && $data['password2'] && ($data['password'] == $data['password2'] )){
+                    
+                }
+                
+                
                 $this->redirect(array('controller' => 'Users', 'action' => 'profile', $this->_usersUserID()));    
             }
         }
@@ -330,6 +336,50 @@ class UsersController extends AppController{
         $data['count_inbox_items'] = $this->Message->find('count', $options);
         
         return $data;
+    }
+    
+    
+    //Lanh
+    function getUserInfo($user_id){
+        $this->autoRender = false;
+        $data = array();
+        $options['conditions'] = array(
+            'User.id' => $user_id
+        );
+        
+        $options['fields'] = array(
+            'User.fullname',
+            'User.cityid',
+            'User.careerid',
+            'User.email',
+            'User.avatar_url'
+        );
+        $user = $this->User->find('first', $options);
+        $optionsMes['conditions'] = array(
+            'Message.sender' => $user_id,
+            'Message.receiver' => $this->_usersUserID()
+        );
+        $optionsMes['fields'] = array(
+            'Message.created',
+            'Message.viewed',
+            'Message.id'
+        );
+        $optionsMes['order'] = array('Message.id' => 'desc');
+        $message = $this->Message->find('first', $optionsMes);
+        if($message){
+            $user['created'] = 'Đã gửi đến '.$this->timeToString(time()-strtotime($message['Message']['created'])).' trước';
+            if($message['Message']['viewed'] == 1){
+                $user['viewed'] = "";
+            }else{
+                $user['viewed'] = "not-view";
+                $user['id_message'] = $message['Message']['id'];
+            }
+        }
+        else{
+            $user['created'] = "";
+            $user['viewed'] = "";
+        }
+        return $user;
     }
 }
 ?>

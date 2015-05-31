@@ -52,13 +52,13 @@
     					<li class="w50">
     						<label>Ngày bắt đầu</label>
     						<div class="pt-datepicker">
-    							<input name="data[Event][start]" id="dpd11" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="chọn" type="text" value="<?php echo isset($data['start']) ? $data['start'] : '' ?>">
+    							<input name="data[Event][start]" id="start" class="span2 icon-input" placeholder="chọn" type="text" value="<?php echo isset($data['start']) ? $data['start'] : '' ?>">
     						</div>
     					</li>
     					<li class="w50">
     						<label>Ngày kết thúc</label>
     						<div class="pt-datepicker">
-    							<input name="data[Event][end]" id="dpd22" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="chọn" type="text" value="<?php echo isset($data['end']) ? $data['end'] : '' ?>">
+    							<input name="data[Event][end]" id="end" class="span2 icon-input"  placeholder="chọn" type="text" value="<?php echo isset($data['end']) ? $data['end'] : '' ?>">
                                 
     						</div>
     					</li>
@@ -105,9 +105,9 @@
     						<label>Hình ảnh</label>
     						<input type="file" class="validate[required]" name="data[Event][image]"  id="FileImage">
     					</li>
-    					<li>
-    						<label>Mô tả</label>
-    						<textarea id="message" name="data[Event][description]" cols="50" rows="10" class="validate[required]"></textarea>
+                        <li><label>Mô tả</label></li>
+                        <li>
+                            <?php echo $this->fck->ckeditor(array('Event', 'description'), $this->webroot, isset($data['description']) ? $data['description'] : ''); ?>
     					</li>
     					<li>
     						<input type="submit" class="send" value="Đăng sự kiện">

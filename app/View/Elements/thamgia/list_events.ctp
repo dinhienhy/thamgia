@@ -91,15 +91,13 @@
 	</div>
     <?php } ?>
 </div>
-<div class="view-more">
-    <img src="<?php echo $this->Html->url('/'); ?>img/ajax-loader.gif" alt="Image"  />
-    <!--<a href="#">Xem Thêm</a> -->
-</div>
+<div class="modal-loading" id="modal-loading" style="display: none;"><!-- Place at bottom of page --></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
          //lastAddedLiveFunc();
          window.loadMore = true;
+         $('.modal-loading').hide();
         $(window).scroll(function(){
 
             var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
@@ -207,8 +205,7 @@
    
     function loadMoreEvents(){
         window.loadMore = false;
-        $('.view-more img').show();
-        $('.view-more a').hide();
+        $('.modal-loading').show();
         var from = $("#events-new").find("div.item").last().attr("for");
         
         var data = new Array();
@@ -237,11 +234,8 @@
                     $('#events-new').append(data);
                     reorderList();
                     window.loadMore = true;
-                    /*$('.view-more img').hide('slow');
-                    $('.view-more a').show('slow');*/
+                    
                 }else{
-                    $('.view-more img').hide('slow');
-                    /*$('.view-more a').hide('slow');*/
                     window.loadMore = false;
                 }
                 
@@ -249,12 +243,13 @@
            error : function() {
                alert('Lỗi load sự kiện!');
            },
-       });    
+       });   
+       $('.modal-loading').hide(); 
     }
 
     function loadEventOfMonth(month){
         $('#events-new').empty();
-        $('.view-more a').show('slow');
+        $('.modal-loading').show('slow');
 
         data = {city_id: '<?php echo $city_id; ?>' , limit: 12, type_id: '<?php echo $type_id ?>', user_id: '<?php echo $user_id; ?>', month: month};
         url = '<?php echo $this->Html->url(array("controller" => "events", "action" => "moreEvents"))?>';
@@ -273,7 +268,6 @@
                     /*$('.view-more img').hide('slow');
                      $('.view-more a').show('slow');*/
                 }else{
-                    $('.view-more img').hide('slow');
                     /*$('.view-more a').hide('slow');*/
                     window.loadMore = false;
                 }
@@ -283,6 +277,7 @@
                 alert('Lỗi load sự kiện!');
             },
         });
+        $('.modal-loading').hide('slow');
     }
     
 </script>

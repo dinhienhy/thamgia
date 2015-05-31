@@ -61,6 +61,6 @@
             return $(this).attr("value") ==  month ;
         }).toggleClass('active');
         loadEventOfMonth(month);
-        $("html, body").animate({ scrollTop: 615 }, "slow");
+        $("html, body").animate({ scrollTop: 575 }, "slow");
     }
 </script>

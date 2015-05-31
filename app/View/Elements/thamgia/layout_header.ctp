@@ -27,12 +27,12 @@
         echo $this->Html->css('tipped');
         echo $this->Html->css('jquery-ui-timepicker-addon');
         echo $this->Html->css('jquery-bubble-popup-v3');*/
+        echo $this->Html->css('jquery-ui.min');
         
         //New temp
         echo $this->Html->css('font-awesome.min');
         echo $this->Html->css('colorbox');
         echo $this->Html->css('datepicker');
-        //echo $this->Html->css('bootstrap-datetimepicker');
         echo $this->Html->css('common');
         //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-1.11.0.min');
@@ -41,8 +41,8 @@
         echo $this->Html->script('UTM_Nokia_StandardB_700.font');
         echo $this->Html->script('UTM_NOKIA_STANDARD_400.font');
         echo $this->Html->script('jquery.ui.core');
-        echo $this->Html->script('jquery.ui.min.js');
-        echo $this->Html->script('ui.datepicker');
+        echo $this->Html->script('jquery-ui.min.js');
+        //echo $this->Html->script('ui.datepicker');
         echo $this->Html->script('validationEngine');
         echo $this->Html->script('validationEngine-vi');
         echo $this->Html->script('jquery.fancybox-1.3.4.pack');
@@ -62,10 +62,14 @@
         echo $this->Html->script('oauthpopup');
         
         //Script new temp
+        echo $this->Html->script('moment');
+        echo $this->Html->script('transition');
+        echo $this->Html->script('collapse');
         
         echo $this->Html->script('bootstrap.min');
-        echo $this->Html->script('bootstrap-datepicker');
-        //echo $this->Html->script('bootstrap-datetimepicker');
+        //echo $this->Html->script('bootstrap-datepicker');
+        //echo $this->Html->script('bootstrap-datetimepicker.min');
+        
         echo $this->Html->script('masonry.pkgd.min');
         echo $this->Html->script('jquery.jcarousellite.min');
         echo $this->Html->script('jquery.colorbox-min');

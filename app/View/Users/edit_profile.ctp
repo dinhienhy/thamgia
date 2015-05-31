@@ -65,9 +65,9 @@
                             <label>Mật khẩu</label>
                             <div class="pt-how">
                                 <a href="#">Đổi mật khẩu</a>
-                                <input type="text" name="is_name5" title="" value="" class="text" placeholder="Mật khẩu củ">
-                                <input type="text" name="is_name5" title="" value="" class="text" placeholder="Mật khẩu mới">
-                                <input type="text" name="is_name5" title="" value="" class="text" placeholder="Nhập lại mật khẩu mới">
+                                <input type="text" name="data[User][current_password]" title="" value="" class="text" placeholder="Mật khẩu cũ">
+                                <input type="text" name="data[User][password]" title="" value="" class="text" placeholder="Mật khẩu mới">
+                                <input type="text" name="data[User][password2]" title="" value="" class="text" placeholder="Nhập lại mật khẩu mới">
                                 <input type="submit" class="send" value="Cập nhật">
                             </div>
                         </li>
