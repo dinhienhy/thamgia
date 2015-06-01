@@ -37,6 +37,19 @@
             $this->layout = "no_daily_coupon";
             $this->loadModel('Career');
             $careers = $this->Career->find('all');
+            if($this->Session->read(CITY_ID) == 1){
+                $this->set('lat', 21.028385);
+                $this->set('long', 105.833960);
+            }
+            if($this->Session->read(CITY_ID) == 2){
+                $this->set('lat', 16.054350655605006);
+                $this->set('long', 108.20239305496216);
+            }
+            if($this->Session->read(CITY_ID) == 3){
+                $this->set('lat', 10.830504);
+                $this->set('long', 106.633938);
+            }
+            
             $this->set('careers', $careers);
             
             if ($this->request->is('post')){
@@ -49,6 +62,9 @@
                     $arrEvent['Event']['city_id'] = $data['city_id'];
                     $arrEvent['Event']['type_id'] = $data['type_id'];
                     $arrEvent['Event']['career_id'] = $data['career_id'];
+                    
+                    $arrEvent['Event']['lat'] = $data['lat'];
+                    $arrEvent['Event']['long'] = $data['long'];
                     
                     $startEvent = $this->clientDateToTime($data['start']);
                     $endEvent = $this->clientDateToTime($data['end']);
@@ -335,7 +351,7 @@
                     $data['is_daily_coupon'] = $event['Event']['is_daily_coupon'];
                     $data['avatar_url'] = $event['User']['avatar_url'];
                     $data['thanks'] = $event['Event']['thanks'];
-                    $data['had_thanks'] = $event['ThanksEvent']['id'];    
+                    $data['had_thanks'] = $event['ThanksEvent']['id'];  
                     
                     // get summary iformation for event
                     $options = array();
@@ -399,6 +415,51 @@
             }
         }
         
+        
+        function map($id = null){
+            $this->isAuthEvent($id);
+            $this->layout = "no_daily_coupon";
+            if($id){
+                $options['joins'] = array(
+                    array(
+                        'table' => 'cities',
+                        'alias' => 'City',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                        'City.id = Event.city_id',
+                        )
+                    ),
+                );
+                $options['conditions'] = array(
+                    'Event.id' => $id
+                );
+                $options['fields'] = array(
+                    'Event.lat',
+                    'Event.long',
+                    'Event.title',
+                    'Event.address',
+                    'Event.city_id',
+                    'City.name',
+                );
+                $event = $this->Event->find('first', $options); 
+                 if($event){
+                    $data = array();
+                    $data['lat'] = $event['Event']['lat'];
+                    $data['long'] = $event['Event']['long'];
+                    $data['title'] = $event['Event']['title'];
+                    $data['address'] = $event['Event']['address'] .', '.$event['City']['name'];
+                    $this->set('data', $data);
+                 }
+                 else{
+                    $this->redirect(array('controller'=>'home', 'action'=>'index'));
+                 }
+                
+            }else{
+                $this->redirect(array('controller'=>'home', 'action'=>'index'));
+            } 
+        }
+        
+        
         function edit($id = null){
             $this->isAuthEvent($id);
             $this->layout = "no_daily_coupon";
@@ -448,6 +509,8 @@
                     $arrEvent['Event']['hotline'] = $data['hotline'];
                     $arrEvent['Event']['description'] = $data['description'];
                     $arrEvent['Event']['updated'] = date(TIME_FORMAT_MYSQL);
+                    $arrEvent['Event']['lat'] = $data['lat'];
+                    $arrEvent['Event']['long'] = $data['long'];
                     
                     if ($data['image']['name'] != ''){
                         if ($dataUpload = $this->Uploader->upload($data['image'], array('overwrite' => true, 'name' => $this->generateCode()))) {

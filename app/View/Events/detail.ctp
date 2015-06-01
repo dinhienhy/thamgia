@@ -199,24 +199,28 @@
 				<div class="pt-block-content-event-left">
 					<ul>
 						<li>
-              <strong>Thể loại</strong>
-              <span>
-                  <a href="<?php echo $this->Html->url(array('controller' => 'Events', 
-                                                      'action' => 'getByType', 
-                                                      'slug_city' => Link::seoTitle($data['city_name']), 
-                                                      'city_id' => $data['city_id'],
-                                                      'slug_type' => Link::seoTitle($data['type_name']),
-                                                      'type_id' => $data['type_id'])); ?>">
-                      <?php echo isset($data['type'])? $data['type'] : '' ?>
-                  </a>
-              </span>
-            </li>
+                          <strong>Thể loại</strong>
+                          <span>
+                              <a href="<?php echo $this->Html->url(array('controller' => 'Events', 
+                                                                  'action' => 'getByType', 
+                                                                  'slug_city' => Link::seoTitle($data['city_name']), 
+                                                                  'city_id' => $data['city_id'],
+                                                                  'slug_type' => Link::seoTitle($data['type_name']),
+                                                                  'type_id' => $data['type_id'])); ?>">
+                                  <?php echo isset($data['type'])? $data['type'] : '' ?>
+                              </a>
+                          </span>
+                        </li>
 						<li><strong>Thời gian</strong><span><?php echo isset($data['start']) ? $data['start'] : '';?>   <br />   <?php echo isset($data['end']) ? $data['end'] : '';?></span></li>
 						<li><strong>Hotline</strong><span><?php echo isset($data['hotline']) ? $data['hotline'] : '';?></span></li>
 						<li><strong><?php echo $data['is_daily_coupon'] ? 'Chiết khấu' : 'Phí tham gia' ?></strong><span><?php echo isset($data['fee'])? $data['fee'] : ''; ?></span></li>
-						<li><strong>Địa điểm</strong><div class="pt-how"><span><?php echo isset($data['address']) ? $data['address'] : ''; ?></span><a href="#"><i class="fa fa-map-marker"></i> XEM BẢN ĐỒ</a></div></li>
+						<li><strong>Địa điểm</strong>
+                            <div class="pt-how"><span><?php echo isset($data['address']) ? $data['address'] : ''; ?></span>
+                                <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'map', $data['id'])); ?>"><i class="fa fa-map-marker"></i> XEM BẢN ĐỒ</a>
+                            </div>
+                        </li>
 					</ul>
-				</div>
+				</div>                
 			</div>
 			<div class="pt-block-content-event-content">
 				<?php 

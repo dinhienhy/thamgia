@@ -1,3 +1,46 @@
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+    var map;
+    var markers = [];
+    var myCenter=new google.maps.LatLng(<?php echo $lat; ?>,<?php echo $long; ?>);
+    
+    function initialize()
+    {
+    var mapProp = {
+      center:myCenter,
+      zoom:13,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+    
+      map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    
+      google.maps.event.addListener(map, 'click', function(event) {
+        //Loop through all the markers and remove
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+        placeMarker(event.latLng);
+      });
+    }
+    
+    function placeMarker(location) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+      });
+      var infowindow = new google.maps.InfoWindow({
+        content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+      });
+      infowindow.open(map,marker);
+      //Add marker to the array.
+      markers.push(marker);
+      $('#lat').val(location.lat());
+      $('#long').val(location.lng());
+    }
+    
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 <?php
     /*echo $this->Html->css('jquery-ui/smoothness/jquery-ui-1.8.22.custom'); */
     echo $this->Html->script('jquery.charsleft-0.1.js');
@@ -109,6 +152,21 @@
                         <li>
                             <?php echo $this->fck->ckeditor(array('Event', 'description'), $this->webroot, isset($data['description']) ? $data['description'] : ''); ?>
     					</li>
+                        <li class="w50">
+    						<label>Vĩ độ</label>
+    						<div class="">
+    							<input readonly="true" name="data[Event][lat]" id="lat" class="span2 icon-input" placeholder="Vĩ độ" type="text" value="">
+    						</div>
+    					</li>
+    					<li class="w50">
+    						<label>Kinh độ</label>
+    						<div class="">
+    							<input readonly="true" name="data[Event][long]" id="long" class="span2 icon-input"  placeholder="Kinh độ" type="text" value="">
+    						</div>
+    					</li>
+                        <li>
+                            <div id="googleMap" style="width:100%;height:380px;"></div>
+    					</li>
     					<li>
     						<input type="submit" class="send" value="Đăng sự kiện">
     					</li>
@@ -118,7 +176,6 @@
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
     $(document).ready(function(){

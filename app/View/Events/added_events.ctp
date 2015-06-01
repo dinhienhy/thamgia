@@ -63,8 +63,8 @@
                                     <a href="<?php echo $this->Html->url(array('controller' => 'Participations', 'action' => 'participationsOfEvent', $event['id'])) ?>"><p><span class="text-align"><?php echo $event['members']; ?> Thành viên  </span></p></a>
                                 </td>
                                 <td>
-                                    <a href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'edit', $event['id'])); ?>" class="notes"><i class="fa fa-pencil-square"></i> </a>|
-                                    <a onclick="return confirm('Bạn có chắc là muốn xóa sự kiện này?');"  href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'delete', $event['id'])); ?>" class="deleted"> Xóa</a>
+                                    <a title="Chỉnh sửa" href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'edit', $event['id'])); ?>" class="notes"><i class="fa fa-pencil-square"></i> </a>|
+                                    <a title="Xóa" onclick="return confirm('Bạn có chắc là muốn xóa sự kiện này?');"  href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'delete', $event['id'])); ?>" class="deleted"> <i class="fa fa-times-circle"></i></a>
                                 </td>
                                 <?php } ?>
                             </tr>
