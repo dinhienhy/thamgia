@@ -1,15 +1,40 @@
-<?php echo $this->Html->script('jquery.charsleft-0.1.js'); ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $("#fullname").charsLeft({
-            maxChars: 50,
-            attachment: "after",
-            charPrefix: "(Còn lại",
-            charSuffix: "ký tự)"
-        });
-        $("#frm_profile").validationEngine();
-    });
+    function changePassword(){
+        var current_pass = $('#current_password').val();
+        var pass = $('#password_new').val();
+        var pass2 = $('#password_new2').val();
+        if(current_pass == ""){
+            alert('Vui lòng nhập mật khẩu cũ');
+        }
+        else if(pass == ""){
+            alert('Vui lòng nhập mật khẩu mới');
+        }
+        else if(pass2 == ""){
+            alert('Vui lòng nhập lại mật khẩu mới');
+        }
+        else if(pass != pass2){
+            alert('Vui lòng nhập lại mật khẩu mới');
+        }
+        else{
+            $.ajax({
+               type:"GET",
+               async:true,
+               url:'<?php echo $this->Html->url(array("controller" => "users", "action" => "changePassword"))?>' + '/' + current_pass  + '/' + pass,
+               dataType: "json",
+               success : function(data) {
+                    alert(data.Message);
+                    $('#current_password').val('');
+                    $('#password_new').val('');
+                    $('#password_new2').val('');
+               },
+               error : function() {
+                   alert('Lỗi thay đổi mật khẩu!');
+               },
+           });
+        }
+    }
 </script>
+
 <?php if (isset($error)){?>
     <div class="error"><?php echo $error ?></div>
     <?php } ?>
@@ -29,7 +54,7 @@
                     <ul>
                         <li>
                             <label>Họ và tên</label>
-                            <input type="text" name="data[User][fullname]" title="" value="<?php echo isset($data['User']['fullname']) ? $data['User']['fullname'] : ''; ?>" class="text" placeholder="">
+                            <input type="text" name="data[User][fullname]" title="" value="<?php echo isset($data['User']['fullname']) ? $data['User']['fullname'] : ''; ?>" class="text" placeholder="" required>
                         </li>
                         <li>
                             <label>Đến từ</label>
@@ -64,10 +89,10 @@
                         <li>
                             <label>Mật khẩu</label>
                             <div class="pt-how">
-                                <a href="#">Đổi mật khẩu</a>
-                                <input type="text" name="data[User][current_password]" title="" value="" class="text" placeholder="Mật khẩu cũ">
-                                <input type="text" name="data[User][password]" title="" value="" class="text" placeholder="Mật khẩu mới">
-                                <input type="text" name="data[User][password2]" title="" value="" class="text" placeholder="Nhập lại mật khẩu mới">
+                                <a onclick="changePassword()" href="javascript:void(0);">Đổi mật khẩu</a>
+                                <input id="current_password" type="password" name="data[User][current_password]" title="" value="" class="text" placeholder="Mật khẩu cũ" >
+                                <input id="password_new" type="password" name="data[User][password]" title="" value="" class="text" placeholder="Mật khẩu mới">
+                                <input id="password_new2" type="password" name="data[User][password2]" title="" value="" class="text" placeholder="Nhập lại mật khẩu mới">
                                 <input type="submit" class="send" value="Cập nhật">
                             </div>
                         </li>

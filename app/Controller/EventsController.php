@@ -1,6 +1,7 @@
 <?php
     CakePlugin::load('Uploader');
     App::import('Vendor', 'Uploader.Uploader');
+    App::import('Vendor', 'shareCount');	
      class EventsController extends AppController{
          public $helpers = array('Fck', 'Html', 'QrCode');
          /*public $components = array('RequestHandler');*/
@@ -407,6 +408,16 @@
                     $this->set('meta_keywords', $metaKeywords);
                     $this->set('meta_description', $event['Event']['title'] . '-' . DEFAULT_META_DESCRIPTION . $this->Session->read(CITY_NAME));
                     
+                    //Get share count Lanh custom
+                    $url = Router::url( $this->here, true );
+                    $this->set('url', $url);
+                    $obj=new shareCount($url);  //Use your website or URL
+                    $share_tweets = $obj->get_tweets(); //to get tweets
+                    $share_fb = $obj->get_fb(); //to get facebook total count (likes+shares+comments)
+                    $share_linkedin = $obj->get_linkedin(); //to get linkedin shares
+                    $share_gg = $obj->get_plusones(); //to get google plusones
+                    $this->set('total_share', $share_fb + $share_gg + $share_linkedin + $share_tweets);
+                    
                 }else{
                     $this->redirect(array('controller'=>'home', 'action'=>'index'));
                 }                
@@ -417,7 +428,6 @@
         
         
         function map($id = null){
-            $this->isAuthEvent($id);
             $this->layout = "no_daily_coupon";
             if($id){
                 $options['joins'] = array(

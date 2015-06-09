@@ -129,7 +129,7 @@ class UsersController extends AppController{
                 
         }    
     }
-    
+   /* 
     function changePassword(){
         $this->layout = "no_column";
         $this->isAuthenticated();
@@ -151,7 +151,32 @@ class UsersController extends AppController{
                 $this->redirect(array('plugin'=>null,'controller'=>'Users','action'=>'changePassword'));
             }
         }
+    }*/
+    
+    
+    function changePassword2($current_pass, $pass){
+        $this->autoRender = false;
+        $this->isAuthenticated();
+        $data = array();
+        $options['conditions'] = array(
+            'User.id' => $this->_usersUserID(),
+            'User.password' => Security::hash($current_pass, 'md5', true)
+        );
+        
+        $userAuth = $this->User->find('first', $options);
+        if ($userAuth){
+            $userAuth['User']['password'] = Security::hash($pass, 'md5', true);
+            $this->User->save($userAuth);
+            $data['Success'] = true;
+            $data['Message']  = 'Đổi mật khẩu thành công.';
+        }else{
+            $data['Success']  = false;
+            $data['Message']  = 'Mật khẩu hiện tại không đúng. Xin vui lòng nhập lại';
+        }
+        $this->RequestHandler->respondAs('json');
+        echo json_encode($data);
     }
+    
     
     function search(){
         $this->layout = 'ajax';

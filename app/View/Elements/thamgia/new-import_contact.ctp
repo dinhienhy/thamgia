@@ -13,7 +13,7 @@
 	</div>
 	<h3 class="title">Lưu sự kiện vào điện thoại</h3>
 	<div class="code">
-        <?php echo $this->QrCode->text($event_address . '-' . $event_title, array('size' => '100x100')); ?>
+        <?php echo $this->QrCode->text($event_address . '-' . $event_title, array('size' => '100x100', 'margin'=>1)); ?>
 	</div>
 </div>
 <script type="text/javascript">

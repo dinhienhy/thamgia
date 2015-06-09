@@ -165,7 +165,7 @@
             $number_review = $this->requestAction(array('controller' => 'comments', 'action' => 'getNumberReview', $data['id']));
             ?>
 			<ul class="pt-list-reviews">
-				<li><strong>123</strong><span>Chia sẻ</span></li>
+				<li><strong><?php echo $total_share; ?></strong><span>Chia sẻ</span></li>
 				<li><strong><?php echo $number_review; ?></strong><span>Nhận xét</span></li>
 			</ul>
             <?php $url = $this->Html->url(null, true); ?>
@@ -263,7 +263,7 @@
                 <input onclick="sendComment(<?php echo $data['id'] ?>)" type="button" class="send" value="Gửi bình luận" />
 			</div>
             <?php } else { ?>
-                <p><span>Bạn vui lòng <a class="message" href="#" onclick="login(); return false;" >đăng nhập</a> trước để có thể tham gia bình luận</span></p>
+                <p><span>Bạn vui lòng <a class="message link-login" href="#login" >đăng nhập</a> trước để có thể tham gia bình luận</span></p>
             <?php } ?>
 			
 		</li>
