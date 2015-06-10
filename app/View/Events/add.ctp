@@ -76,11 +76,11 @@
                     <ul>
                         <li>
                             <label>Tên sự kiện</label>
-    				        <input type="text" name="data[Event][title]" title="" value="<?php echo isset($data['title']) ? $data['title'] : ''; ?>" class="validate[required] text" placeholder="Tên sự kiện">
+    				        <input type="text" name="data[Event][title]" title="" value="<?php echo isset($data['title']) ? $data['title'] : ''; ?>" class="validate[required] text" placeholder="Tên sự kiện" required>
                         </li>
                         <li>
     						<label>Địa điểm</label>
-    						<input type="text" name="data[Event][address]" title="" value="<?php echo isset($data['address']) ? $data['address'] : ''; ?>" id="address" class="validate[required] text" placeholder="Địa điểm">
+    						<input type="text" name="data[Event][address]" title="" value="<?php echo isset($data['address']) ? $data['address'] : ''; ?>" id="address" class="validate[required] text" placeholder="Địa điểm" required>
                             <div class="pt-select">
     							<i class="fa fa-angle-down"></i>
     							<select name="data[Event][city_id]">
@@ -95,13 +95,13 @@
     					<li class="w50">
     						<label>Ngày bắt đầu</label>
     						<div class="pt-datepicker">
-    							<input name="data[Event][start]" id="start" class="span2 icon-input" placeholder="chọn" type="text" value="<?php echo isset($data['start']) ? $data['start'] : '' ?>">
+    							<input name="data[Event][start]" id="start" class="span2 icon-input" placeholder="chọn" type="text" value="<?php echo isset($data['start']) ? $data['start'] : '' ?>" required>
     						</div>
     					</li>
     					<li class="w50">
     						<label>Ngày kết thúc</label>
     						<div class="pt-datepicker">
-    							<input name="data[Event][end]" id="end" class="span2 icon-input"  placeholder="chọn" type="text" value="<?php echo isset($data['end']) ? $data['end'] : '' ?>">
+    							<input name="data[Event][end]" id="end" class="span2 icon-input"  placeholder="chọn" type="text" value="<?php echo isset($data['end']) ? $data['end'] : '' ?>" required>
                                 
     						</div>
     					</li>
@@ -142,7 +142,7 @@
     					</li>
     					<li>
     						<label>Số điện thoại</label>
-    						<input type="text" name="data[Event][hotline]" title="" value="<?php echo isset($data['hotline']) ? $data['hotline'] : '' ?>" class="text" placeholder="Nhập số điện thoại của bạn">
+    						<input type="text" name="data[Event][hotline]" title="" value="<?php echo isset($data['hotline']) ? $data['hotline'] : '' ?>" class="text" placeholder="Nhập số điện thoại của bạn" required>
     					</li>
     					<li>
     						<label>Hình ảnh</label>

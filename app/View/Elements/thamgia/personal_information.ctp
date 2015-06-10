@@ -20,7 +20,7 @@
       <h3 class="title"><i class="fa fa-paper-plane"></i> Gửi tin nhắn đến <?php echo $data['User']['fullname']; ?></h3>
         <form onsubmit="return validateMessage();" action="<?php echo $this->Html->url(array('controller'=>'Messages', 'action' => 'sendMessage')) ?>" method="post">
           <input id="receiver" name="data[Message][receiver]" type="hidden" value="<?php echo $user_id; ?>" />
-          <textarea id="message" name="data[Message][content]" cols="50" rows="10" class="validate[required]" placeholder="Bạn điền nội dung tại đây ..."></textarea>
+          <textarea id="message" name="data[Message][content]" cols="50" rows="10" class="validate[required]" placeholder="Bạn điền nội dung tại đây ..." required></textarea>
           <input type="submit" class="send" value="Lưu ghi chú">
         </form>
     </div>

@@ -74,7 +74,7 @@
               <div class="pt-comment-chat">
                 <form onsubmit="return validateMessage();" action="<?php echo $this->Html->url(array('controller'=>'Messages', 'action' => 'sendMessage')) ?>" method="post">
                     <input id="receiver" name="data[Message][receiver]" type="hidden" value="<?php echo $user_id; ?>" />
-                    <textarea id="message" name="data[Message][content]" cols="50" rows="10" class="validate[required]" placeholder="Nhập tin nhắn"></textarea>
+                    <textarea id="message" name="data[Message][content]" cols="50" rows="10" class="validate[required]" placeholder="Nhập tin nhắn" required></textarea>
                     <input type="submit" class="send" value="Gửi">
                 </form>
               </div> 
