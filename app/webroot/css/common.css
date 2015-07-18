@@ -2524,6 +2524,7 @@ h2.title {
 }
 .pt-exchange-how .pt-exchange-block .block-footer .networking a .fa {
   font-size: 16px;
+  line-height: 55px;
 }
 @media screen and (max-width: 768px) {
   .pt-exchange-how .pt-exchange-block {
@@ -2992,6 +2993,7 @@ h2.title {
 }
 .pt-block-business-card .pt-block-business-card-left .pt-add-avatar .fa {
   font-size: 18px;
+  line-height: 135px;
 }
 .pt-block-business-card .pt-block-business-card-left .pt-add-avatar input {
   position: absolute;
@@ -4159,6 +4161,10 @@ h2.title {
   background: none #3396d1;
   margin: 5px 0px;
   float: right;
+}
+
+.tab-links.cards-tab li a.active{
+    background-color: rgba(0,0,0,.2);
 }
 
 .modal-loading {

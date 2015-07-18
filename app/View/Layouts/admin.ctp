@@ -66,6 +66,15 @@
             <li class="icn_add_user"><a href="<?php echo $this->Html->url(array('controller' => 'AccountEmails', 'action' => 'index')); ?>">Tài khoản email</a></li>
             <li class="icn_view_users"><a href="<?php echo $this->Html->url(array('controller' => 'AccountEmails', 'action' => 'inactive')); ?>">Email lỗi</a></li>
         </ul>
+        <h3>Loại danh thiếp</h3>
+        <ul class="toggle">
+            <li class="icn_categories"><a href="<?php echo $this->Html->url(array('controller' => 'Admin', 'action' => 'typeCards')); ?>">Loại danh thiếp</a></li>
+        </ul>
+        <h3>Danh thiếp</h3>
+        <ul class="toggle">
+            <li class="icn_tags"><a href="<?php echo $this->Html->url(array('controller' => 'Admin', 'action' => 'businessCardVips')); ?>">Danh thiếp VIP</a></li>
+            <li class="icn_categories"><a href="<?php echo $this->Html->url(array('controller' => 'Admin', 'action' => 'businessCards')); ?>">Danh thiếp</a></li>
+        </ul>
         
         <footer>
             <hr />

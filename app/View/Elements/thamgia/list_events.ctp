@@ -53,7 +53,7 @@
     					<a href="#login" class="link-login"><i class="fa fa-thumb-tack"></i>  Đánh dấu</a>
     				</div>
     				<div class="share">
-    					<a href="#login" class="link-login"><i class="fa fa-share"></i></a>
+    					<a href="<?php echo $url_detail; ?>"><i class="fa fa-share"></i></a>
     				</div>
                 <?php } else { ?>
                     <?php if ($event['ThanksEvent']['id'] == null){ ?>

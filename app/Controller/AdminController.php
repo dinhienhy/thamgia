@@ -816,5 +816,215 @@
             
             return $code;
         }
+        
+        
+        function businessCardVips(){
+            $this->isAdminAuthenticated();
+            $this->set('page_title', 'Danh Thiếp VIP'); 
+            $this->loadModel('BusinessCard');
+            $this->paginate = array(
+                'BusinessCard' => array(
+                    'limit' => DEFAULT_SIZE,
+                    'order' => array('BusinessCard.id' => 'desc'),
+                    'conditions' => array(
+                                    'BusinessCard.level =' => 10)
+                )
+            );
+            
+            $dataPaginate = $this->paginate('BusinessCard');
+            $data = array();
+            $index = 0;
+
+            foreach($dataPaginate as $card){
+                $data[$index] = array();
+                $options['conditions'] = array(
+                        'Career.id' => $card['BusinessCard']['careerid']
+                    );
+                $this->loadModel('Career');
+                $career = $this->Career->find('first', $options);
+                
+                $data[$index]['name'] = $card['BusinessCard']['name'];
+                $data[$index]['id'] = $card['BusinessCard']['id'];
+                $data[$index]['name_company'] = $card['BusinessCard']['name_company'];
+                $data[$index]['mobile'] = $card['BusinessCard']['mobile'];
+                $data[$index]['email'] = $card['BusinessCard']['email'];
+                $data[$index]['career'] = $career['Career']['name'];
+                $index++;
+            }
+            $this->set('data', $data);  
+        }
+        
+        
+        function businessCards(){
+            $this->isAdminAuthenticated();
+            $this->set('page_title', 'Danh Thiếp'); 
+            $this->loadModel('BusinessCard');
+            $this->paginate = array(
+                'BusinessCard' => array(
+                    'limit' => DEFAULT_SIZE,
+                    'order' => array('BusinessCard.id' => 'desc'),
+                    'conditions' => array(
+                                    'BusinessCard.level =' => 1)
+                )
+            );
+            
+            $dataPaginate = $this->paginate('BusinessCard');
+            $data = array();
+            $index = 0;
+
+            foreach($dataPaginate as $card){
+                $data[$index] = array();
+                $options['conditions'] = array(
+                        'Career.id' => $card['BusinessCard']['careerid']
+                    );
+                $this->loadModel('Career');
+                $career = $this->Career->find('first', $options);
+                
+                $data[$index]['name'] = $card['BusinessCard']['name'];
+                $data[$index]['id'] = $card['BusinessCard']['id'];
+                $data[$index]['name_company'] = $card['BusinessCard']['name_company'];
+                $data[$index]['mobile'] = $card['BusinessCard']['mobile'];
+                $data[$index]['email'] = $card['BusinessCard']['email'];
+                $data[$index]['career'] = $career['Career']['name'];
+                $index++;
+            }
+            $this->set('data', $data);
+        }
+        
+        
+        function editCard($id,$is_vip = 0){
+            $this->isAdminAuthenticated();
+            
+            $this->loadModel('BusinessCard');
+            
+            $this->loadModel('Career');
+            $careers = $this->Career->find('all');
+            $this->set('careers', $careers);
+            
+            $this->loadModel('TemplateCard');
+            $templates = $this->TemplateCard->find('all');
+            $this->set('templates', $templates);
+            
+            $this->loadModel('TypeCard');
+            $typeCards = $this->TypeCard->find('all',array(
+                'order' => array('TypeCard.order')
+            ));
+            $this->set('typeCards',$typeCards);
+            
+            $this->set('is_vip',$is_vip);
+            
+            $this->BusinessCard->id = $id;
+            $business_card = $this->BusinessCard->read();
+            
+             if ($this->request->is("get")){
+                $this->set('data', $business_card['BusinessCard']);
+            }else if ($this->request->is("post")){
+                $error = null;
+                $data  = $this->request->data('BusinessCard');
+                if ($error == null){
+                    $arrCard['BusinessCard'] = array();
+                    $arrCard['BusinessCard']['id'] = $data['id'];
+                    $arrCard['BusinessCard']['email'] = $data['email'];
+                    $arrCard['BusinessCard']['name'] = $data['name'];
+                    $arrCard['BusinessCard']['name_company'] = $data['name_company'];
+                    $arrCard['BusinessCard']['mobile'] = $data['mobile'];
+                    $arrCard['BusinessCard']['address'] = $data['address'];
+                    $arrCard['BusinessCard']['website'] = $data['website'];
+                    $arrCard['BusinessCard']['facebook'] = $data['facebook'];
+                    $arrCard['BusinessCard']['linkedin'] = $data['linkedin'];
+                    $arrCard['BusinessCard']['careerid'] = $data['careerid'];
+                    $arrCard['BusinessCard']['careerid2'] = $data['careerid2'];
+                    $arrCard['BusinessCard']['template_id'] = $data['template_id'];
+                    $arrCard['BusinessCard']['type_card_id'] = $data['type_card_id'];
+                    $arrCard['BusinessCard']['position'] = $data['position'];
+                    if ($data['avatar']['name'] != ''){
+                        if ($dataUpload = $this->Uploader->upload($data['avatar'], array('overwrite' => true))) {
+                            // Upload successful, do whatever
+                            $resized_path = $this->Uploader->resize(array('width' => AVATAR_WIDTH, 'height' => AVATAR_HEIGHT));
+                            $this->Uploader->delete($dataUpload['path']);
+                            $arrCard['BusinessCard']['avatar_url'] = preg_replace('/^\//', '', $resized_path);
+                        }else{
+                            $error .= 'Lỗi upload ảnh!<br />';
+                        }        
+                    }
+                }
+                
+                if ($error != null){ // has error
+                    $this->set('data', $data);
+                    $this->set('error', $error);
+                }
+                else{
+                    $this->BusinessCard->save($arrCard);
+                    if($is_vip == 1){
+                        $this->redirect(array('controller'=>'Admin', 'action'=>'businessCardVips'));
+                    }
+                    $this->redirect(array('controller'=>'Admin', 'action'=>'businessCards'));
+                }
+            }
+               
+        }
+        
+        
+        function deleteCard($id, $is_vip = 0){
+            $this->isAdminAuthenticated();
+            $this->loadModel('BusinessCard');
+            $this->BusinessCard->delete($id, true);
+            if($is_vip == 1){
+                $this->redirect(array('controller'=>'Admin', 'action'=>'businessCardVips'));
+            }
+            $this->redirect(array('controller'=>'Admin', 'action'=>'businessCards'));   
+        }
+        
+        
+        function typeCards(){
+            $this->isAdminAuthenticated();
+            
+            $this->set('page_title', 'Loại danh thiếp');
+            $this->loadModel('TypeCard');
+            $data = $this->TypeCard->find('all',array(
+                'order' => array('TypeCard.order'),
+            ));
+            $this->set('data',$data);
+        }
+        
+        
+        function addTypeCard(){
+            $this->isAdminAuthenticated();
+            
+            $this->set('page_title', 'Thêm loại danh thiếp');
+            if ($this->request->is('post')){
+                $data  = $this->request->data('TypeCard');
+                $typeCard['TypeCard'] = array();
+                $typeCard['TypeCard']['name'] = $data['name'];
+                $typeCard['TypeCard']['order'] = $data['order']; 
+                $typeCard['TypeCard']['class'] = $data['class'];
+                $this->loadModel('TypeCard');
+                $this->TypeCard->save($typeCard);
+                $this->redirect(array('controller'=>'Admin', 'action'=>'typeCards'));
+            }
+        }
+        
+        
+        function editTypeCard($id){
+            $this->isAdminAuthenticated();
+            $this->set('page_title', 'Sửa loại danh thiếp');
+            $this->loadModel('TypeCard');
+            
+            $this->TypeCard->id = $id;
+            $typeCard = $this->TypeCard->read();
+            
+            if ($this->request->is("get")){
+                $this->set('data', $typeCard['TypeCard']);
+            }else if ($this->request->is("post")){
+                $data  = $this->request->data('TypeCard');
+                $type_card['TypeCard'] = array();
+                $type_card['TypeCard']['id'] = $id;
+                $type_card['TypeCard']['name'] = $data['name'];
+                $type_card['TypeCard']['order'] = $data['order'];
+                $type_card['TypeCard']['class'] = $data['class'];
+                $this->TypeCard->save($type_card);
+                $this->redirect(array('controller'=>'Admin', 'action'=>'typeCards')); 
+            }  
+        }
     }
 ?>

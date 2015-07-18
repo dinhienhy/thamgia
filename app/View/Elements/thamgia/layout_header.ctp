@@ -45,7 +45,7 @@
         //echo $this->Html->script('ui.datepicker');
         echo $this->Html->script('validationEngine');
         echo $this->Html->script('validationEngine-vi');
-        echo $this->Html->script('jquery.fancybox-1.3.4.pack');
+        //echo $this->Html->script('jquery.fancybox-1.3.4.pack');
         echo $this->Html->script('stickyscroll');
         echo $this->Html->script('jquery.tinyscrollbar.min');
         //echo $this->Html->script('jquery.jcountdown1.3');

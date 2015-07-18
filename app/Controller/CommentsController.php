@@ -483,5 +483,38 @@
                  
              }                
         }
+        
+                
+        function getCommentActivities($event_id){
+            $this->autoRender = false;
+            $isDailyCoupon = isset($_GET['is_daily_coupon']) ? $_GET['is_daily_coupon'] : false;
+            $options['joins'] = array(
+                    array(
+                            'table' => 'users',
+                            'alias' => 'User',
+                            'type' => 'LEFT',
+                            'conditions' => array(
+                            'User.id = Comment.user_id',
+                            )
+                    )
+            );
+            $options['conditions'] = array(
+                'Comment.event_id' => $event_id,
+                'Comment.is_daily_coupon' => $isDailyCoupon
+            );
+            $options['fields'] = array(
+                'User.id',
+                'User.fullname',
+                'User.avatar_url',
+                'Comment.comment',
+                'Comment.created',
+                'Comment.id'
+            );
+            $options['order'] = array(
+                'Comment.created DESC'
+            );
+            $data = $this->Comment->find('all', $options);            
+            return $data;
+        }
     }  
 ?>

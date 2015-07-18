@@ -31,7 +31,7 @@ class ThanksEventsController extends AppController{
         echo json_encode($data);
     }
     
-    function getThanksEvent($event_id){
+    function getThanksEventbk($event_id){
         $this->autoRender = false;
         $options['joins'] = array(
             array(
@@ -55,6 +55,30 @@ class ThanksEventsController extends AppController{
             $result .= $item['User']['fullname'] . " <br /> ";
         }
         return $result;
+    }
+    
+    
+    function getThanksEvent($event_id){
+        $this->autoRender = false;
+        $options['joins'] = array(
+            array(
+                    'table' => 'users',
+                    'alias' => 'User',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                    'User.id = ThanksEvent.user_id',
+                    )
+            )
+        );
+        $options['conditions'] = array(
+                'ThanksEvent.event_id' => $event_id
+            );
+        $options['fields'] = array(
+            'User.id',
+            'User.fullname',
+        );    
+        $userThanks = $this->ThanksEvent->find('all', $options);
+        return $userThanks;
     }
 }
 ?>

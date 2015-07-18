@@ -49,7 +49,8 @@ class UsersController extends AppController{
         $this->Session->delete(AUTH_USER_FULLNAME);
         $this->Session->delete(AUTH_USER_LEVEL);
         $this->Session->delete(AUTH_USER_EMAIL);
-        $this->redirect(env('HTTP_REFERER'));
+        //$this->redirect(env('HTTP_REFERER'));
+        $this->redirect(array('plugin'=>null,'controller'=>'Home','action'=>'index')); 
     }
     
     function redirectLogined(){
