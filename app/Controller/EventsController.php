@@ -1231,14 +1231,23 @@
                                 'PinsUser.event_id = Event.id',
                                 'PinsUser.user_id' => $user_id
                             )
+                    ),
+                    array(
+                            'table' => 'thanks_events',
+                            'alias' => 'ThanksEvent',
+                            'type' => 'LEFT',
+                            'conditions' => array(
+                                'ThanksEvent.event_id = Event.id',
+                                'ThanksEvent.user_id' => $user_id
+                            )
                     )
                 );
 
 
-            $options['fields'] = array('User.fullname', 'Event.title', 'Event.views'
+            $options['fields'] = array('User.fullname', 'User.created', 'User.avatar_url', 'Event.title', 'Event.views'
                                         ,'Event.address', 'Event.image_url','Event.image_list_url'
                                         ,'Event.start', 'Event.title', 'Event.id', 'Event.user_id'
-                                        ,'PinsUser.id', 'PinsUser.event_id', 'Event.thanks');
+                                        ,'PinsUser.id', 'PinsUser.event_id', 'Event.thanks','ThanksEvent.id');
             $data = $this->Event->find('all', $options);
             return $data;
         }

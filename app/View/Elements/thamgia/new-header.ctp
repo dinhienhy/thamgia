@@ -1,5 +1,5 @@
 <?php 
-    $default_search = "SEARCH..." ;
+    $default_search = "Tìm kiếm..." ;
 ?>
 
 <?php  
@@ -38,12 +38,12 @@
 					</ul>
 				</div>
 				<div class="pt-search pull-left">
-					<button class="button-search" title="Search" type="submit"><i class="fa fa-search"></i></button>
-					<input class="input-text" type="text" onblur="if(this.value=='') this.value='Tìm kiếm...'" onfocus="if(this.value=='Tìm kiếm...') this.value='';" value="Tìm kiếm...">
+					<button class="button-search" onclick="search()" title="Search" type="submit"><i class="fa fa-search"></i></button>
+					<input id="search" class="input-text" type="text" onblur="if(this.value=='') this.value='<?php echo $default_search; ?>'" onfocus="if(this.value=='<?php echo $default_search; ?>') this.value='';" value="<?php echo $default_search; ?>">
 					<div class="pt-block-content-search">
 						<div class="pt-select">
 							<i class="fa fa-angle-down"></i>
-							<select>
+							<select id="search_type_id">
 								<option value="0"> Tất cả thể loại</option>
                                 <?php foreach($types as $type){ ?>
                                     <option value="<?php echo $type['Type']['id'] ?>"> <?php echo $type['Type']['name']; ?> </option>
@@ -51,13 +51,13 @@
 							</select>
 						</div>
 						<div class="pt-datepicker">
-							<input name="data[Booking][arrivaldate]" id="dpd1" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="" type="text">
+							<input name="data[Booking][arrivaldate]" id="fromdate" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="" type="text">
 						</div>
 						<div class="pt-den">
 							Đến
 						</div>
 						<div class="pt-datepicker">
-							<input name="data[Booking][departuredate]" id="dpd2" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="" type="text">
+							<input name="data[Booking][departuredate]" id="todate" class="span2 icon-input" data-date-format="dd-mm-yyyy" placeholder="" type="text">
 						</div>
 					</div>
 				</div>
@@ -238,7 +238,7 @@
                             <a href="#" class="password">Quên mật khẩu?</a>
                         </li>
                         <li class="last">
-                        	<a href="#" class="facebook"><i class="fa fa-facebook"></i> Đăng nhập qua facebook</a>
+                        	<a href="javascript:" onclick="loginFacebook()" class="facebook"><i class="fa fa-facebook"></i> Đăng nhập qua facebook</a>
                         </li>
                     </ul>
                      <div class="link-sigup-popup">
@@ -280,7 +280,7 @@
                         <li class="control">
                         	<input type="checkbox" name="is_subscribed" title="" value="1" id="is_subscribed" class="checkbox">
                             <label for="is_subscribed">Tôi đã đọc và đồng ý với</label>
-                            <a href="#" class="thamgia">Các điều khoản của Thamgia.net</a>
+                            <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Home', 'action' => 'terms' )); ?>" class="thamgia">Các điều khoản của Thamgia.net</a>
                         </li>
                     </ul>
                      <div class="link-sigup-popup">
@@ -293,6 +293,23 @@
 </div>
 <script type="text/javascript">
         $(document).ready(function() {  
+            
+            $( "#fromdate" ).datepicker({
+              dateFormat: 'dd/mm/yy',
+              minDate: new Date(),
+              onClose: function( selectedDate ) {
+                $( "#todate" ).datepicker( "option", "minDate", selectedDate );
+              }
+            });
+            $( "#todate" ).datepicker({
+              dateFormat: 'dd/mm/yy',
+              onClose: function( selectedDate ) {
+                $( "#fromdate" ).datepicker( "option", "maxDate", selectedDate );
+              }
+            });
+            
+            
+            
             $(".notification-infox").click(
                 function(){
                     $(".notifications").toggleClass("notifications01");
@@ -364,7 +381,7 @@
         }
         
         function search(){
-            var searchUrl = '<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'search')); ?>' + '/' + '<?php echo isset($city_id) ? $city_id : DEFAULT_CITY_ID;?>' + '/' + $('#type_id').val();
+            var searchUrl = '<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'search')); ?>' + '/' + '<?php echo isset($city_id) ? $city_id : DEFAULT_CITY_ID;?>' + '/' + $('#search_type_id').val();
             //var free = $('#free').attr('checked') ? 1 : 0;
             var fromDate = $('#fromdate').val() != '' ? $('#fromdate').val() : '0';
             fromDate = fromDate.replace('/', '-');

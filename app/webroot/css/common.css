@@ -4167,6 +4167,73 @@ h2.title {
     background-color: rgba(0,0,0,.2);
 }
 
+h2.titel{
+    border-bottom: 1px solid #e0e0e0;
+    padding: 17px 0px 10px;
+    margin: 10px 0;
+    font-size: 20px;
+}
+.advertisement, .terms{
+    color: #000;
+}
+.advertisement .table{
+    font-weight: bold;
+}
+.advertisement .table a{
+    color: #00a1e3;
+}
+.advertisement .table th{
+    text-align: center;
+    background-color: #f1f1f4;
+    font-size: 16px;
+}
+.advertisement .table td.type-ads{
+    color: #008cc7;
+}
+.advertisement .table td.number,.advertisement .table td.type-ads,.advertisement .table td.price{
+    text-align: center;
+}
+.advertisement .contact{
+    display: inline-block;
+    background-color: #40addb;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    font-size: 18px;
+}
+.advertisement .contact i.fa{
+    font-size: 40px;
+    vertical-align: middle;
+}
+.advertisement .advertisement-img img{
+    margin: 0 auto;
+}
+.content{
+    background-color: #ededed;
+    padding: 10px;
+}
+.content > div{
+    background-color: #fff;
+    padding: 10px 10px 20px;
+    border-radius: 3px;
+}
+.terms p{
+    line-height: 20px;
+}
+.terms h2{
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0;
+}
+.terms h3 {
+  font-size: 14px;
+  padding: 15px 0 10px;
+}
+.terms ul{
+    margin-left: 30px;
+}
+
 .modal-loading {
     position:   fixed;
     z-index:    1000;

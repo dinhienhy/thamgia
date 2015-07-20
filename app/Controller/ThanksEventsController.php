@@ -29,6 +29,7 @@ class ThanksEventsController extends AppController{
         }
         $this->RequestHandler->respondAs('json');
         echo json_encode($data);
+        exit();
     }
     
     function getThanksEventbk($event_id){

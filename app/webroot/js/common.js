@@ -87,6 +87,12 @@ $(document).ready(function(){
    
     /*------- NiceScroll -------------*/
     $(".pt-info-content-stt").niceScroll(".pt-info-content-stt .pt-niceScroll",{boxzoom:true}); 
+    
+    /*------------Hien Custom-----------*/
+    $('.pt-block-content-search.pt-block-content-search-active').mouseout(function() {
+      $('.pt-block-content-search.pt-block-content-search-active').removeClass("pt-block-content-search-active");
+    });
+    
 });	
 	
 	
