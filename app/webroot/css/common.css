@@ -4233,6 +4233,29 @@ h2.titel{
 .terms ul{
     margin-left: 30px;
 }
+.introduction{
+    padding: 15px;
+}
+
+.introduction h3{
+  font-size: 30px;
+  color: #008cc7;
+  font-weight: bold;
+  line-height: 37px;
+  text-transform: uppercase;
+  margin: 25px 0;
+}
+.introduction h4{
+  font-size: 25px;
+  color: #008cc7;
+  font-weight: bold;
+}
+.introduction img{
+    margin: 10px 0;
+}
+.introduction h2.titel{
+    color: #000;
+}
 
 .modal-loading {
     position:   fixed;

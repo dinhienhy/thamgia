@@ -1,7 +1,7 @@
 <ul>
     <li>
         <a href="<?php echo $this->Html->url(array("controller" => "Exchanges", "action" => "index")); ?>" <?php echo ($card_type_id==0) ? 'class="active"' :''; ?>>
-            <i class="fa fa-th"></i>Trang đầu <span>09</span>
+            <i class="fa fa-th"></i>Trang đầu
         </a>
     </li>
     <?php foreach($typeCards as $typeCard){ ?>
@@ -14,7 +14,6 @@
             <?php echo ($card_type_id == $typeCard['TypeCard']['id']) ? 'class="active"' : ''; ?>>
                 <i class="fa fa-th"></i>
                 <?php echo $typeCard['TypeCard']['name']; ?> 
-                <span>09</span>
             </a>
         </li>
     <?php } ?>
