@@ -33,6 +33,7 @@
         echo $this->Html->css('font-awesome.min');
         echo $this->Html->css('colorbox');
         echo $this->Html->css('datepicker');
+        echo $this->Html->css('messageBox');
         echo $this->Html->css('common');
         //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-1.11.0.min');

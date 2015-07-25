@@ -4212,6 +4212,7 @@ h2.titel{
 .content{
     background-color: #ededed;
     padding: 10px;
+    color: #000;
 }
 .content > div{
     background-color: #fff;
@@ -4255,6 +4256,31 @@ h2.titel{
 }
 .introduction h2.titel{
     color: #000;
+}
+.pt-notify a.view-all{
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+}
+.pt-notify .dropdown-menu.pt-block-stt .pt-info-content-stt .pt-list-comment li.not-view{
+    background-color: #efefef;
+}
+.form-login a.facebook{
+    background-color: #5070a9;
+    color: #fff;
+    padding: 6px 0;
+    width: 100%;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #3f62a0;
+}
+.form-login a.facebook:hover{
+    background-color: #0977B8;
+}
+.form-login a.facebook .fa{
+    margin-right: 10px;
 }
 
 .modal-loading {

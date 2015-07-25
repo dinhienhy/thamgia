@@ -114,86 +114,21 @@
                                                 </li>
                                                 <?php } ?>
                                                 <?php foreach($notifications as $item){ ?>
-												<li>
+												<li <?php echo $item['Notification']['viewed'] ? '' : 'class="not-view"'; ?>>
 													<div class="block-user">
-														<a href="#">
+														<a href="<?php echo  $item['Notification']['link']; ?>" target="_blank" <?php echo $item['Notification']['viewed'] ? "" : "onclick='return viewNotification(this, ".$item['Notification']['id'].");'"; ?> >
 															<img src="<?php echo $this->Html->url('/'). ( $item['Notification']['image_url'] != '' ? $item['Notification']['image_url'] : NO_IMG_URL );  ?>" alt="">
 															<div class="block-content-text">
-																<h3 class="title"><span class="user-name"><?php echo $item['Notification']['notification']; ?></span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
+																<h3 class="title"><span class="user-name"><?php echo $item['Notification']['notification']; ?></span></h3>
 																<p><?php echo General::getTimeElapse($item['Notification']['created']); ?></p>
 															</div>
 														</a>
 													</div>
 												</li>
                                                 <?php } ?>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="block-user">
-														<a href="#">
-															<img src="img/images/sk2.jpg" alt="">
-															<div class="block-content-text">
-																<h3 class="title"><span class="user-name">Hồng Nhung</span>vừa đăng sự kiện <strong>Đà tạo chứng chỉ văn thư lưu trữ trên toàn quốc</strong></h3>
-																<p>1 giờ trước</p>
-															</div>
-														</a>
-													</div>
-												</li>
 											</ul>
 										</div>
+                                        <a class="view-all" href="<?php echo $this->Html->url(array("controller" => "Notifications", "action" => "index")); ?>">Xem tất cả</a>
 									</div>
 								 </div>
 							</div>
@@ -235,7 +170,7 @@
                         <li class="control">
                         	<input type="checkbox" name="is_subscribed" title="" value="1" id="is_subscribed" class="checkbox">
                             <label for="is_subscribed">Ghi nhớ đăng nhập</label>
-                            <a href="#" class="password">Quên mật khẩu?</a>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'forgotPassword')); ?>" class="password">Quên mật khẩu?</a>
                         </li>
                         <li class="last">
                         	<a href="javascript:" onclick="loginFacebook()" class="facebook"><i class="fa fa-facebook"></i> Đăng nhập qua facebook</a>
@@ -394,16 +329,11 @@
             window.location = searchUrl;
         }   
         function viewNotification(e, notification_id){
-            $(e).removeClass('not-view');
-            
+            $(e).parent().parent().removeClass('not-view');
+        
             // change notification infor
-            var countNotification = $('#notification-infor').text();
-            if (countNotification == '1'){
-                $('#notification-infor').css('display', 'none');
-            }else{
-                $('#notification-infor').text(countNotification - 1);
-            }
-            
+            var countNotification = $('.pt-notify .number').text();
+            $('.pt-notify .number').text(countNotification - 1);
             // mark viewed for notification
             $.ajax({
                type:"GET",

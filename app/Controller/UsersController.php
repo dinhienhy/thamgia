@@ -16,7 +16,7 @@ class UsersController extends AppController{
      */    
     function login(){
         $this->redirectLogined();
-        $this->layout = "no_column";
+        $this->layout = "default";
         
         if ($this->request->is('post')){
             $user = $this->request->data('User');
@@ -188,7 +188,7 @@ class UsersController extends AppController{
     }
     
     function forgotPassword(){
-        $this->layout = 'no_column';
+        $this->layout = 'default';
         $this->redirectLogined();
         if ($this->request->is('post')){
             $data = $this->request->data('User');
