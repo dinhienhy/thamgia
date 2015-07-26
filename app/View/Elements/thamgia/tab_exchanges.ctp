@@ -1,5 +1,8 @@
 <?php
 if(!isset($card_type_id)) $card_type_id = 0;
+if($logged_in){
+    $count_box_card = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'countYourBoxCard', $user_id));
+}
 ?>
 <?php $card_vips = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCardVips', 4,$card_type_id, $user_id)); ?>
 <?php $cards = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCards', 16, $card_type_id, $user_id)); ?>
@@ -14,7 +17,7 @@ if(!isset($card_type_id)) $card_type_id = 0;
 </div>
 <div class="pt-exchange-menu-content">
 	<ul>
-		<li><a href="#"><i class="fa fa-credit-card"></i> Hội danh thiếp (50)</a></li>
+		<li><a class="<?php echo $logged_in ? '':'link-login'; ?>" href="<?php echo $logged_in ? $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'boxCards')) : '#login' ?>"><i class="fa fa-credit-card"></i> Hội danh thiếp <?php echo isset($count_box_card) ? "(".$count_box_card.")" :""; ?></a></li>
 		<li><a class="<?php echo $logged_in ? '':'link-login'; ?>" href="<?php echo $logged_in ? $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'myCards')) : '#login' ?>"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
 	</ul>
 </div>

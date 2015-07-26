@@ -239,6 +239,76 @@ class BusinessCardsController extends AppController{
     function boxCards(){
         $this->isAuthenticated();
         $this->layout = "business";
+        $options['joins'] = array(
+            array(
+                'table' => 'type_cards',
+                'alias' => 'TypeCard',
+                'type' => 'LEFT',
+                'conditions' => array(
+                'TypeCard.id = BusinessCard.type_card_id',
+                )
+            )
+        );
+        $options['conditions'] = array(
+            'BusinessCard.user_id' => $this->_usersUserID(),
+            'BusinessCard.level' => 10
+        );
+        
+        $options['fields'] = array(
+            'BusinessCard.id',
+            'BusinessCard.name',
+            'BusinessCard.name_company',
+            'BusinessCard.mobile',
+            'BusinessCard.email',
+            'BusinessCard.template_id',
+            'BusinessCard.facebook',
+            'BusinessCard.linkedin',
+            'BusinessCard.position',
+            'BusinessCard.avatar_url',
+            'TypeCard.name'
+        );
+        $my_card_vips = $this->BusinessCard->find('all', $options);
+        $this->set('my_card_vips',$my_card_vips);
+        
+        $options['conditions'] = array(
+            'BusinessCard.user_id' => $this->_usersUserID(),
+            'BusinessCard.level' => 1
+        );
+        $my_cards = $this->BusinessCard->find('all', $options);
+        $this->set('my_cards',$my_cards);
+        
+        $this->loadModel('ShakeHand');
+        $had_shake_hands = $this->ShakeHand->find('all',array(
+            'conditions' => array('ShakeHand.user_id' => $this->_usersUserID()),
+            'fields' => array(
+                'ShakeHand.business_card_id'
+            )
+        ));
+        $shake_hands = array();
+        if(is_array($had_shake_hands)){
+            foreach($had_shake_hands as $had_shake_hand){
+                $shake_hands[] = $had_shake_hand['ShakeHand']['business_card_id'];
+            }
+        }
+        $count = 0;
+        if($shake_hands != null){
+            $options['conditions'] = array(
+                'BusinessCard.level' => 10,
+                'BusinessCard.id IN' => $shake_hands 
+            );
+            $box_card_vips = $this->BusinessCard->find('all', $options);
+            $this->set('box_card_vips',$box_card_vips);
+            $count += count($box_card_vips);
+            
+            $options['conditions'] = array(
+                'BusinessCard.level' => 1,
+                'BusinessCard.id IN' => $shake_hands 
+            );
+            $box_cards = $this->BusinessCard->find('all', $options);
+            $this->set('box_cards',$box_cards);
+            $count += count($box_cards);
+        }
+        $this->set('count', $count);
     }
     
     
@@ -326,6 +396,15 @@ class BusinessCardsController extends AppController{
         $options['fields'] = array('BusinessCard.id', 'BusinessCard.user_id', 'BusinessCard.name', 'BusinessCard.avatar_url', 'BusinessCard.position');
         $data = $this->BusinessCard->find('all', $options);
         return $data;
+    }
+    
+    
+    function countYourBoxCard($user_id){
+        $this->loadModel('ShakeHand');
+        $count = $this->ShakeHand->find('count',array(
+            'conditions' => array('ShakeHand.user_id' => $user_id)
+        ));
+        return $count;
     }
 } 
 ?>

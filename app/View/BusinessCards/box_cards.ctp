@@ -1,12 +1,12 @@
 <div class="pt-exchange">
     <div class="pt-exchange-menu-content">
 		<ul class="tab-links cards-tab">
-			<li><a href="#box-cards"><i class="fa fa-credit-card"></i> Hội danh thiếp (<?php echo $count; ?>)</a></li>
-			<li><a href="#my-cards" class="active"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
+			<li><a href="#box-cards" class="active"><i class="fa fa-credit-card"></i> Hội danh thiếp (<?php echo $count; ?>)</a></li>
+			<li><a href="#my-cards"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
 		</ul>
 	</div>
     <div class="tab-content">
-        <div id="my-cards" class="tab active">
+        <div id="my-cards" class="tab">
             <div class="pt-exchange-content">
         		<h3 class="title">DANH THIẾP VIP</h3>
         		<div class="pt-exchange-how row">
@@ -98,7 +98,7 @@
         		</div>
         	</div>
         </div>
-        <div id="box-cards" class="tab">
+        <div id="box-cards" class="tab active">
             <div class="pt-exchange-content">
         		<h3 class="title">DANH THIẾP VIP</h3>
         		<div class="pt-exchange-how row">
