@@ -2,13 +2,13 @@
 	<div class="pt-exchange-menu">
 		<ul class="tab-links exchange-tab">
 			<li>
-				<a href="#activities">
+				<a href="#activities" class="active">
 					<span>Họ đang làm gì</span>
 					15 hoạt động mới
 				</a> 
 			</li>
 			<li>
-				<a href="#giao-luu" class="active">
+				<a href="#giao-luu">
 					<span>Giao lưu</span>
 					15 danh thiếp được trao đổi
 				</a> 
@@ -17,7 +17,7 @@
 	</div>
     <div class="tab-content">
         
-        <div id="giao-luu" class="tab active">
+        <div id="giao-luu" class="tab">
             <?php
                 echo $this->element('thamgia/tab_exchanges',
                     array(
@@ -25,7 +25,7 @@
                     ));
             ?>
         </div>
-        <div id="activities" class="tab">
+        <div id="activities" class="tab active">
             <?php
                 echo $this->element('thamgia/tab_activities',
                     array(

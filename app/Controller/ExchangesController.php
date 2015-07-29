@@ -3,6 +3,29 @@ class ExchangesController extends AppController{
     
     function beforeFilter(){
         parent::beforeFilter();
+        $this->setTotalBusinessCardType();
+    }
+    
+    
+    function setTotalBusinessCardType(){
+         // get total business card of type
+        $this->loadModel('TypeCard');
+        $this->loadModel('BusinessCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order'),
+            'fields' => array(
+                'TypeCard.id',
+                'TypeCard.class',
+            )
+        ));
+        $options['conditions'] = array();
+        if(!empty($typeCards)){
+            foreach($typeCards as $typeCard){
+                $options['conditions']['BusinessCard.type_card_id'] = $typeCard['TypeCard']['id'];
+                $this->set($typeCard['TypeCard']['class'], $this->BusinessCard->find('count', $options));
+            }
+        }
+        $this->set('total_business_card', $this->BusinessCard->find('count'));
     }
     
     

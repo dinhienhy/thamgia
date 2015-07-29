@@ -28,7 +28,7 @@
                 <td><?php echo $card_vip['email']; ?></td>
                 <td><?php echo $card_vip['career']; ?></td>
                 <td>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'BusinessCards', 'action' => 'downToNormal', $card_vip['id'])); ?>"><input type="image" src="<?php echo $this->Html->url('/'); ?>images/icn_alert_success.png" title="Trở thành danh thiếp bình thường"></a>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'BusinessCards', 'action' => 'downToNormal', $card_vip['id'])); ?>"><input type="image" src="<?php echo $this->Html->url('/'); ?>images/icn_logout.png" title="Trở thành danh thiếp bình thường"></a>
                     <a href="<?php echo $this->Html->url(array('controller' => 'Admin', 'action' => 'editCard', $card_vip['id'],1)); ?>"><input type="image" src="<?php echo $this->Html->url('/'); ?>images/icn_edit.png" title="Chỉnh sửa"></a>
                     <a onclick="return confirm('Bạn có chắc là muốn xóa danh thiếp này?');" href="<?php echo $this->Html->url(array('controller' => 'Admin', 'action' => 'deleteCard', $card_vip['id'],1)); ?>"><input type="image" src="<?php echo $this->Html->url('/'); ?>images/icn_trash.png" title="Xóa"></a>
                 </td>

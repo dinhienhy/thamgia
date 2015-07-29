@@ -132,7 +132,7 @@ class ActivitiesController extends AppController{
             'City.name',
             'ThanksEvent.id'
         );
-        $options['limit'] = 10;
+        $options['limit'] = 15;
         $data = $this->Activity->find('all', $options);
         return $data;
     }
