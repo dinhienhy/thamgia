@@ -26,6 +26,18 @@ class ExchangesController extends AppController{
             }
         }
         $this->set('total_business_card', $this->BusinessCard->find('count'));
+        
+        $check_exist_card = $this->BusinessCard->find('first',array(
+            'conditions' => array(
+                'BusinessCard.user_id' => $this->_usersUserID()
+            )
+        ));
+        if(!empty($check_exist_card)){
+            $this->set('have_card' , true);
+        }
+        else{
+            $this->set('have_card' , false);
+        }
     }
     
     

@@ -137,6 +137,7 @@
             ?>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <?php if(!$have_card){ ?>
 			<div class="pt-teabreak">
 				<a href="<?php echo !$logged_in ? '#login' : $this->Html->url(array("controller" => "BusinessCards", "action" => "add")); ?>" class="<?php echo $logged_in ? '' : 'link-login'; ?>">
                     TẠO NAME CARD
@@ -144,6 +145,7 @@
 				<span class="span1">Tham gia vào cộng đồng Teabreak</span>
 				<span class="span2">Tạo ngay một danh thiếp cà nhân bạn !</span>
 			</div>
+            <?php } ?>
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <?php echo $this->element('thamgia/activity_new_card'); ?>

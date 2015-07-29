@@ -21,6 +21,19 @@ if($logged_in){
 		<li><a class="<?php echo $logged_in ? '':'link-login'; ?>" href="<?php echo $logged_in ? $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'myCards')) : '#login' ?>"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
 	</ul>
 </div>
+<?php if(!$have_card){ ?>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-6 col-md-offset-6">
+        <div class="pt-teabreak" style="margin: 3px 0;">
+        	<a href="<?php echo !$logged_in ? '#login' : $this->Html->url(array("controller" => "BusinessCards", "action" => "add")); ?>" class="<?php echo $logged_in ? '' : 'link-login'; ?>">
+                TẠO NAME CARD
+            </a>
+        	<span class="span1">Tham gia vào cộng đồng Teabreak</span>
+        	<span class="span2">Tạo ngay một danh thiếp cà nhân bạn !</span>
+        </div>
+    </div>
+</div>
+<?php } ?>
 <div class="pt-exchange-content">
 	<h3 class="title">DANH THIẾP VIP</h3>
 	<div class="pt-exchange-how row">
