@@ -134,6 +134,7 @@
             $data = array();
             $index = 0;
             $nowDateObj = new DateTime();
+
             foreach($dataPaginate as $participation){
                 $data[$index] = array();
                 
@@ -155,14 +156,12 @@
                     $status = STATUS_END;
                 $createDateObj = new DateTime($participation['Participation']['created']);
                 
-                
                 $data[$index]['code'] = $event['Event']['code'];
                 $data[$index]['title'] = $event['Event']['title'];
                 $data[$index]['status'] = $status;
-                $data[$index]['start'] = $startDateObj->format(TIME_FORMAT_CLIENT);
-                $data[$index]['end'] = $endDateObj->format(TIME_FORMAT_CLIENT);
                 $data[$index]['created'] = $createDateObj->format(TIME_FORMAT_CLIENT);
                 $data[$index]['event_id'] = $participation['Participation']['event_id'];
+                $data[$index]['image_list_url'] = $event['Event']['image_list_url'];
                 $index++;
             }
             return $data;

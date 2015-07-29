@@ -59,17 +59,17 @@
 					<?php if(!empty($userParticipatedEvents)){ ?>
 						<?php foreach($userParticipatedEvents as $event){ ?>
 						<li>
-							<a href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'detail', 'slug' => Link::seoTitle($event['title']), 'id' => $event['id'])); ?>" target="_blank" class="img">
+							<a href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'detail', 'slug' => Link::seoTitle($event['title']), 'id' => $event['event_id'])); ?>" target="_blank" class="img">
 								<img src="<?php echo General::getUrlImage($event['image_list_url']); ?>" alt="">
 							</a>
 							<div class="pt-list-event-content">
 								<h3>
-									<a href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'detail', 'slug' => Link::seoTitle($event['title']), 'id' => $event['id'])); ?>" target="_blank">
+									<a href="<?php echo $this->Html->url(array('controller' => 'Events', 'action' => 'detail', 'slug' => Link::seoTitle($event['title']), 'id' => $event['event_id'])); ?>" target="_blank">
 										<?php echo $event['title'] ?>
 									</a>
 								</h3>
 								<p>Mã sự kiện : <?php echo $event['code']; ?></p>
-								<span>Đăng lúc: <?php echo $event['created']; ?></span>
+								<span>Tham gia lúc: <?php echo $event['created']; ?></span>
 							</div>
 						</li>
 						<?php } ?>
