@@ -1584,12 +1584,13 @@ img[alt],
   right: 5px;
 }
 .pt-setting-user .dropdown-menu {
-  min-width: 200px;
+  min-width: 250px;
 }
 .pt-setting-user .dropdown-menu li a {
-  padding: 5px 10px;
+  padding: 7px 10px;
   font-size: 13px;
   color: #333333;
+  white-space: normal;
 }
 .pt-setting-user .dropdown-menu li a .fa {
   margin-right: 8px;
@@ -2536,7 +2537,6 @@ h2.title {
 }
 .pt-exchange-how .pt-exchange-block .block-footer .networking a .fa {
   font-size: 16px;
-  line-height: 55px;
 }
 @media screen and (max-width: 768px) {
   .pt-exchange-how .pt-exchange-block {
@@ -4091,7 +4091,7 @@ h2.title {
 .pt-block-messages .pt-list-user-ms-content .pt-comment-chat {
   background-color: #f3f7fa;
   padding: 10px;
-  bolder: 1px solid #edf1f4;
+  border: 1px solid #edf1f4;
   overflow: hidden;
   position: absolute;
   left: 0px;
@@ -4120,7 +4120,6 @@ h2.title {
 .pt-block-messages .pt-list-user-ms-content .pt-comment-chat .send:hover {
   background: none #0C6BA3;
 }
-
 
 /*Lanh*/
 .pt-notification .pt-notification-user .pt-edit-profile{
