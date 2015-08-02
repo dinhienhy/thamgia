@@ -1,11 +1,20 @@
 <?php
 if(!isset($card_type_id)) $card_type_id = 0;
+if($is_search) $card_type_id = $type_card_id;
 if($logged_in){
     $count_box_card = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'countYourBoxCard', $user_id));
 }
 ?>
-<?php $card_vips = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCardVips', 4,$card_type_id, $user_id)); ?>
-<?php $cards = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCards', 16, $card_type_id, $user_id)); ?>
+<?php 
+    if($is_search){
+        $card_vips = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getSearchCardVips', 4,$type_card_id, $user_id, $career, $search));
+        $cards = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getSearchCards', 16, $type_card_id, $user_id,$career, $search));
+    }
+    else{
+        $card_vips = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCardVips', 4,$card_type_id, $user_id));
+        $cards = $this->requestAction(array('controller' => 'BusinessCards', 'action' => 'getCards', 16, $card_type_id, $user_id));
+    } 
+?>
 <div class="pt-exchange-menu-list">
     <?php
     echo $this->element('thamgia/menu-type-card',
@@ -35,15 +44,15 @@ if($logged_in){
 </div>
 <?php } ?>
 <div class="pt-exchange-content">
-	<h3 class="title">DANH THIẾP VIP</h3>
-	<div class="pt-exchange-how row">
-        <?php if(!empty( $card_vips )){ ?>
+    <?php if(!empty( $card_vips )){ ?>
+    	<h3 class="title">DANH THIẾP VIP</h3>
+    	<div class="pt-exchange-how row">
             <?php foreach( $card_vips as $card_vip ) { ?>
                 <div class="pt-exchange-block pt-exchange-block-style-0<?php echo $card_vip['template_id']; ?>">
     				<span class="vip"></span>
     				<div class="block-user">
     					<img src="<?php echo General::getUrlImage($card_vip['avatar_url']);  ?>" alt="<?php echo $card_vip['name']; ?>">
-    					<a href="#<?php echo $logged_in ? '01' : 'login'; ?>" class="friend"></a>
+    					<a href="#<?php echo $logged_in ? '01' : 'login'; ?>" class="friend" id="<?php echo $card_vip['id']; ?>"></a>
     					<h3 class="title"><a href="#"><?php echo $card_vip['name']; ?></a></h3>
     					<p><?php echo $card_vip['position']; ?></p>
     				</div>
@@ -61,43 +70,33 @@ if($logged_in){
     				</div>
     			</div>
             <?php } ?>
-        <?php } ?>
-	</div>
+	   </div>
+    <?php } ?>
 	<div class="pt-selected">
+      <form action="<?php echo $this->Html->url('/') ?>exchanges/search" method="get">
 		<div class="pt-search">
 			<button class="button-search" title="Search" type="submit"><i class="fa fa-search"></i></button>
-			<input class="input-text" type="text" onblur="if(this.value=='') this.value='Tìm kiếm...'" onfocus="if(this.value=='Tìm kiếm...') this.value='';" value="Tìm kiếm...">
+			<input name="search" class="text-name" type="text" placeholder="Tìm kiếm..." value="<?php echo $is_search ? $search : ""; ?>">
 		</div>
 		<div class="pt-select">
 			<i class="fa fa-angle-down"></i>
-			<select>
-				<option value="0"> Danh mục 01</option>
-				<option value="0"> Danh mục 02</option>
-				<option value="0"> Danh mục 03</option>
-				<option value="0"> Danh mục 04</option>
-				<option value="0"> Danh mục 05</option>
+			<select id="type_card" name="type_card">
+                <option value="0"> Loại danh thiếp</option>
+                <?php foreach ($typeCards as $typeCard){ ?>
+                    <option value="<?php echo $typeCard['TypeCard']['id']; ?>" <?php echo (isset($type_card_id) && ($typeCard['TypeCard']['id'] == $type_card_id)) ? "selected" : ""; ?>><?php echo $typeCard['TypeCard']['name']; ?></option>
+                <?php } ?>
 			</select>
 		</div>
 		<div class="pt-select">
 			<i class="fa fa-angle-down"></i>
-			<select>
-				<option value="0"> Danh mục 02</option>
-				<option value="0"> Danh mục 02</option>
-				<option value="0"> Danh mục 03</option>
-				<option value="0"> Danh mục 04</option>
-				<option value="0"> Danh mục 05</option>
+			<select name="career">
+                <option value="0"> Ngành nghề</option>
+                <?php foreach($careers as $careerfe){ ?>
+                    <option value="<?php echo $careerfe['Career']['id']; ?>" <?php echo (isset($career) && ($careerfe['Career']['id'] == $career)) ? "selected" : ""; ?>><?php echo $careerfe['Career']['name']; ?></option>
+                <?php } ?>
 			</select>
 		</div>
-		<div class="pt-select">
-			<i class="fa fa-angle-down"></i>
-			<select>
-				<option value="0"> Khu vực</option>
-				<option value="0"> Danh mục 02</option>
-				<option value="0"> Danh mục 03</option>
-				<option value="0"> Danh mục 04</option>
-				<option value="0"> Danh mục 05</option>
-			</select>
-		</div>
+      </form>
 	</div>
 	<div class="pt-exchange-how row">
         <?php if(!empty($cards)){ ?>

@@ -2537,6 +2537,7 @@ h2.title {
 }
 .pt-exchange-how .pt-exchange-block .block-footer .networking a .fa {
   font-size: 16px;
+  line-height: 55px;
 }
 @media screen and (max-width: 768px) {
   .pt-exchange-how .pt-exchange-block {
@@ -4298,6 +4299,16 @@ h2.titel{
 }
 .form-login a.facebook .fa{
     margin-right: 10px;
+}
+.table tr td.pt-exchange-how .pt-exchange-block{
+    width: 50%;
+}
+.shake-hand-request td.action, .shake-hand-request th.action {
+    text-align: center;
+    vertical-align: middle;
+}
+.pt-search input.text-name{
+    border: none;
 }
 
 .modal-loading {

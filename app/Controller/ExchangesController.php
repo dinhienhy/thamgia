@@ -47,6 +47,9 @@ class ExchangesController extends AppController{
         $typeCards = $this->TypeCard->find('all',array(
             'order' => array('TypeCard.order')
         ));
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
         $this->set('typeCards', $typeCards);
     }
     
@@ -59,6 +62,22 @@ class ExchangesController extends AppController{
         ));
         $this->set('card_type_id', $card_type_id);
         $this->set('typeCards', $typeCards);
+    }
+    
+    
+    function search(){
+        $this->layout = "business";
+        $this->loadModel('TypeCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order')
+        ));
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
+        $this->set('typeCards', $typeCards);
+        $this->set('search',$this->request->query('search'));
+        $this->set('type_card_id',$this->request->query('type_card'));
+        $this->set('career',$this->request->query('career'));
     }
     
     
@@ -90,12 +109,34 @@ class ExchangesController extends AppController{
             $shakeHand['ShakeHand']['user_id'] = $this->_usersUserID();
             $shakeHand['ShakeHand']['business_card_id'] = $data['card_id'];
             $shakeHand['ShakeHand']['message'] = $data['message'];
+            $shakeHand['ShakeHand']['status'] = 0;
             $shakeHand['ShakeHand']['created'] = date(TIME_FORMAT_MYSQL);
+            $this->loadModel('BusinessCard');
+            $business_card = $this->BusinessCard->findById($data['card_id']);
+            $this->sendNotificationRequest($business_card['BusinessCard']['user_id'], $this->_usersName(), $this->_usersAvatar());
             $this->loadModel('ShakeHand');
             $this->ShakeHand->save($shakeHand);
-            
         }
+        $this->Session->setFlash(__('Bạn đã gửi yêu cầu bắt tay thành công!', true));
         $this->redirect(env('HTTP_REFERER'));
+    }
+    
+    
+    function sendNotificationRequest($user_id, $sender_name, $image_url){
+        $this->autoRender = false;
+        $this->loadModel('Notification');
+        $linkNotification = Router::url(array(
+                                        "controller"=>"ShakeHands", 
+                                        "action"=> "index"));
+                                        
+        $recordNotification['Notification'] = array();
+        $recordNotification['Notification']['link'] = $linkNotification;
+        $recordNotification['Notification']['notification'] = '<strong>'. $sender_name . '</strong> vừa gởi yêu cầu bắt tay đến bạn';
+        $recordNotification['Notification']['image_url'] = $image_url != null ? $image_url : NO_IMG_URL;
+        $recordNotification['Notification']['user_id'] = $user_id;
+        $recordNotification['Notification']['viewed'] = false;
+        $recordNotification['Notification']['created'] = date(TIME_FORMAT_MYSQL);
+        $this->Notification->saveAll($recordNotification);    
     }
     
 } 

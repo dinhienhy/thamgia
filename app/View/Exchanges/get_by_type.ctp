@@ -24,7 +24,9 @@
                 echo $this->element('thamgia/tab_exchanges',
                     array(
                         'user_id' => $users_userid,
-                        'card_type_id' => $card_type_id
+                        'card_type_id' => $card_type_id,
+                        'type_card_id' => $card_type_id,
+                        'is_search' => false
                     ));
             ?>
         </div>

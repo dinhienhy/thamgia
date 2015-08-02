@@ -124,7 +124,7 @@ class BusinessCardsController extends AppController{
             $conditions['BusinessCard.type_card_id'] = $card_type_id;
         }
         if($shake_hands != null){
-            $conditions['BusinessCard.id NOT IN'] = $shake_hands;
+            $conditions['NOT'] = array('BusinessCard.id' => $shake_hands);
         }
         
         $this->paginate = array(
@@ -192,7 +192,170 @@ class BusinessCardsController extends AppController{
             $conditions['BusinessCard.type_card_id'] = $card_type_id;
         }
         if($shake_hands != null){
-            $conditions['BusinessCard.id NOT IN'] = $shake_hands;
+            $conditions['NOT'] = array('BusinessCard.id' => $shake_hands);
+        }
+        
+        $this->paginate = array(
+            'BusinessCard' => array(
+                'limit' => $limit,
+                'order' => array('BusinessCard.id' => 'desc'),
+                'conditions' => $conditions
+            )
+        );
+        
+        $dataPaginate = $this->paginate('BusinessCard');
+        $data = array();
+        $index = 0;
+
+        foreach($dataPaginate as $card){
+            $data[$index] = array();
+            $options['conditions'] = array(
+                    'Career.id' => $card['BusinessCard']['careerid']
+                );
+            $this->loadModel('Career');
+            $career = $this->Career->find('first', $options);
+            $this->loadModel('TypeCard');
+            $typeCard = $this->TypeCard->findById($card['BusinessCard']['type_card_id']);
+            
+            $data[$index]['name'] = $card['BusinessCard']['name'];
+            $data[$index]['id'] = $card['BusinessCard']['id'];
+            $data[$index]['name_company'] = $card['BusinessCard']['name_company'];
+            $data[$index]['mobile'] = $card['BusinessCard']['mobile'];
+            $data[$index]['email'] = $card['BusinessCard']['email'];
+            $data[$index]['career'] = $career['Career']['name'];
+            $data[$index]['template_id'] = $card['BusinessCard']['template_id'];
+            $data[$index]['facebook'] = $card['BusinessCard']['facebook'];
+            $data[$index]['linkedin'] = $card['BusinessCard']['linkedin'];
+            $data[$index]['position'] = $card['BusinessCard']['position'];
+            $data[$index]['type_card'] = $typeCard['TypeCard']['name'];
+            $data[$index]['avatar_url'] = $card['BusinessCard']['avatar_url'];
+            $index++;
+        }
+        //$this->set('data', $data);
+        return $data;
+    }
+    
+    
+    function getSearchCardVips($limit = 4, $card_type_id = 0, $user_id = 0, $career, $search=""){
+        $this->autoRender = false;
+        $this->loadModel('ShakeHand');
+        $shake_hands = array();
+        if($user_id != 0){
+            $had_shake_hands = $this->ShakeHand->find('all',array(
+                'conditions' => array('ShakeHand.user_id' => $user_id),
+                'fields' => array(
+                    'ShakeHand.business_card_id'
+                )
+            ));
+            if(is_array($had_shake_hands)){
+                foreach($had_shake_hands as $had_shake_hand){
+                    $shake_hands[] = $had_shake_hand['ShakeHand']['business_card_id'];
+                }
+            }
+        }
+        
+        $conditions = array();
+        $conditions['BusinessCard.level ='] = 10;
+        $conditions['BusinessCard.user_id !='] = $user_id;
+        if($card_type_id != 0){
+            $conditions['BusinessCard.type_card_id'] = $card_type_id;
+        }
+        if($career != 0){
+            $conditions['OR'] = array(
+                'BusinessCard.careerid' => $career,
+                'BusinessCard.careerid2' => $career,
+            );
+        }
+        if($search != ""){
+            $conditions['OR'] = array(
+                'BusinessCard.name LIKE' => '%'.$search.'%',
+                'BusinessCard.name_company LIKE' => '%'.$search.'%',
+                'BusinessCard.position LIKE' => '%'.$search.'%',
+            );
+        }
+        if($shake_hands != null){
+            $conditions['NOT'] = array('BusinessCard.id' => $shake_hands);
+        }
+        
+        $this->paginate = array(
+            'BusinessCard' => array(
+                'limit' => $limit,
+                'order' => array('BusinessCard.id' => 'desc'),
+                'conditions' => $conditions
+            )
+        );
+        $dataPaginate = $this->paginate('BusinessCard');
+        $data = array();
+        $index = 0;
+
+        foreach($dataPaginate as $card){
+            $data[$index] = array();
+            $options['conditions'] = array(
+                    'Career.id' => $card['BusinessCard']['careerid']
+                );
+            $this->loadModel('Career');
+            $career = $this->Career->find('first', $options);
+            $this->loadModel('TypeCard');
+            $typeCard = $this->TypeCard->findById($card['BusinessCard']['type_card_id']);
+            
+            $data[$index]['name'] = $card['BusinessCard']['name'];
+            $data[$index]['id'] = $card['BusinessCard']['id'];
+            $data[$index]['name_company'] = $card['BusinessCard']['name_company'];
+            $data[$index]['mobile'] = $card['BusinessCard']['mobile'];
+            $data[$index]['email'] = $card['BusinessCard']['email'];
+            $data[$index]['career'] = $career['Career']['name'];
+            $data[$index]['template_id'] = $card['BusinessCard']['template_id'];
+            $data[$index]['facebook'] = $card['BusinessCard']['facebook'];
+            $data[$index]['linkedin'] = $card['BusinessCard']['linkedin'];
+            $data[$index]['position'] = $card['BusinessCard']['position'];
+            $data[$index]['type_card'] = $typeCard['TypeCard']['name'];
+            $data[$index]['avatar_url'] = $card['BusinessCard']['avatar_url'];
+            $index++;
+        }
+        //$this->set('data', $data);
+        return $data;
+    }
+    
+    
+    function getSearchCards($limit = 16, $card_type_id = 0, $user_id = 0, $career, $search=""){
+        $this->autoRender = false;
+        $shake_hands = array();
+        if($user_id != 0){
+            $this->loadModel('ShakeHand');
+            $had_shake_hands = $this->ShakeHand->find('all',array(
+                'conditions' => array('ShakeHand.user_id' => $user_id),
+                'fields' => array(
+                    'ShakeHand.business_card_id'
+                )
+            ));
+            if(is_array($had_shake_hands)){
+                foreach($had_shake_hands as $had_shake_hand){
+                    $shake_hands[] = $had_shake_hand['ShakeHand']['business_card_id'];
+                }
+            }
+        }
+        
+        $conditions = array();
+        $conditions['BusinessCard.level ='] = 1;
+        $conditions['BusinessCard.user_id !='] = $user_id;
+        if($card_type_id != 0){
+            $conditions['BusinessCard.type_card_id'] = $card_type_id;
+        }
+        if($career != 0){
+            $conditions['OR'] = array(
+                'BusinessCard.careerid' => $career,
+                'BusinessCard.careerid2' => $career,
+            );
+        }
+        if($search != ""){
+            $conditions['OR'] = array(
+                'BusinessCard.name LIKE' => '%'.$search.'%',
+                'BusinessCard.name_company LIKE' => '%'.$search.'%',
+                'BusinessCard.position LIKE' => '%'.$search.'%',
+            );
+        }
+        if($shake_hands != null){
+            $conditions['NOT'] = array('BusinessCard.id' => $shake_hands);
         }
         
         $this->paginate = array(
