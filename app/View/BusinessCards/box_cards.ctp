@@ -8,101 +8,42 @@
     <div class="tab-content">
         <div id="my-cards" class="tab">
             <div class="pt-exchange-content">
-        		<h3 class="title">DANH THIẾP VIP</h3>
-        		<div class="pt-exchange-how row">
-                    <?php if(!empty( $my_card_vips )){ ?>
-                        <?php foreach( $my_card_vips as $my_card_vip ) { ?>
-                            <div class="pt-exchange-block pt-exchange-block-style-0<?php echo $my_card_vip['BusinessCard']['template_id']; ?>">
-                				<span class="vip"></span>
-                				<div class="block-user">
-                					<img src="<?php echo General::getUrlImage($my_card_vip['BusinessCard']['avatar_url']);  ?>" alt="<?php echo $my_card_vip['BusinessCard']['name']; ?>">
-                					<h3 class="title"><a href="#"><?php echo $my_card_vip['BusinessCard']['name']; ?></a></h3>
-                					<p><?php echo $my_card_vip['BusinessCard']['position']; ?></p>
-                				</div>
-                				<div class="block-content">
-                					<h3 class="title"><a href="#"><?php echo $my_card_vip['BusinessCard']['name_company']; ?></a></h3>
-                					<p><?php echo $my_card_vip['TypeCard']['name']; ?></p>
-                				</div>
-                				<div class="block-footer">
-                					<a href="#" class="link phone"><i class="fa fa-mobile"></i> Tel: <?php echo $my_card_vip['BusinessCard']['mobile']; ?></a>
-                					<a href="#" class="link"><i class="fa fa-envelope-o"></i> mail: <?php echo $my_card_vip['BusinessCard']['email']; ?></a>
-                					<div class="networking">
-                						<a href="<?php echo ($my_card_vip['BusinessCard']['linkedin']=="") ? "#" : $my_card_vip['BusinessCard']['linkedin']; ?>"><i class="fa fa-linkedin"></i></a>
-                						<a href="<?php echo ($my_card_vip['BusinessCard']['facebook']=="") ? "#" : $my_card_vip['BusinessCard']['facebook']; ?>"><i class="fa fa-facebook"></i></a>
-                					</div>
-                				</div>
-                			</div>
-                        <?php } ?>
-                    <?php } ?>
-        		</div>
-        		<div class="pt-selected">
-        			<div class="pt-search">
-        				<button class="button-search" title="Search" type="submit"><i class="fa fa-search"></i></button>
-        				<input class="input-text" type="text" onblur="if(this.value=='') this.value='Tìm kiếm...'" onfocus="if(this.value=='Tìm kiếm...') this.value='';" value="Tìm kiếm...">
-        			</div>
-        			<div class="pt-select">
-        				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Danh mục 01</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
-        			</div>
-        			<div class="pt-select">
-        				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
-        			</div>
-        			<div class="pt-select">
-        				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Khu vực</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
-        			</div>
-        		</div>
-        		<div class="pt-exchange-how row">
-                    <?php if(!empty($my_cards)){ ?>
-                        <?php foreach($my_cards as $my_card) { ?>
-                			<div class="pt-exchange-block pt-exchange-block-style-0<?php echo $my_card['BusinessCard']['template_id']; ?>">
-                				<div class="block-user">
-                					<img src="<?php echo General::getUrlImage($my_card['BusinessCard']['avatar_url']);  ?>" alt="<?php echo $my_card['BusinessCard']['name']; ?>">
-                					<h3 class="title"><a href="#"><?php echo $my_card['BusinessCard']['name']; ?></a></h3>
-                					<p><?php echo $my_card['BusinessCard']['position']; ?></p>
-                				</div>
-                				<div class="block-content">
-                					<h3 class="title"><a href="#"><?php echo $my_card['BusinessCard']['name_company']; ?></a></h3>
-                					<p><?php echo $my_card['TypeCard']['name']; ?></p>
-                				</div>
-                				<div class="block-footer">
-                					<a href="#" class="link phone"><i class="fa fa-mobile"></i> Tel: <?php echo $my_card['BusinessCard']['mobile']; ?></a>
-                					<a href="#" class="link"><i class="fa fa-envelope-o"></i> mail: <?php echo $my_card['BusinessCard']['email']; ?></a>
-                					<div class="networking">
-                						<a href="<?php echo ($my_card['BusinessCard']['linkedin']=="") ? "#" : $my_card['BusinessCard']['linkedin']; ?>"><i class="fa fa-linkedin"></i></a>
-                						<a href="<?php echo ($my_card['BusinessCard']['facebook']=="") ? "#" : $my_card['BusinessCard']['facebook']; ?>"><i class="fa fa-facebook"></i></a>
-                					</div>
-                				</div>
-                			</div>
-                        <?php } ?>
-                    <?php } ?>
-        		</div>
+                <?php if(!empty( $my_card )){ ?>
+            		<div class="pt-exchange-how row">
+                        <div class="pt-exchange-block pt-exchange-block-style-0<?php echo $my_card['BusinessCard']['template_id']; ?>">
+            				<?php if($my_card['BusinessCard']['level'] == 10){ ?>
+                            <span class="vip"></span>
+                            <?php } ?>
+            				<div class="block-user">
+            					<img src="<?php echo General::getUrlImage($my_card['BusinessCard']['avatar_url']);  ?>" alt="<?php echo $my_card['BusinessCard']['name']; ?>">
+            					<h3 class="title"><a href="#"><?php echo $my_card['BusinessCard']['name']; ?></a></h3>
+            					<p><?php echo $my_card['BusinessCard']['position']; ?></p>
+            				</div>
+            				<div class="block-content">
+            					<h3 class="title"><a href="#"><?php echo $my_card['BusinessCard']['name_company']; ?></a></h3>
+            					<p><?php echo $my_card['TypeCard']['name']; ?></p>
+            				</div>
+            				<div class="block-footer">
+            					<a href="#" class="link phone"><i class="fa fa-mobile"></i> Tel: <?php echo $my_card['BusinessCard']['mobile']; ?></a>
+            					<a href="#" class="link"><i class="fa fa-envelope-o"></i> mail: <?php echo $my_card['BusinessCard']['email']; ?></a>
+            					<div class="networking">
+            						<a href="<?php echo ($my_card['BusinessCard']['linkedin']=="") ? "#" : $my_card['BusinessCard']['linkedin']; ?>"><i class="fa fa-linkedin"></i></a>
+            						<a href="<?php echo ($my_card['BusinessCard']['facebook']=="") ? "#" : $my_card['BusinessCard']['facebook']; ?>"><i class="fa fa-facebook"></i></a>
+            					</div>
+            				</div>
+            			</div>
+                        <div>
+            				<a href="<?php echo $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'edit')) ?>" class="btn btn-info">Sửa danh thiếp</a>
+            			</div>
+                    </div>
+                <?php } ?>
         	</div>
         </div>
         <div id="box-cards" class="tab active">
             <div class="pt-exchange-content">
-        		<h3 class="title">DANH THIẾP VIP</h3>
-        		<div class="pt-exchange-how row">
-                    <?php if( isset($box_card_vips) && !empty( $box_card_vips )){ ?>
+                <?php if( isset($box_card_vips) && !empty( $box_card_vips )){ ?>
+            		<h3 class="title">DANH THIẾP VIP</h3>
+            		<div class="pt-exchange-how row">
                         <?php foreach( $box_card_vips as $box_card_vip ) { ?>
                             <div class="pt-exchange-block pt-exchange-block-style-0<?php echo $box_card_vip['BusinessCard']['template_id']; ?>">
                 				<span class="vip"></span>
@@ -125,43 +66,33 @@
                 				</div>
                 			</div>
                         <?php } ?>
-                    <?php } ?>
-        		</div>
+  		            </div>
+                <?php } ?>
         		<div class="pt-selected">
+                  <form action="<?php echo $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'searchBoxCards')) ?>" method="get">
         			<div class="pt-search">
         				<button class="button-search" title="Search" type="submit"><i class="fa fa-search"></i></button>
-        				<input class="input-text" type="text" onblur="if(this.value=='') this.value='Tìm kiếm...'" onfocus="if(this.value=='Tìm kiếm...') this.value='';" value="Tìm kiếm...">
+        				<input name="search" class="text-name" type="text" placeholder="Tìm kiếm..." value="">
         			</div>
         			<div class="pt-select">
         				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Danh mục 01</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
+        				<select name="type_card">
+                            <option value="0"> Loại danh thiếp</option>
+                            <?php foreach ($typeCards as $typeCard){ ?>
+                                <option value="<?php echo $typeCard['TypeCard']['id']; ?>"><?php echo $typeCard['TypeCard']['name']; ?></option>
+                            <?php } ?>
+            			</select>
         			</div>
         			<div class="pt-select">
         				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
+        				<select name="career">
+                            <option value="0"> Ngành nghề</option>
+                            <?php foreach($careers as $careerfe){ ?>
+                                <option value="<?php echo $careerfe['Career']['id']; ?>"><?php echo $careerfe['Career']['name']; ?></option>
+                            <?php } ?>
+            			</select>
         			</div>
-        			<div class="pt-select">
-        				<i class="fa fa-angle-down"></i>
-        				<select>
-        					<option value="0"> Khu vực</option>
-        					<option value="0"> Danh mục 02</option>
-        					<option value="0"> Danh mục 03</option>
-        					<option value="0"> Danh mục 04</option>
-        					<option value="0"> Danh mục 05</option>
-        				</select>
-        			</div>
+                  </form>
         		</div>
         		<div class="pt-exchange-how row">
                     <?php if(isset($box_cards) && !empty($box_cards)){ ?>

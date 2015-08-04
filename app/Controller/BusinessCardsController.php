@@ -7,7 +7,7 @@ class BusinessCardsController extends AppController{
     
     function beforeFilter(){
         parent::beforeFilter();
-        $this->Uploader = new Uploader(array('tempDir' => TMP, 'uploadDir' => FOLDER_UPLOAD_IMAGE_EVENT));
+        $this->Uploader = new Uploader(array('tempDir' => TMP, 'uploadDir' => FOLDER_UPLOAD_AVATAR));
     }
     
     function add(){
@@ -58,6 +58,80 @@ class BusinessCardsController extends AppController{
                 }
                 $this->BusinessCard->save($arrCard);
                 
+                
+            }catch(Exception $ex){
+                $this->set('data', $data);
+                $this->set('error', $ex->getMessage());
+            }
+        }
+    }
+    
+    
+    function edit(){
+        $this->isAuthenticated();
+        $this->layout = "business";
+        
+        $card = $this->BusinessCard->find('first', array(
+            'conditions' => array(
+                'BusinessCard.user_id' => $this->_usersUserID()
+            )
+        ));
+        $this->set('data',$card);
+        
+        
+        $this->loadModel('TemplateCard');
+        $templates = $this->TemplateCard->find('all');
+        $this->set('templates', $templates);
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
+        $this->loadModel('TypeCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order')
+        ));
+        $this->set('typeCards',$typeCards);
+        
+        $old_img_url = $card['BusinessCard']['avatar_url'];
+        if ($this->request->is('post')){
+            $error = null;
+            $data = $this->request->data('BusinessCard');
+            try{
+                $arrCard['BusinessCard'] = array();
+                $arrCard['BusinessCard']['id'] = $card['BusinessCard']['id'];
+                $arrCard['BusinessCard']['user_id'] = $this->_usersUserID();
+                $arrCard['BusinessCard']['name'] = $data['name'];
+                $arrCard['BusinessCard']['careerid'] = $data['careerid'];
+                $arrCard['BusinessCard']['careerid2'] = $data['careerid2'];
+                $arrCard['BusinessCard']['name_company'] = $data['name_company'];
+                $arrCard['BusinessCard']['address'] = $data['address'];
+                $arrCard['BusinessCard']['mobile'] = $data['mobile'];
+                $arrCard['BusinessCard']['email'] = $data['email'];
+                $arrCard['BusinessCard']['website'] = $data['website'];
+                $arrCard['BusinessCard']['facebook'] = $data['facebook'];
+                $arrCard['BusinessCard']['linkedin'] = $data['linkedin'];
+                $arrCard['BusinessCard']['template_id'] = $data['template_id'];
+                $arrCard['BusinessCard']['type_card_id'] = $data['type_card_id'];
+                $arrCard['BusinessCard']['position'] = $data['position'];
+                if ($data['avatar_url']['name'] != ''){
+                    if ($dataUpload = $this->Uploader->upload($data['avatar_url'], array('overwrite' => true))) {
+                        // Upload successful, do whatever
+                        $resized_path = $this->Uploader->resize(array('width' => AVATAR_WIDTH, 'height' => AVATAR_HEIGHT));
+                        $this->Uploader->delete($dataUpload['path']);
+                        $arrCard['BusinessCard']['avatar_url'] = preg_replace('/^\//', '', $resized_path);
+                        $this->Uploader->delete($old_img_url);
+                        
+                    }else{
+                        $error = 'Lỗi upload ảnh!<br />';
+                    }
+                }
+                if ($error != null){
+                    $this->set('error', $error);
+                    $arrCard['BusinessCard']['avatar_url'] = $old_img_url;
+                    $this->set('data', $arrCard);
+                }else{
+                    $this->BusinessCard->save($arrCard);
+                    $this->redirect(array('controller' => 'BusinessCards', 'action' => 'myCards')); 
+                }
                 
             }catch(Exception $ex){
                 $this->set('data', $data);
@@ -413,8 +487,7 @@ class BusinessCardsController extends AppController{
             )
         );
         $options['conditions'] = array(
-            'BusinessCard.user_id' => $this->_usersUserID(),
-            'BusinessCard.level' => 10
+            'BusinessCard.user_id' => $this->_usersUserID()
         );
         
         $options['fields'] = array(
@@ -428,17 +501,11 @@ class BusinessCardsController extends AppController{
             'BusinessCard.linkedin',
             'BusinessCard.position',
             'BusinessCard.avatar_url',
+            'BusinessCard.level',
             'TypeCard.name'
         );
-        $my_card_vips = $this->BusinessCard->find('all', $options);
-        $this->set('my_card_vips',$my_card_vips);
-        
-        $options['conditions'] = array(
-            'BusinessCard.user_id' => $this->_usersUserID(),
-            'BusinessCard.level' => 1
-        );
-        $my_cards = $this->BusinessCard->find('all', $options);
-        $this->set('my_cards',$my_cards);
+        $my_card = $this->BusinessCard->find('first', $options);
+        $this->set('my_card',$my_card);
         
         $this->loadModel('ShakeHand');
         $had_shake_hands = $this->ShakeHand->find('all',array(
@@ -472,6 +539,14 @@ class BusinessCardsController extends AppController{
             $count += count($box_cards);
         }
         $this->set('count', $count);
+        $this->loadModel('TypeCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order')
+        ));
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
+        $this->set('typeCards', $typeCards);
     }
     
     
@@ -489,8 +564,7 @@ class BusinessCardsController extends AppController{
             )
         );
         $options['conditions'] = array(
-            'BusinessCard.user_id' => $this->_usersUserID(),
-            'BusinessCard.level' => 10
+            'BusinessCard.user_id' => $this->_usersUserID()
         );
         
         $options['fields'] = array(
@@ -504,17 +578,11 @@ class BusinessCardsController extends AppController{
             'BusinessCard.linkedin',
             'BusinessCard.position',
             'BusinessCard.avatar_url',
+            'BusinessCard.level',
             'TypeCard.name'
         );
-        $my_card_vips = $this->BusinessCard->find('all', $options);
-        $this->set('my_card_vips',$my_card_vips);
-        
-        $options['conditions'] = array(
-            'BusinessCard.user_id' => $this->_usersUserID(),
-            'BusinessCard.level' => 1
-        );
-        $my_cards = $this->BusinessCard->find('all', $options);
-        $this->set('my_cards',$my_cards);
+        $my_card = $this->BusinessCard->find('first', $options);
+        $this->set('my_card',$my_card);
         
         $this->loadModel('ShakeHand');
         $had_shake_hands = $this->ShakeHand->find('all',array(
@@ -548,7 +616,110 @@ class BusinessCardsController extends AppController{
             $count += count($box_cards);
         }
         $this->set('count', $count);
+        $this->loadModel('TypeCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order')
+        ));
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
+        $this->set('typeCards', $typeCards);
         
+    }
+    
+    
+    function searchBoxCards(){
+        $this->isAuthenticated();
+        $this->layout = "business";
+        $options['joins'] = array(
+            array(
+                'table' => 'type_cards',
+                'alias' => 'TypeCard',
+                'type' => 'LEFT',
+                'conditions' => array(
+                'TypeCard.id = BusinessCard.type_card_id',
+                )
+            )
+        );
+        $conditions = array();
+        if($this->request->query('search') != ""){
+            $conditions['OR'] = array(
+                'BusinessCard.name LIKE' => '%'.$this->request->query('search').'%',
+                'BusinessCard.name_company LIKE' => '%'.$this->request->query('search').'%',
+                'BusinessCard.position LIKE' => '%'.$this->request->query('search').'%',
+            );
+            $this->set('search', $this->request->query('search'));
+        }
+        if($this->request->query('career') != 0){
+            $conditions['OR'] = array(
+                'BusinessCard.careerid' => $this->request->query('career'),
+                'BusinessCard.careerid2' => $this->request->query('career'),
+            );
+            $this->set('career', $this->request->query('career'));
+        }
+        if($this->request->query('type_card') != 0){
+            $conditions['BusinessCard.type_card_id'] = $this->request->query('type_card');
+            $this->set('type_card_id', $this->request->query('type_card'));
+        }
+        
+        $options['conditions'] = array(
+            'BusinessCard.user_id' => $this->_usersUserID()
+        );
+        
+        $options['fields'] = array(
+            'BusinessCard.id',
+            'BusinessCard.name',
+            'BusinessCard.name_company',
+            'BusinessCard.mobile',
+            'BusinessCard.email',
+            'BusinessCard.template_id',
+            'BusinessCard.facebook',
+            'BusinessCard.linkedin',
+            'BusinessCard.position',
+            'BusinessCard.avatar_url',
+            'BusinessCard.level',
+            'TypeCard.name'
+        );
+        $my_card = $this->BusinessCard->find('first', $options);
+        $this->set('my_card',$my_card);
+        
+        $this->loadModel('ShakeHand');
+        $had_shake_hands = $this->ShakeHand->find('all',array(
+            'conditions' => array('ShakeHand.user_id' => $this->_usersUserID()),
+            'fields' => array(
+                'ShakeHand.business_card_id'
+            )
+        ));
+        $shake_hands = array();
+        if(is_array($had_shake_hands)){
+            foreach($had_shake_hands as $had_shake_hand){
+                $shake_hands[] = $had_shake_hand['ShakeHand']['business_card_id'];
+            }
+        }
+        $count = 0;
+        if($shake_hands != null){
+            $conditions['BusinessCard.id IN'] = $shake_hands; 
+            $conditions['BusinessCard.level'] = 10;
+            $options['conditions'] = $conditions;
+            $box_card_vips = $this->BusinessCard->find('all', $options);
+            $this->set('box_card_vips',$box_card_vips);
+            $count += count($box_card_vips);
+            
+            $conditions['BusinessCard.level'] = 1;
+            $options['conditions'] = $conditions;
+            $box_cards = $this->BusinessCard->find('all', $options);
+            $this->set('box_cards',$box_cards);
+            $count += count($box_cards);
+        }
+        $this->set('count', $count);
+        $this->loadModel('TypeCard');
+        $typeCards = $this->TypeCard->find('all',array(
+            'order' => array('TypeCard.order')
+        ));
+        $this->loadModel('Career');
+        $careers = $this->Career->find('all');
+        $this->set('careers',$careers);
+        $this->set('typeCards', $typeCards);
     }
     
     

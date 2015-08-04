@@ -6,7 +6,7 @@ class UsersController extends AppController{
     
     function beforeFilter(){
         parent::beforeFilter();
-        $this->Uploader = new Uploader(array('tempDir' => TMP, 'uploadDir' => FOLDER_UPLOAD_IMAGE_EVENT));
+        $this->Uploader = new Uploader(array('tempDir' => TMP, 'uploadDir' => FOLDER_UPLOAD_AVATAR));
         $this->loadModel('Event');
         $this->loadModel('Participation');
         $this->loadModel('Message');

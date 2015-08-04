@@ -7,7 +7,7 @@
         <form method="post" action="<?php echo $this->Html->url('/') ?>businessCards/add" enctype="multipart/form-data">
     		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
     			<div class="pt-block-business-card-left">
-    				<div class="pt-add-avatar">
+    				<div class="pt-add-avatar" style="background-image: url('<?php echo General::getUrlImage(NO_IMG_URL); ?>');background-repeat: no-repeat; background-size: cover;">
     					<i class="fa fa-plus"></i>
     					<input type="file" id="fileUpload" name="data[BusinessCard][avatar_url]" class="validate[required]" required>
     				</div>
@@ -93,7 +93,7 @@
     							<label>Chọn mẫu cho thiếp cho bạn</label>
     							<div class="pt-select">
     								<i class="fa fa-angle-down"></i>
-    								<select name="data[BusinessCard][template_id]">
+    								<select id="your-template" name="data[BusinessCard][template_id]">
                                         <?php foreach ($templates as $template) {?>
                                         <option value="<?php echo $template['TemplateCard']['id']; ?>">
                                             <?php echo $template['TemplateCard']['name']; ?>
@@ -108,8 +108,27 @@
     		</div>
     		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     			<div class="pt-business-cards-templates">
-    				<div class="pt-business-cards-templates-block">
-    					MẪU DANH THIẾP CỦA BẠN
+                    <p class="your-template">MẪU DANH THIẾP CỦA BẠN</p>
+    				<div class="pt-exchange-how">
+                        <div class="pt-exchange-block pt-exchange-block-style-01" id="template-id">
+            				<div class="block-user">
+            					<img src="<?php echo General::getUrlImage(NO_IMG_URL); ?>" alt="Họ và Tên">
+            					<h3 class="title"><a href="#">Họ và Tên</a></h3>
+            					<p>Chức danh</p>
+            				</div>
+            				<div class="block-content">
+            					<h3 class="title"><a href="#">Tên công ty</a></h3>
+            					<p>Loại Danh Thiếp</p>
+            				</div>
+            				<div class="block-footer">
+            					<a href="#" class="link phone"><i class="fa fa-mobile"></i> Số điện thoại</a>
+            					<a href="#" class="link"><i class="fa fa-envelope-o"></i> mail: email</a>
+            					<div class="networking">
+            						<a href="#"><i class="fa fa-linkedin"></i></a>
+            						<a href="#"><i class="fa fa-facebook"></i></a>
+            					</div>
+            				</div>
+            			</div>
     				</div>
     				<input type="submit" class="send" value="Tạo danh thiếp">
     			</div>
@@ -117,3 +136,9 @@
         </form>
 	</div>
 </div>
+<script type="text/javascript">
+$('#your-template').on('change',function(){
+    $('#template-id').removeClass().addClass('pt-exchange-block').addClass('pt-exchange-block-style-0'+$(this).val());
+    
+});
+</script>

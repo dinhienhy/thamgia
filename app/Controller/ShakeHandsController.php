@@ -27,7 +27,9 @@ class ShakeHandsController extends AppController{
                     'ShakeHand.status' => 0,
                 ),
                 'fields' => array(
-                    'ShakeHand.user_id'
+                    'ShakeHand.user_id',
+                    'ShakeHand.message',
+                    'ShakeHand.id',
                 ),
                 'order' => array('ShakeHand.created')
             ));
@@ -51,6 +53,7 @@ class ShakeHandsController extends AppController{
                         $data[$index]['fullname'] = "";
                         $data[$index]['avatar_url'] = $card['BusinessCard']['avatar_url'];
                         $data[$index]['template_id'] = $card['BusinessCard']['template_id'];
+                        $data[$index]['shake_hand_id'] = $request['ShakeHand']['id'];
                     }else{
                         $user = $this->User->findById($request['ShakeHand']['user_id']);
                         
@@ -67,6 +70,7 @@ class ShakeHandsController extends AppController{
                         $data[$index]['fullname'] = $user['User']['fullname'];
                         $data[$index]['avatar_url'] = $user['User']['avatar_url'];
                     }
+                    $data[$index]['message'] = $request['ShakeHand']['message'];
                     $index++;
                 }
             }
@@ -77,7 +81,7 @@ class ShakeHandsController extends AppController{
     }
     
     
-    function shake_hand(){
+    function confirm(){
         $this->isAuthenticated();
         $this->autoRender = false;
         if ($this->request->is('post')){
@@ -86,7 +90,7 @@ class ShakeHandsController extends AppController{
             $shakeHand['ShakeHand']['user_id'] = $this->_usersUserID();
             $shakeHand['ShakeHand']['business_card_id'] = $data['card_id'];
             $shakeHand['ShakeHand']['message'] = $data['message'];
-            $shakeHand['ShakeHand']['status'] = 0;
+            $shakeHand['ShakeHand']['status'] = 1;
             $shakeHand['ShakeHand']['created'] = date(TIME_FORMAT_MYSQL);
             $this->loadModel('ShakeHand');
             
@@ -94,8 +98,11 @@ class ShakeHandsController extends AppController{
             $business_card = $this->BusinessCard->findById($data['card_id']);
             $this->sendNotificationRequest($business_card['BusinessCard']['user_id'], $this->_usersName(), $this->_usersAvatar());
             $this->ShakeHand->save($shakeHand);
+            $update_confirm = $this->ShakeHand->findById($data['shake_hand_id']);
+            $update_confirm['ShakeHand']['status'] = 1;
+            $this->ShakeHand->save($update_confirm);
         }
-        $this->Session->setFlash(__('Bạn đã gửi yêu cầu bắt tay thành công!', true));
+        $this->Session->setFlash(__('Bạn đã chấp nhận yêu cầu bắt tay thành công!', true));
         $this->redirect(env('HTTP_REFERER'));
     }
     
@@ -104,12 +111,12 @@ class ShakeHandsController extends AppController{
         $this->autoRender = false;
         $this->loadModel('Notification');
         $linkNotification = Router::url(array(
-                                        "controller"=>"ShakeHand", 
-                                        "action"=> "index"));
+                                        "controller"=>"BusinessCards", 
+                                        "action"=> "boxCards"));
                                         
         $recordNotification['Notification'] = array();
         $recordNotification['Notification']['link'] = $linkNotification;
-        $recordNotification['Notification']['notification'] = '<strong>'. $sender_name . '</strong> vừa gởi yêu cầu bắt tay đến bạn';
+        $recordNotification['Notification']['notification'] = '<strong>'. $sender_name . '</strong> vừa chấp nhận yêu cầu bắt tay của bạn';
         $recordNotification['Notification']['image_url'] = $image_url != null ? $image_url : NO_IMG_URL;
         $recordNotification['Notification']['user_id'] = $user_id;
         $recordNotification['Notification']['viewed'] = false;

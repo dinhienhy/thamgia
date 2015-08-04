@@ -4301,7 +4301,10 @@ h2.titel{
     margin-right: 10px;
 }
 .table tr td.pt-exchange-how .pt-exchange-block{
-    width: 50%;
+    width: 100%;
+}
+.shake-hand-request th.card{
+    width: 315px;
 }
 .shake-hand-request td.action, .shake-hand-request th.action {
     text-align: center;
@@ -4309,6 +4312,14 @@ h2.titel{
 }
 .pt-search input.text-name{
     border: none;
+}
+.pt-business-cards-templates .pt-exchange-how .pt-exchange-block{
+    width: 100%;
+}
+p.your-template{
+    text-align: center;
+    padding: 5px 0;
+    color: #000;
 }
 
 .modal-loading {

@@ -1,14 +1,14 @@
 <div class="pt-exchange">
     <div class="pt-exchange-menu-content">
 		<ul class="tab-links cards-tab">
-			<li><a href="#box-cards"><i class="fa fa-credit-card"></i> Hội danh thiếp (<?php echo $count; ?>)</a></li>
-			<li><a href="#my-cards" class="active"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
+			<li><a href="#box-cards" class="active"><i class="fa fa-credit-card"></i> Hội danh thiếp (<?php echo $count; ?>)</a></li>
+			<li><a href="#my-cards"><i class="fa fa-pencil-square-o"></i> Danh thiếp của tôi</a></li>
 		</ul>
 	</div>
     <div class="tab-content">
-        <div id="my-cards" class="tab active">
+        <div id="my-cards" class="tab">
             <div class="pt-exchange-content">
-        		<?php if(!empty( $my_card )){ ?>
+                <?php if(!empty( $my_card )){ ?>
             		<div class="pt-exchange-how row">
                         <div class="pt-exchange-block pt-exchange-block-style-0<?php echo $my_card['BusinessCard']['template_id']; ?>">
             				<?php if($my_card['BusinessCard']['level'] == 10){ ?>
@@ -35,11 +35,11 @@
                         <div>
             				<a href="<?php echo $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'edit')) ?>" class="btn btn-info">Sửa danh thiếp</a>
             			</div>
-  		            </div>
+                    </div>
                 <?php } ?>
         	</div>
         </div>
-        <div id="box-cards" class="tab">
+        <div id="box-cards" class="tab active">
             <div class="pt-exchange-content">
                 <?php if( isset($box_card_vips) && !empty( $box_card_vips )){ ?>
             		<h3 class="title">DANH THIẾP VIP</h3>
@@ -66,20 +66,20 @@
                 				</div>
                 			</div>
                         <?php } ?>
-                    </div>
+  		            </div>
                 <?php } ?>
         		<div class="pt-selected">
                   <form action="<?php echo $this->Html->url(array('controller'=>'BusinessCards', 'action' => 'searchBoxCards')) ?>" method="get">
         			<div class="pt-search">
         				<button class="button-search" title="Search" type="submit"><i class="fa fa-search"></i></button>
-        				<input name="search" class="text-name" type="text" placeholder="Tìm kiếm..." value="">
+        				<input name="search" class="text-name" type="text" placeholder="Tìm kiếm..." value="<?php echo isset($search) ? $search : ""; ?>">
         			</div>
         			<div class="pt-select">
         				<i class="fa fa-angle-down"></i>
-                        <select name="type_card">
+        				<select name="type_card">
                             <option value="0"> Loại danh thiếp</option>
                             <?php foreach ($typeCards as $typeCard){ ?>
-                                <option value="<?php echo $typeCard['TypeCard']['id']; ?>"><?php echo $typeCard['TypeCard']['name']; ?></option>
+                                <option value="<?php echo $typeCard['TypeCard']['id']; ?>" <?php echo (isset($type_card_id) && ($typeCard['TypeCard']['id'] == $type_card_id)) ? "selected" : ""; ?>><?php echo $typeCard['TypeCard']['name']; ?></option>
                             <?php } ?>
             			</select>
         			</div>
@@ -88,7 +88,7 @@
         				<select name="career">
                             <option value="0"> Ngành nghề</option>
                             <?php foreach($careers as $careerfe){ ?>
-                                <option value="<?php echo $careerfe['Career']['id']; ?>"><?php echo $careerfe['Career']['name']; ?></option>
+                                <option value="<?php echo $careerfe['Career']['id']; ?>" <?php echo (isset($career) && ($careerfe['Career']['id'] == $career)) ? "selected" : ""; ?>><?php echo $careerfe['Career']['name']; ?></option>
                             <?php } ?>
             			</select>
         			</div>

@@ -84,6 +84,7 @@ $(document).ready(function(){
     $(".link-sigup-popup a").colorbox({inline:true});
     $(".pt-message").colorbox({inline:true});
     $(".pt-times-detail .send").colorbox({inline:true});
+    $(".shake-hand-request .accept").colorbox({inline:true});
    
     /*------- NiceScroll -------------*/
     $(".pt-info-content-stt").niceScroll(".pt-info-content-stt .pt-niceScroll",{boxzoom:true}); 
