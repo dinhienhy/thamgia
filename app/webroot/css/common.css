@@ -1835,6 +1835,19 @@ h2.title {
   height: 30px;
   background: url( '../img/front/bg-sprite.png' ) no-repeat -274px -80px;
 }
+.pt-new-members .block-user .friend:hover {
+  -webkit-animation: wink 0.01s linear alternate infinite;
+  -moz-animation: wink 0.01s linear alternate infinite;
+  -o-animation: wink 0.01s linear alternate infinite;
+  animation: wink 0.01s linear alternate infinite;
+}
+.pt-new-members .block-user .friend lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes wink{ 0%{ margin:-1px 0px 0px 10px } 40% {margin:0px -1px 0px 10px} 70%{ margin:0px 0px -1px 10px}100%{ margin:0px 0px 0px 10px }}
+@-moz-keyframes wink{ 0%{ margin:-1px 0px 0px 10px } 40% {margin:0px -1px 0px 10px} 70%{ margin:0px 0px -1px 10px}100%{ margin:0px 0px 0px 10px }}
+@-o-keyframes wink{ 0%{ margin:-1px 0px 0px 10px } 40% {margin:0px -1px 0px 10px} 70%{ margin:0px 0px -1px 10px}100%{ margin:0px 0px 0px 10px }}
+@keyframes wink{ 0%{ margin:-1px 0px 0px 10px } 40% {margin:0px -1px 0px 10px} 70%{ margin:0px 0px -1px 10px}100%{ margin:0px 0px 0px 10px };
+}
 .pt-upcoming-events-content {
   background-color: #ededed;
   padding-bottom: 30px;
@@ -2314,6 +2327,8 @@ h2.title {
 .pt-exchange .pt-exchange-menu-content {
   overflow: hidden;
   background-color: #3f7488;
+  float: left;
+  width: 100%;
 }
 .pt-exchange .pt-exchange-menu-content ul li {
   float: left;
@@ -3009,6 +3024,7 @@ h2.title {
 }
 .pt-block-business-card .pt-block-business-card-left .pt-add-avatar .fa {
   font-size: 18px;
+  line-height: 133px;
 }
 .pt-block-business-card .pt-block-business-card-left .pt-add-avatar input {
   position: absolute;
@@ -3304,6 +3320,7 @@ h2.title {
 .pt-notification .pt-notification-user .pt-message .fa {
   color: #fff;
   font-size: 18px;
+  line-height: 40px;
 }
 .pt-notification .pt-notification-user .pt-message:hover {
   background-color: #47911A;
@@ -4320,6 +4337,55 @@ p.your-template{
     text-align: center;
     padding: 5px 0;
     color: #000;
+}
+#frm_account .error, #frm_profile .error{
+    
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    font-weight: normal;
+    text-shadow: none;
+    font: normal 17px sans-serif;
+}
+#frm_account label.error, #frm_profile label.error{
+    border: none;
+    margin-top: 3px;
+    font-size: 14px;
+    background: none;
+}
+.content > div.registered-users{
+    background: none;
+}
+.registered-users .capchar{
+    height: 40px;
+}
+.complete-thanks{
+    overflow: hidden;
+    text-align: center;
+    margin-top: 50px;
+    background: url(../img/complete-thanks.png) no-repeat top center;
+    min-height: 210px;
+    padding-top: 40px;
+}
+.complete-thanks p {
+    text-align: center;
+    margin: 20px 0px;
+}
+.complete-thanks p span.thanks{
+    font-size: 14px;
+    color: #0fba5c;
+    font-weight: bold;
+}
+.complete-thanks p span.info-finish{
+    font-size: 16px;
+    font-weight: bold;
+
+}
+.complete-thanks p strong {
+    color: #9b9b9b;
+    font-weight: normal;
+    font-size: 14px;
 }
 
 .modal-loading {

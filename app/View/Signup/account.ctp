@@ -10,62 +10,100 @@
 ?>
 <script>
   $(document).ready(function(){
-    $("#frm_account").validationEngine();
+    $("#frm_account").validate();
+    $('#acc_email').rules('add', {
+        required: true,
+        email: true,
+        messages: {
+            required: "Vui lòng nhập địa chỉ email",
+            email: "Vui lòng nhập đúng định dạng email"
+        }
+    });
+    $('#acc_password').rules('add', {
+        required: true,
+        minlength: 6,
+        messages: {
+            required: "Vui lòng nhập mật khẩu",
+            minlength: "Mật khẩu phải ít nhất 6 ký tự"
+        }
+    });
+    $('#acc-password2').rules('add', {
+        required: true,
+        minlength: 6,
+        equalTo: "#acc_password",
+        messages: {
+            required: "Vui lòng nhập lại mật khẩu",
+            minlength: "Mật khẩu phải ít nhất 6 ký tự",
+            equalTo: "Mật khẩu không giống nhau"
+        }
+    });
+    $('#acc_securimage').rules('add', {
+        required: true,
+        messages: {
+            required: "Vui lòng nhập mã code"
+        }
+    });
+    $('#acc_terms').rules('add', {
+        required: true,
+        messages: {
+            required: "Vui lòng chấp nhận điều khoản thamgia.net"
+        }
+    });
+    
   });
 </script>
-<h2 class="titel">ĐĂNG KÝ THÀNH VIÊN</h2>
-<?php if ($hasError){ ?>
-<div class="error"><?php echo $error ?></div>
-<?php
-} ?>
-<div class="registered-users-left">
-    <div class="login-successful">
-        <form id="frm_account" name="frm_account" method="post" action="<?php echo $this->Html->url('/') ?>signup/account" class="login-subscription">
-            <fieldset>
-                <ul class="successful">
-                    <li>
-                        <label>Email</label>
-                        <input type="text" name="data[Account][email]" title="" value="<?php echo $email ?>" id="is_Email1" class="validate[required,custom[email]] text"/>
-                    </li> 
-                    <li class="general">
-                        <label>Mật khẩu</label>
-                        <input type="password" name="data[Account][password]" title="" value="" id="password" class="validate[required,minSize[6]] text"/>
-                        <span>(Mật khẩu phải ít nhất 6 ký tự)</span>
-                    </li>
-                    <li class="general">
-                        <label>Nhập lại mật khẩu</label>
-                        <input type="password" name="password2" title="" value="" id="password2" class="validate[required,equals[password]] text"/>
-                    </li>   
-                    <li class="confirmation">
-                        <!--<img src="<?php echo $this->Html->url('/') ?>files/captcha/generate.php" />-->
-                        <img src="<?php echo $this->Html->url(array('controller' => 'Signup', 'action'=>'captcha_image')); ?>" />
-                        <input type="text" name="data[Account][captcha_code]" title="" value="" id="is_securimage" class="validate[required] text"/> 
-                        <input type="checkbox" checked="checked" name="is_free" title="" value="" id="is_free" class="validate[required] checkbox"/>
-                        <label>Tôi đã đọc và đồng ý với  <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Home', 'action' => 'terms' )); ?>" style="color: black; font-weight: bolder;"> các điều khoản của  thamgia.net</a></label>
-                    </li>
-                    <li class="button">
-                        <button class="button-1" title="Tham Gia" type="submit"><span>Tham Gia</span></button>
-                        <button class="button-2" title="Tham Gia" onclick="$('#frm_account')[0].reset(); return false;" type="submit"><span>Hoàn tất</span></button>
-                    </li>
-                </ul>    
-            </fieldset>   
-        </form>
+<div class="registered-users">
+    <h2 class="titel">ĐĂNG KÝ THÀNH VIÊN</h2>
+    <?php if ($hasError){ ?>
+    <div class="error"><?php echo $error ?></div>
+    <?php } ?>
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <form id="frm_account" name="frm_account" method="post" action="<?php echo $this->Html->url(array('controller' => 'signup', 'action' => 'account')); ?>" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-8">
+                        <input type="email" name="data[Account][email]" title="" value="<?php echo $email ?>" id="acc_email" class="form-control" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Mật khẩu</label>
+                    <div class="col-sm-6">
+                        <input type="password" name="data[Account][password]" title="" value="" id="acc_password" class="form-control acc_password" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Nhập lại mật khẩu</label>
+                    <div class="col-sm-6">
+                        <input type="password" name="password2" title="" value="" id="acc-password2" class="form-control" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Code</label>
+                    <div class="col-sm-3">
+                        <img class="capchar" src="<?php echo $this->Html->url(array('controller' => 'Signup', 'action'=>'captcha_image')); ?>" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" name="data[Account][captcha_code]" title="" value="" id="acc_securimage" class="form-control" required="required"/> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <input id="acc_terms" name="terms" type="checkbox" checked="checked" required="required"> Tôi đã đọc và đồng ý với  <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Home', 'action' => 'terms' )); ?>" style="color: black; font-weight: bolder;"> các điều khoản của  thamgia.net</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-8">
+                        <button type="submit" class="btn btn-info">Tham Gia</button>
+                        <button type="button" class="btn btn-info" onclick="$('#frm_account')[0].reset(); return false;">Nhập Lại</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<div class="registered-users-right">
-    <ul>
-        <li class="active">
-            <p><span>1</span>Thông tin tài khoản</p>
-            <div class="border-left-01"></div>
-        </li>
-        <li>
-            <p><span>2</span>Thông tin cá nhân</p>
-            <div class="border-left-01"></div>
-        </li>
-        <li>
-            <p><span>3</span>Hoàn tất</p>
-            <div class="border-left-02"></div>
-        </li>
-        
-    </ul>
+    
 </div>

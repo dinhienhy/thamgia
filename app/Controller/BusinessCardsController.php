@@ -12,6 +12,16 @@ class BusinessCardsController extends AppController{
     
     function add(){
         $this->isAuthenticated();
+        
+        $your_card = $this->BusinessCard->find('first',array(
+            'conditions' => array(
+                'BusinessCard.user_id' => $this->_usersUserID()
+            )
+        ));
+        if(!empty($your_card)){
+            $this->redirect(array('controller'=>'BusinessCards', 'action'=>'edit'));
+        }
+        
         $this->layout = "business";
         $this->loadModel('TemplateCard');
         $templates = $this->TemplateCard->find('all');

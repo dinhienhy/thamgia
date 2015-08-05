@@ -158,11 +158,11 @@
                 	<ul>
                     	<li>
                     		<label>Email</label>
-                        	<input type="text" name="data[User][email]" id="name"/>
+                        	<input type="text" name="data[User][email]" id="name" required="required"/>
                         </li>
                         <li>
                         	<label>Password</label>
-                            <input type="password" name="data[User][password]" id="password" >
+                            <input type="password" name="data[User][password]" id="password" required="required">
                         </li>
                         <li>
                         	<button type="submit" title="" class="button">Đăng nhập</button>
@@ -194,26 +194,26 @@
                 	<ul>
                     	<li>
                     		<label>Email</label>
-                        	<input type="text" name="data[Account][email]" id="name"/>
+                        	<input type="text" name="data[Account][email]" id="name" required="required"/>
                         </li>
                         <li>
                         	<label>Password</label>
-                            <input type="password" name="data[Account][password]" id="password" >
+                            <input type="password" name="data[Account][password]" id="password" required="required">
                         </li>
                         <li>
                         	<label>Nhập lại Password </label>
-                            <input type="password" name="password2" id="password" >
+                            <input type="password" name="password2" id="password" required="required">
                         </li>
                         <li class="code">
                         	<label>Code</label>
                         	<img src="<?php echo $this->Html->url(array('controller' => 'Signup', 'action'=>'captcha_image')); ?>" alt="">
-                            <input type="text" name="data[Account][captcha_code]" id="code" >
+                            <input type="text" name="data[Account][captcha_code]" id="code" required="required">
                         </li>
                         <li>
                         	<button type="submit" title="" class="button">Đăng ký</button>
                         </li>
                         <li class="control">
-                        	<input type="checkbox" name="is_subscribed" title="" value="1" id="is_subscribed" class="checkbox">
+                        	<input type="checkbox" name="is_subscribed" title="" value="1" id="is_subscribed" class="checkbox" required="required">
                             <label for="is_subscribed">Tôi đã đọc và đồng ý với</label>
                             <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'Home', 'action' => 'terms' )); ?>" class="thamgia">Các điều khoản của Thamgia.net</a>
                         </li>

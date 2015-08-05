@@ -1,20 +1,20 @@
 <?php echo $this->element('thamgia/layout_header'); ?>
 <body>
-	<?php echo $this->element('thamgia/header'); ?>
-    <?php echo $this->element('thamgia/navigation'); ?>
-    <?php echo $this->element('thamgia/daily_coupon'); ?>
-                                                        
-	<div id="content">
-        <div class="center">
-            <div class="content-center">
-                <div class="registered-users">
+    <?php echo $this->element('thamgia/left-sidebar'); ?>
+    <div id="pt-wrapper">
+        <?php echo $this->element('thamgia/new-header'); ?>
+        <div id="pt-content-container">
+			<div class="container-fluid">
+                <?php echo $this->element('thamgia/menu'); ?>
+                <?php echo $this->element('thamgia/new-navigation'); ?>
+                <div class="content">
                     <?php echo $this->Session->flash(); ?>
                     <?php echo $this->fetch('content'); ?>
                 </div>
             </div>
         </div>
-	</div>
-	<?php echo $this->element('thamgia/footer'); ?>
-	
+        <?php echo $this->element('thamgia/new-footer'); ?>
+    </div>
+    <?php //echo $this->element('sql_dump'); ?>
 </body>
 </html>

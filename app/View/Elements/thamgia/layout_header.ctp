@@ -34,6 +34,7 @@
         echo $this->Html->css('colorbox');
         echo $this->Html->css('datepicker');
         echo $this->Html->css('messageBox');
+        //echo $this->Html->css('bootstrapValidator.min');
         echo $this->Html->css('common');
         //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-1.11.0.min');
@@ -77,6 +78,7 @@
         echo $this->Html->script('jquery.nicescroll.min');
         echo $this->Html->script('jquery.blockUI');
         echo $this->Html->script('jquery.countdown.min');
+        echo $this->Html->script('jquery.validate');
         echo $this->Html->script('common');
 
         echo $this->fetch('meta');
