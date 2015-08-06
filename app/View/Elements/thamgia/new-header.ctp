@@ -158,7 +158,7 @@
                 	<ul>
                     	<li>
                     		<label>Email</label>
-                        	<input type="text" name="data[User][email]" id="name" required="required"/>
+                        	<input type="email" name="data[User][email]" id="name" required="required"/>
                         </li>
                         <li>
                         	<label>Password</label>
@@ -194,7 +194,7 @@
                 	<ul>
                     	<li>
                     		<label>Email</label>
-                        	<input type="text" name="data[Account][email]" id="name" required="required"/>
+                        	<input type="email" name="data[Account][email]" id="name" required="required"/>
                         </li>
                         <li>
                         	<label>Password</label>

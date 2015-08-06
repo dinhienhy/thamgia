@@ -13,7 +13,7 @@
                 <?php foreach ($data as $request){ ?>
                     <?php if($request['business_card_id'] == null){ ?>
                     <tr>
-                        <td>
+                        <td class="pt-new-members">
                             <div class="block-user">
         						<img src="<?php echo General::getUrlImage($request['avatar_url']); ?>" alt="" />
         						<h3 class="title">
@@ -28,8 +28,8 @@
                             <?php echo $request['message']; ?>
                         </td>
                         <td class="action">
-                            <a href="#02" class="btn btn-info">Chấp nhận</a>
-                            <button class="btn btn-danger">Hủy</button>
+                            <a href="<?php echo $this->Html->url(array('controller'=>'ShakeHands', 'action' => 'confirm_user',$request['shake_hand_id'] )); ?>" class="btn btn-info">Chấp nhận</a>
+                            <a href="<?php echo $this->Html->url(array('controller'=>'ShakeHands', 'action' => 'cancel',$request['shake_hand_id'] )); ?>" class="btn btn-danger">Hủy</a>
                         </td>
                     </tr>
                     <?php }else{ ?>
@@ -60,7 +60,7 @@
                         </td>
                         <td class="action">
                             <a href="#02" class="btn btn-info accept" id="<?php echo $request['business_card_id'].'-'.$request['shake_hand_id']; ?>">Chấp nhận</a>
-                            <button class="btn btn-danger">Hủy</button>
+                            <a href="<?php echo $this->Html->url(array('controller'=>'ShakeHands', 'action' => 'cancel',$request['shake_hand_id'] )); ?>" class="btn btn-danger">Hủy</a>
                         </td>
                     </tr>
                     <?php } ?>

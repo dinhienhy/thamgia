@@ -69,6 +69,7 @@ class ShakeHandsController extends AppController{
                         $data[$index]['user_id'] = $request['ShakeHand']['user_id'];
                         $data[$index]['fullname'] = $user['User']['fullname'];
                         $data[$index]['avatar_url'] = $user['User']['avatar_url'];
+                        $data[$index]['shake_hand_id'] = $request['ShakeHand']['id'];
                     }
                     $data[$index]['message'] = $request['ShakeHand']['message'];
                     $index++;
@@ -103,6 +104,28 @@ class ShakeHandsController extends AppController{
             $this->ShakeHand->save($update_confirm);
         }
         $this->Session->setFlash(__('Bạn đã chấp nhận yêu cầu bắt tay thành công!', true));
+        $this->redirect(env('HTTP_REFERER'));
+    }
+    
+    
+    function confirm_user($shake_hand_id = 0){
+        $this->isAuthenticated();
+        $this->autoRender = false;
+        $shake_hand = $this->ShakeHand->findById($shake_hand_id);
+        $shake_hand['ShakeHand']['status'] = 1;
+        $this->ShakeHand->save($shake_hand);
+        $this->sendNotificationRequest($shake_hand['ShakeHand']['user_id'], $this->_usersName(), $this->_usersAvatar());
+        $this->Session->setFlash(__('Bạn đã chấp nhận yêu cầu bắt tay thành công!', true));
+        $this->redirect(env('HTTP_REFERER'));
+    }
+    
+    
+    function cancel($shake_hand_id = 0){
+        $this->isAuthenticated();
+        $this->autoRender = false;
+        $shake_hand = $this->ShakeHand->findById($shake_hand_id);
+        $shake_hand['ShakeHand']['status'] = -1;
+        $this->ShakeHand->save($shake_hand);
         $this->redirect(env('HTTP_REFERER'));
     }
     
